@@ -65,6 +65,12 @@ register_deactivation_hook( __FILE__, 'deactivate_sweetaddon' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-sweetaddon.php';
 
 /**
+ * Add shortcode function
+ * 
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/shortcode.php';
+
+/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,
