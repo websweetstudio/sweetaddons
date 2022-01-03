@@ -122,6 +122,12 @@ class Sweetaddon {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-sweetaddon-public.php';
 
+		/**
+		 * Add aq resize function
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/aq_resize/resizer.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/aq_resize/template-tags.php';
+
 		$this->loader = new Sweetaddon_Loader();
 
 	}
@@ -214,9 +220,6 @@ class Sweetaddon {
 	public function get_version() {
 		return $this->version;
 	}
-
-	require_once 'aq_resize/resizer.php';
-	require_once 'aq_resize/template-tags.php';
 
 	if ( ! function_exists( 'aq_resize' ) ) {
 
