@@ -65,6 +65,17 @@ register_deactivation_hook( __FILE__, 'deactivate_sweetaddon' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-sweetaddon.php';
 
 /**
+ * Add aq resize function
+ */
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/aq_resize/resizer.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/aq_resize/template-tags.php';
+
+/**
+ * Add custom function
+ */
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-function.php';
+
+/**
  * Add shortcode function
  * 
  */

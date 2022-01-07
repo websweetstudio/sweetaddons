@@ -122,17 +122,6 @@ class Sweetaddon {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-sweetaddon-public.php';
 
-		/**
-		 * Add aq resize function
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/aq_resize/resizer.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/aq_resize/template-tags.php';
-
-		/**
-		 * Add custom function
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-function.php';
-
 		$this->loader = new Sweetaddon_Loader();
 
 	}
