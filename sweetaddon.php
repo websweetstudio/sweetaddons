@@ -67,13 +67,13 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-sweetaddon.php';
 /**
  * Add aq resize function
  */
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/aq_resize/resizer.php';
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/aq_resize/template-tags.php';
+require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
+require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/template-tags.php';
 
 /**
  * Add custom function
  */
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/custom-function.php';
+require_once plugin_dir_path(  __FILE__ ) . 'includes/custom-function.php';
 
 /**
  * Add shortcode function
