@@ -46,8 +46,8 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
 /**
  * Add aq resize function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/class-tgm-plugin-activation.php';
-require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/websweet-plugin.php';
+require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
+require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
 
 /**
  * Add custom function
