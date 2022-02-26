@@ -42,7 +42,6 @@ define( 'SWEETADDON_VERSION', '1.0.0' );
  * Add aq resize function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
-require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/template-tags.php';
 
 /**
  * Add custom function
