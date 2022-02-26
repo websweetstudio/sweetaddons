@@ -88,16 +88,19 @@ function websweetxyz_register_required_plugins() {
 			'name'      => 'Beaver Themer',
 			'slug'      => 'bb-theme-builder',
 			'source'    => 'http://websweet.xyz/tgmpa/bb-theme-builder.zip',
+			'required'  => true,
 		),
 		array(
 			'name'      => 'Ultimate Addons for Beaver Builder',
 			'slug'      => 'bb-ultimate-addon',
 			'source'    => 'http://websweet.xyz/tgmpa/bb-ultimate-addon.zip',
+			'required'  => true,
 		),
 		array(
 			'name'      => 'Beaver Builder Plugin (Pro Version)',
 			'slug'      => 'fl-builder',
 			'source'    => 'http://websweet.xyz/tgmpa/bb-plugin.zip',
+			'required'  => true,
 		),
 
 		// This is an example of how to include a plugin from the WordPress Plugin Repository.

@@ -44,10 +44,17 @@ define( 'SWEETADDON_VERSION', '1.0.0' );
 require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
 
 /**
- * Add aq resize function
+ * Add tgmpa function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
+
+/**
+ * Add woongkir custom
+ */
+if ( class_exists( 'WooCommerce' ) ) {
+	require_once plugin_dir_path(  __FILE__ ) . 'lib/Woongkir/woongkir.php';
+}
 
 /**
  * Add custom function
