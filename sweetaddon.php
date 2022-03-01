@@ -50,6 +50,12 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activati
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
 
 /**
+ * add wp enqueue
+ */
+require_once plugin_dir_path(  __FILE__ ) . 'lib/enqueue.php';
+
+
+/**
  * Add woongkir custom
  */
 if ( class_exists( 'WooCommerce' ) ) {
