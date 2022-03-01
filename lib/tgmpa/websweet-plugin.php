@@ -124,6 +124,11 @@ function websweetxyz_register_required_plugins() {
 			'slug'      => 'no-category-base-wpml',
 			'required'  => false,
 		),
+		array(
+			'name'      => 'WooCommerce',
+			'slug'      => 'woocommerce',
+			'required'  => false,
+		),
 
 
 		// This is an example of the use of 'is_callable' functionality. A user could - for instance -
@@ -132,11 +137,11 @@ function websweetxyz_register_required_plugins() {
 		// By setting 'is_callable' to either a function from that plugin or a class method
 		// `array( 'class', 'method' )` similar to how you hook in to actions and filters, TGMPA can still
 		// recognize the plugin as being installed.
-		array(
-			'name'        => 'WordPress SEO by Yoast',
-			'slug'        => 'wordpress-seo',
-			'is_callable' => 'wpseo_init',
-		),
+		// array(
+		// 	'name'        => 'WordPress SEO by Yoast',
+		// 	'slug'        => 'wordpress-seo',
+		// 	'is_callable' => 'wpseo_init',
+		// ),
 
 	);
 
