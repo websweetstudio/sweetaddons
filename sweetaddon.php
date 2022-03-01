@@ -52,7 +52,7 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
 /**
  * add wp enqueue
  */
-require_once plugin_dir_path(  __FILE__ ) . 'lib/enqueue.php';
+require_once plugin_dir_path(  __FILE__ ) . 'assets/enqueue.php';
 
 
 /**
