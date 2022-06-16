@@ -16,7 +16,7 @@
  * Plugin Name:       Sweet Addon
  * Plugin URI:        websweet.xyz/sweetaddon
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           1.5.0
  * Author:            Aditya Kristyanto
  * Author URI:        sweet.web.id/about
  * License:           GPL-2.0+
@@ -37,6 +37,10 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'SWEETADDON_VERSION', '1.0.0' );
 
+/**
+ * Define plugin path url
+ */
+define( 'SWEETADDON_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Add aq resize function
@@ -52,7 +56,7 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
 /**
  * add wp enqueue
  */
-require_once plugin_dir_path(  __FILE__ ) . 'assets/enqueue.php';
+require_once plugin_dir_path(  __FILE__ ) . 'includes/enqueue.php';
 
 
 /**
@@ -65,7 +69,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 /**
  * Add custom function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'includes/custom-function.php';
+require_once plugin_dir_path(  __FILE__ ) . 'includes/function.php';
 
 /**
  * Add shortcode function
