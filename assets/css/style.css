@@ -1,0 +1,28 @@
+/* set col smal not di ukuran 768px */
+@media (max-width: 768px){
+    .fl-col-small:not(.fl-col-small-full-width) {
+        max-width: 100% !important;
+    }
+}
+.uabb-creative-menu.off-canvas .menu li a span.menu-item-text i {
+    width: auto !important;
+}
+/* whatsapp-floating */
+.whatsapp-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99999;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    background-color: rgb(28 201 65 / 60%);
+    padding: 10px 25px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+    border:1px solid rgb(255 255 255 / 50%);
+}
+.whatsapp-floating a,
+.whatsapp-floating a:link,
+.whatsapp-floating a:hover {
+    color: #fff;
+}

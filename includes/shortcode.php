@@ -5,13 +5,13 @@ function resize_thumbnail($atts) {
     ob_start();
 	global $post;
     $atribut = shortcode_atts( array(
-        'output'	=> 'image', // image or url
-        'width'    	=> '300', //width image
-        'height'    => '150', //height image
-        'crop'      => false,
-        'upscale'   => true,
-        'linked'   	=> true, //return link to post	
-        'class'   	=> 'w-100', //return class name to img	
+        'output'	=> 'image', /// image or url
+        'width'    	=> '300', ///width image
+        'height'    => '150', ///height image
+        'crop'      => 'false',
+        'upscale'   => 'true',
+        'linked'   	=> 'true', ///return link to post	
+        'class'   	=> 'w-100', ///return class name to img	
     ), $atts );
 
     $output			= $atribut['output'];

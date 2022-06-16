@@ -97,7 +97,7 @@ function websweetxyz_register_required_plugins() {
 			'required'  => true,
 		),
 		array(
-			'name'      => 'Beaver Builder Plugin (Pro Version)',
+			'name'      => 'Beaver Builder Plugin (Agency Version)',
 			'slug'      => 'fl-builder',
 			'source'    => 'http://websweet.xyz/tgmpa/bb-plugin.zip',
 			'required'  => true,
