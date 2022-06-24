@@ -109,14 +109,14 @@ function websweetxyz_register_required_plugins() {
 			'slug'      => 'all-in-one-seo-pack',
 			'required'  => true,
 		),
-		array(
-			'name'      => 'Assistant – Every Day Productivity Apps',
-			'slug'      => 'assistant',
-			'required'  => false,
-		),
+		// array(
+		// 	'name'      => 'Assistant – Every Day Productivity Apps',
+		// 	'slug'      => 'assistant',
+		// 	'required'  => false,
+		// ),
 		array(
 			'name'      => 'WP Statistics',
-			'slug'      => 'all-in-one-seo-pack',
+			'slug'      => 'wp-statistics',
 			'required'  => true,
 		),
 		array(
@@ -124,11 +124,11 @@ function websweetxyz_register_required_plugins() {
 			'slug'      => 'no-category-base-wpml',
 			'required'  => false,
 		),
-		array(
-			'name'      => 'WooCommerce',
-			'slug'      => 'woocommerce',
-			'required'  => false,
-		),
+		// array(
+		// 	'name'      => 'WooCommerce',
+		// 	'slug'      => 'woocommerce',
+		// 	'required'  => false,
+		// ),
 
 
 		// This is an example of the use of 'is_callable' functionality. A user could - for instance -
