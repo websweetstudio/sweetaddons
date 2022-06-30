@@ -26,3 +26,7 @@
 .whatsapp-floating a:hover {
     color: #fff;
 }
+
+iframe {
+    max-width: 100%;
+}
