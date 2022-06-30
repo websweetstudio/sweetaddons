@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              sweet.web.id/about
- * @since             1.0.0
+ * @link              dev.websweet.xyz
+ * @since             1.0.1
  * @package           Sweetaddon
  *
  * @wordpress-plugin
  * Plugin Name:       Sweet Addon
- * Plugin URI:        websweet.xyz/sweetaddon
+ * Plugin URI:        dev.websweet.xyz
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.5.0
  * Author:            Aditya Kristyanto
- * Author URI:        sweet.web.id/about
+ * Author URI:        dev.websweet.xyz
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       sweetaddon
@@ -51,7 +51,7 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
  * Add tgmpa function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
-require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/websweet-plugin.php';
+require_once plugin_dir_path(  __FILE__ ) . 'includes/websweet-plugin.php';
 
 /**
  * add wp enqueue
@@ -73,6 +73,5 @@ require_once plugin_dir_path(  __FILE__ ) . 'includes/function.php';
 
 /**
  * Add shortcode function
- * 
  */
 require plugin_dir_path( __FILE__ ) . 'includes/shortcode.php';
