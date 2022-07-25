@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "copy": "node src/build/copy-assets.js"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  }
+}
