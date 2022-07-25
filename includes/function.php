@@ -13,4 +13,4 @@ function wp_footer_whatsapp() {
     </div>
     <?php
 }
-// add_action( 'wp_footer', 'wp_footer_whatsapp' );
+add_action( 'wp_footer', 'wp_footer_whatsapp' );

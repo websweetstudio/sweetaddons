@@ -108,11 +108,6 @@ function websweetxyz_register_required_plugins() {
 			'slug'      => 'all-in-one-seo-pack',
 			'required'  => true,
 		),
-		// array(
-		// 	'name'      => 'Assistant – Every Day Productivity Apps',
-		// 	'slug'      => 'assistant',
-		// 	'required'  => false,
-		// ),
 		array(
 			'name'      => 'WP Statistics',
 			'slug'      => 'wp-statistics',
@@ -122,6 +117,11 @@ function websweetxyz_register_required_plugins() {
 			'name'      => 'No Category Base (WPML)',
 			'slug'      => 'no-category-base-wpml',
 			'required'  => false,
+		),
+		array(
+			'name'      => 'Kirki Customizer Framework',
+			'slug'      => 'kirki',
+			'required'  => true,
 		),
 		// array(
 		// 	'name'      => 'WooCommerce',

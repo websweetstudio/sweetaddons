@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              dev.websweet.xyz
- * @since             1.0.1
+ * @since             1.2.0
  * @package           Sweetaddon
  *
  * @wordpress-plugin
@@ -67,9 +67,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 
 /**
- * Add custom function
+ * Add function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'includes/function.php';
+require_once plugin_dir_path(  __FILE__ ) . 'custom/custom.php';
+
 
 /**
  * Add shortcode function
