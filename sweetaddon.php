@@ -58,6 +58,11 @@ require_once plugin_dir_path(  __FILE__ ) . 'includes/websweet-plugin.php';
  */
 require_once plugin_dir_path(  __FILE__ ) . 'includes/enqueue.php';
 
+/**
+ * Add customizer function
+ */
+require_once plugin_dir_path(  __FILE__ ) . 'includes/customizer.php';
+
 
 /**
  * Add woongkir custom
