@@ -51,17 +51,17 @@ require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
  * Add tgmpa function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
-require_once plugin_dir_path(  __FILE__ ) . 'includes/websweet-plugin.php';
+require_once plugin_dir_path(  __FILE__ ) . 'inc/websweet-plugin.php';
 
 /**
  * add wp enqueue
  */
-require_once plugin_dir_path(  __FILE__ ) . 'includes/enqueue.php';
+require_once plugin_dir_path(  __FILE__ ) . 'inc/enqueue.php';
 
 /**
  * Add customizer function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'includes/customizer.php';
+require_once plugin_dir_path(  __FILE__ ) . 'inc/customizer.php';
 
 
 /**
@@ -74,11 +74,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 /**
  * Add function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'includes/function.php';
+require_once plugin_dir_path(  __FILE__ ) . 'inc/function.php';
 require_once plugin_dir_path(  __FILE__ ) . 'custom/custom.php';
 
 
 /**
  * Add shortcode function
  */
-require plugin_dir_path( __FILE__ ) . 'includes/shortcode.php';
+require plugin_dir_path( __FILE__ ) . 'inc/shortcode.php';
