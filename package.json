@@ -13,7 +13,8 @@
     "js": "npm-run-all js-compile js-minify",
     "js-compile": "rollup --config src/build/rollup.config.js --sourcemap",
     "js-minify": "terser  --config-file src/build/terser.config.json --output assets/js/sweetaddon.min.js assets/js/sweetaddon.js",
-    "dist": "npm-run-all css js"
+    "dist": "npm-run-all css js",
+    "build": "node src/build/dist-build.js"
   },
   "dependencies": {
     "@rollup/plugin-babel": "^5.3.1",
@@ -28,6 +29,7 @@
     "postcss-cli": "^10.0.0",
     "rollup": "^2.77.0",
     "sass": "^1.54.0",
-    "terser": "^5.14.2"
+    "terser": "^5.14.2",
+    "zip-dir": "^2.0.0"
   }
 }
