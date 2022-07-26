@@ -1,44 +1,37 @@
 <?php
-//[resize-thumbnail width="300" height="150" linked="true" class="w-100"]
-add_shortcode('resize-thumbnail', 'resize_thumbnail');
-function resize_thumbnail($atts) {
+//[sweet-thumbnail size="full" ratio="1-1" class="aligncenter" link="true"]
+add_shortcode( 'sweet-thumbnail', 'sweet_thumbnail_shortcode' );
+function sweet_thumbnail_shortcode( $atts ) {
     ob_start();
-	global $post;
-    $atribut = shortcode_atts( array(
-        'output'	=> 'image', /// image or url
-        'width'    	=> '300', ///width image
-        'height'    => '150', ///height image
-        'crop'      => 'false',
-        'upscale'   => 'true',
-        'linked'   	=> 'true', ///return link to post	
-        'class'   	=> 'w-100', ///return class name to img	
-    ), $atts );
+    $atts = shortcode_atts(
+        array(
+            'size' => 'full',
+            'ratio' => '1-1',
+            'class' => 'aligncenter',
+            'link' => 'true',
+        ),
+        $atts,
+        'sweet-thumbnail'
+    );
+    $size = isset( $atts['size'] ) ? $atts['size'] : 'full';
+    $ratio = isset( $atts['ratio'] ) ? $atts['ratio'] : '1-1';
+    $class = isset( $atts['class'] ) ? $atts['class'] : 'aligncenter';
+    $link = isset( $atts['link'] ) ? $atts['link'] : 'true';
+    $image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
+    $image_url = $image_url[0];
 
-    $output			= $atribut['output'];
-    $width          = $atribut['width'];
-    $height         = $atribut['height'];
-    $crop           = $atribut['crop'];
-    $upscale        = $atribut['upscale'];
-    $linked        	= $atribut['linked'];
-    $class        	= $atribut['class']?'class="'.$atribut['class'].'"':'';
-	$urlimg			= get_the_post_thumbnail_url($post->ID,'full');
-
-	if($urlimg):
-		$urlresize      = aq_resize( $urlimg, $width, $height, $crop, true, $upscale );
-		if($output=='image'):
-			if($linked=='true'):
-				echo '<a href="'.get_the_permalink($post->ID).'" title="'.get_the_title($post->ID).'">';
-			endif;
-			echo '<img src="'.$urlresize.'" width="'.$width.'" height="'.$height.'" loading="lazy" '.$class.'>';
-			if($linked=='true'):
-				echo '</a>';
-			endif;
-		else:
-			echo $urlresize;
-		endif;
-	endif;
-
-	return ob_get_clean();
+    ?>
+    <div class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);">
+        <?php if ( $link == 'true' ) { ?>
+            <a href="<?php the_permalink(); ?>">
+        <?php } ?>
+        <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
+        <?php if ( $link == 'true' ) { ?>
+            </a>
+        <?php } ?>
+    </div>
+    <?php
+    return ob_get_clean();
 }
 
 //[excerpt count="150"]

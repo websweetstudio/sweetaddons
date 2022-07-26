@@ -1,6 +1,5 @@
 <?php
 // wp footer whatsapp floating
-// https://wa.me/6287715567339
 function wp_footer_whatsapp() {
     $whatsapp_number        = get_theme_mod( 'whatsapp_number', '08123456789' );
     $whatsapp_text          = get_theme_mod( 'whatsapp_text', 'Chat Whatsapp' );

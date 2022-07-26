@@ -38,7 +38,7 @@ Kirki::add_config(
 new \Kirki\Panel(
 	'floating_panel',
 	[
-		'priority'    => 10,
+		'priority'    => 90,
 		'title'       => esc_html__( 'Floating Button', 'sweetaddon' ),
 		'description' => esc_html__( '', 'sweetaddon' ),
 	]
