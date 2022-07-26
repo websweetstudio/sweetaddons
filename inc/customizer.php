@@ -134,19 +134,3 @@ new \Kirki\Field\Checkbox_Switch(
 		'default'     => true,
 	]
 );
-
-new \Kirki\Field\Dashicons(
-	[
-		'settings'    => 'scroll_to_top_icon',
-		'label'       => esc_html__( 'Icon', 'sweetaddon' ),
-		'description' => esc_html__( 'Select icon', 'sweetaddon' ),
-		'section'     => 'scroll_to_top_section',
-		'transport'   => 'postMessage',
-		'default'     => 'arrow-up-alt2',
-		'choices'     => [
-			'arrow-up-alt',
-			'arrow-up',
-			'arrow-up-alt2',
-		]
-	]
-);

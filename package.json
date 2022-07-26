@@ -1,13 +1,19 @@
 {
+  "name": "sweetaddon",
+  "version": "1.5.0",
+  "description": "A simple addon for the Sweetweb theme",
+  "author": "websweet.xyz",
+  "homepage": "https://websweet.xyz",
   "scripts": {
     "copy": "node src/build/copy-assets.js",
     "css": "npm-run-all css-compile css-postcss css-minify",
-    "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --quiet src/sass/style.scss:assets/css/style.css",
+    "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --quiet src/sass/sweetaddon.scss:assets/css/sweetaddon.css",
     "css-minify": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output assets/css/ --batch --batch-suffix \".min\" \"assets/css/*.css\" \"!assets/css/*.min.css\" \"!assets/css/*rtl*.css\"",
     "css-postcss": "postcss --config src/build/postcss.config.js --replace \"assets/css/*.css\" \"!assets/css/*.rtl*.css\" \"!assets/css/*.min.css\"",
     "js": "npm-run-all js-compile js-minify",
     "js-compile": "rollup --config src/build/rollup.config.js --sourcemap",
-    "js-minify": "terser  --config-file src/build/terser.config.json --output assets/js/sweetaddon.min.js assets/js/sweetaddon.js"
+    "js-minify": "terser  --config-file src/build/terser.config.json --output assets/js/sweetaddon.min.js assets/js/sweetaddon.js",
+    "dist": "npm-run-all css js"
   },
   "dependencies": {
     "@rollup/plugin-babel": "^5.3.1",

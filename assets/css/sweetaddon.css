@@ -29,4 +29,27 @@
   transform: scale(1.02);
 }
 
-/*# sourceMappingURL=style.css.map */
+.scroll-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+  z-index: 9999;
+  background: #444444;
+  color: aliceblue;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.scroll-to-top svg {
+  margin-top: -4px;
+}
+.scroll-to-top:hover {
+  transform: scale(1.02);
+}
+
+/*# sourceMappingURL=sweetaddon.css.map */
