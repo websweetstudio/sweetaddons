@@ -1,0 +1,36 @@
+.whatsapp-floating {
+    position: fixed;
+    bottom: 15px;
+    z-index: 9999;
+    background: #25d366;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    padding: 7px 20px;
+    cursor: pointer;
+
+    svg {
+        margin-top: -4px;
+    }
+    
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    &.left {
+        left: 20px;
+    }
+
+    &.right {
+        right: 20px;
+    }
+
+    &:hover {
+        transform: scale(1.02);
+    }
+
+}
