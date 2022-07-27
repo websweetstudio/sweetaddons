@@ -1,5 +1,6 @@
 const { promises: fs } = require("fs")
-const zipdir = require('zip-dir')
+const del = require("del")
+const zipdir = require("zip-dir")
 const path = require("path")
 
 
@@ -33,8 +34,10 @@ async function copyDir(src, dest) {
             await fs.copyFile(srcPath, destPath);
     }
 }
-
-copyDir('./', './dist/sweetaddon').then (() => {
-	zipdir('./dist/sweetaddon', { saveTo: './dist/sweetaddon.zip' });
-	console.log('Zip file created');
+del('./dist').then(() => {
+	console.log('dist is deleted!');
+	copyDir('./', './dist/sweetaddon').then (() => {
+		zipdir('./dist/sweetaddon', { saveTo: './dist/sweetaddon.zip' });
+		console.log('Zip file created');
+	});
 });
