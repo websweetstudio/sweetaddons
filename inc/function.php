@@ -96,11 +96,11 @@ if(! function_exists('sweet_addons_woocommerce_cart_offcanvas')){
             ?>
                 <div class="offcanvas offcanvas-end" id="offcanvasCart">
                     <div class="offcanvas-header">
-                        <button type="button" class="close btn text-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                        <a class="close text-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                             </svg>
-                        </button>
+                        </a>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="list-group rounded-0">
@@ -138,5 +138,20 @@ if(! function_exists('sweet_addons_woocommerce_cart_offcanvas')){
                 </div>
             <?php
         }
+    }
+}
+
+add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
+if(! function_exists('wc_refresh_mini_cart_count')){
+    /**
+     * woocommerce mini cart count
+     */
+    function wc_refresh_mini_cart_count( $fragments ) {
+        ob_start();
+        ?>
+        <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+        <?php
+        $fragments['.cart-count'] = ob_get_clean();
+        return $fragments;
     }
 }
