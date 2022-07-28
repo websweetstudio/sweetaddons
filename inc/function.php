@@ -67,8 +67,10 @@ if(! function_exists('add_cart_into_menu')){
      */
     function add_cart_into_menu($items, $args) {
         if ( class_exists( 'WooCommerce' ) ) {
+            ob_start();
+            $cart = '';
             if($args->theme_location == 'primary') {
-                ob_start();
+
                 ?>
                 <li class="menu-item menu-item-cart">
                     <a href="<?php echo wc_get_cart_url(); ?>" class="cart-control nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
@@ -79,8 +81,9 @@ if(! function_exists('add_cart_into_menu')){
                     </a>
                 </li>
                 <?php
-                return $items . ob_get_clean();
+                $cart = ob_get_clean();
             }
+            return $items . $cart;
         }
     }
 }
