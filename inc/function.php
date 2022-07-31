@@ -66,9 +66,9 @@ if(! function_exists('add_cart_into_menu')){
      * add cart into menu
      */
     function add_cart_into_menu($items, $args) {
+        ob_start();
+        $cart = '';
         if ( class_exists( 'WooCommerce' ) ) {
-            ob_start();
-            $cart = '';
             if($args->theme_location == 'primary') {
 
                 ?>
@@ -83,8 +83,8 @@ if(! function_exists('add_cart_into_menu')){
                 <?php
                 $cart = ob_get_clean();
             }
-            return $items . $cart;
         }
+        return $items . $cart;
     }
 }
 
