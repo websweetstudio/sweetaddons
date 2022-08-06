@@ -43,11 +43,6 @@ define( 'SWEETADDON_VERSION', '1.5.0' );
 define( 'SWEETADDON_URL', plugin_dir_url( __FILE__ ) );
 
 /**
- * Add aq resize function
- */
-require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
-
-/**
  * Add tgmpa function
  */
 require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
