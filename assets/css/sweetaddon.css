@@ -54,6 +54,7 @@
 
 .sweet-thumbnail {
   width: 100%;
+  display: block;
   padding-bottom: 100%;
   background-size: cover;
   background-position: center;
