@@ -95,7 +95,7 @@ function websweetxyz_register_required_plugins() {
 		),
 		array(
 			'name'      => 'Beaver Builder Plugin',
-			'slug'      => 'fl-builder',
+			'slug'      => 'bb-plugin',
 			'required'  => true,
 		),
 
@@ -140,6 +140,15 @@ function websweetxyz_register_required_plugins() {
 		// ),
 
 	);
+
+	// if woo is active, add the woocommerce plugin
+	if ( websweetxyz_is_woocommerce_active() ) {
+		$plugins[] = array(
+			'name'      => 'Woongkir',
+			'slug'      => 'woongkir',
+			'required'  => true,
+		);
+	}
 
 	/*
 	 * Array of configuration settings. Amend each line as needed.
