@@ -66,11 +66,19 @@ if(! function_exists('add_cart_into_menu')){
      * add cart into menu
      */
     function add_cart_into_menu($items, $args) {
-        ob_start();
+        
         $cart = '';
-        if ( class_exists( 'WooCommerce' ) ) {
-            if($args->theme_location == 'primary') {
+        $header_ids = false;
 
+        if ( class_exists( 'FLThemeBuilderLayoutData' ) ) {
+            // Get the header ID.
+            $header_ids = FLThemeBuilderLayoutData::get_current_page_header_ids();
+        }
+    
+        // Disable when beaver builder active.
+        if ( class_exists( 'WooCommerce' ) && ! $header_ids ) {
+            ob_start();
+            if($args->theme_location == 'primary') {
                 ?>
                 <li class="menu-item menu-item-cart">
                     <a href="<?php echo wc_get_cart_url(); ?>" class="cart-control nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
@@ -81,8 +89,8 @@ if(! function_exists('add_cart_into_menu')){
                     </a>
                 </li>
                 <?php
-                $cart = ob_get_clean();
             }
+            $cart = ob_get_clean();
         }
         return $items . $cart;
     }
