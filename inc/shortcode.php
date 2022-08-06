@@ -16,19 +16,15 @@ function sweet_thumbnail_shortcode( $atts ) {
     $size = isset( $atts['size'] ) ? $atts['size'] : 'full';
     $ratio = isset( $atts['ratio'] ) ? $atts['ratio'] : '1-1';
     $class = isset( $atts['class'] ) ? $atts['class'] : 'aligncenter';
-    $link = isset( $atts['link'] ) ? $atts['link'] : 'true';
+    $link = isset( $atts['link'] ) && $atts['link'] == true ? "href='the_permalink()'" : '';
     $image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
     $image_url = $image_url[0];
 
     ?>
-    <div class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);">
-        <?php if ( $link == 'true' ) { ?>
-            <a href="<?php the_permalink(); ?>">
-        <?php } ?>
-        <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
-        <?php if ( $link == 'true' ) { ?>
-            </a>
-        <?php } ?>
+    <div class="sweet-thumbnail">
+        <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);" <?php $link; ?>>
+            <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
+        </a>
     </div>
     <?php
     return ob_get_clean();
