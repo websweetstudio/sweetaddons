@@ -166,19 +166,3 @@ if(! function_exists('wc_refresh_mini_cart_count')){
         return $fragments;
     }
 }
-
-// Change public $api_url = 'http://pro.rajaongkir.com/api'; in class Woongkir_Account
-
-add_action( 'wp', 'sweet_addons_woongkir_api_url' );
-if(! function_exists('sweet_addons_woongkir_api_url')){
-    /**
-     * change woongkir api url
-     */
-    function sweet_addons_woongkir_api_url() {
-        if ( class_exists( 'Woongkir_Account' ) ) {
-            $label = new Woongkir_Account_Pro;
-            $label->api_url = 'https://dev.websweet.xyz/ongkir/';
-            print_r(Woongkir_Account_Pro->$api_url);
-        }
-    }
-}

@@ -45,7 +45,7 @@ define( 'SWEETADDON_URL', plugin_dir_url( __FILE__ ) );
 /**
  * Add function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'custom/custom.php';
+// require_once plugin_dir_path(  __FILE__ ) . 'custom/custom.php';
 
 
 $libs = array(
