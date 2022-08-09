@@ -43,42 +43,25 @@ define( 'SWEETADDON_VERSION', '1.5.0' );
 define( 'SWEETADDON_URL', plugin_dir_url( __FILE__ ) );
 
 /**
- * Add aq resize function
- */
-require_once plugin_dir_path(  __FILE__ ) . 'lib/aq_resize/resizer.php';
-
-/**
- * Add tgmpa function
- */
-require_once plugin_dir_path(  __FILE__ ) . 'lib/tgmpa/class-tgm-plugin-activation.php';
-require_once plugin_dir_path(  __FILE__ ) . 'inc/websweet-plugin.php';
-
-/**
- * add wp enqueue
- */
-require_once plugin_dir_path(  __FILE__ ) . 'inc/enqueue.php';
-
-/**
- * Add customizer function
- */
-require_once plugin_dir_path(  __FILE__ ) . 'inc/customizer.php';
-
-
-/**
- * Add woongkir custom
- */
-if ( class_exists( 'WooCommerce' ) ) {
-	require_once plugin_dir_path(  __FILE__ ) . 'lib/Woongkir/woongkir.php';
-}
-
-/**
  * Add function
  */
-require_once plugin_dir_path(  __FILE__ ) . 'inc/function.php';
 require_once plugin_dir_path(  __FILE__ ) . 'custom/custom.php';
 
 
-/**
- * Add shortcode function
- */
-require plugin_dir_path( __FILE__ ) . 'inc/shortcode.php';
+$libs = array(
+	'lib/tgmpa/class-tgm-plugin-activation.php',
+);
+$incs = array(
+	'inc/websweet-plugin.php',
+	'inc/enqueue.php',
+	'inc/customizer.php',
+	'inc/function.php',
+	'inc/shortcode.php',
+);
+
+foreach ( $libs as $lib ) {
+	require_once plugin_dir_path( __FILE__ ) . $lib;
+}
+foreach ( $incs as $inc ) {
+	require_once plugin_dir_path( __FILE__ ) . $inc;
+}

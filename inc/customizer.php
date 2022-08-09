@@ -55,6 +55,7 @@ new \Kirki\Panel(
 $sections = [
 	'whatsapp'          => [ esc_html__( 'Whatsapp', 'sweetaddon' ), '' ],
 	'scroll_to_top'     => [ esc_html__( 'Scroll to top', 'sweetaddon' ), '' ],
+	'code'            => [ esc_html__( 'Code', 'kirki' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {

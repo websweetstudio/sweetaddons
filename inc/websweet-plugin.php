@@ -141,6 +141,16 @@ function websweetxyz_register_required_plugins() {
 
 	);
 
+	// load woongkir plugin if woocommerce is active
+	if ( class_exists( 'WooCommerce' ) ) {
+		$plugins[] = array(
+			'name'      => 'Wooongkir',
+			'slug'      => 'woongkir',
+			'required'  => false,
+			'source'    => 'https://github.com/aadiityaak/Woongkir/releases/download/v.1.0.0/woongkir.zip',
+		);
+	}
+
 	/*
 	 * Array of configuration settings. Amend each line as needed.
 	 *
