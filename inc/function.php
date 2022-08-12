@@ -166,3 +166,36 @@ if(! function_exists('wc_refresh_mini_cart_count')){
         return $fragments;
     }
 }
+
+// run get_theme_mod('header_script')
+add_action( 'wp_head', 'sweet_addons_header_script' );
+if(! function_exists('sweet_addons_header_script')){
+    /**
+     * custom code header script
+     */
+    function sweet_addons_header_script() {
+        echo get_theme_mod('header_script');
+    }
+}
+
+// run get_theme_mod('footer_script')
+add_action( 'wp_footer', 'sweet_addons_footer_script' );
+if(! function_exists('sweet_addons_footer_script')){
+    /**
+     * custom code footer script
+     */
+    function sweet_addons_footer_script() {
+        echo get_theme_mod('footer_script');
+    }
+}
+
+// run get_theme_mod('custom_code_php')
+add_action( 'wp_footer', 'sweet_addons_custom_code_php' );
+if(! function_exists('sweet_addons_custom_code_php')){
+    /**
+     * custom code php
+     */
+    function sweet_addons_custom_code_php() {
+        eval(get_theme_mod('custom_code_php'));
+    }
+}

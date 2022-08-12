@@ -160,8 +160,9 @@ new \Kirki\Panel(
  * @link https://kirki.org/docs/getting-started/sections.html
  */
 $sections = [
-	'css'      => [ esc_html__( 'Custom Css', 'sweetaddon' ), '' ],
-	'js'       => [ esc_html__( 'Custom Javascript', 'sweetaddon' ), '' ],
+	'header_script' => [ esc_html__( 'Header Script', 'sweetaddon' ), '' ],
+	'footer_script' => [ esc_html__( 'Footer Script', 'sweetaddon' ), '' ],
+	'php' => [ esc_html__( 'PHP', 'sweetaddon' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -183,13 +184,13 @@ foreach ( $sections as $section_id => $section ) {
  */
 new \Kirki\Field\Code(
 	[
-		'settings'    => 'custom_code_css',
-		'label'       => esc_html__( 'Custom CSS', 'kirki' ),
-		'description' => esc_html__( '', 'kirki' ),
-		'section'     => 'css_section',
+		'settings'    => 'header_script',
+		'label'       => esc_html__( 'Header Script', 'sweetaddon' ),
+		'description' => esc_html__( '', 'sweetaddon' ),
+		'section'     => 'header_script_section',
 		'default'     => '',
 		'choices'     => [
-			'language' => 'css',
+			'language' => 'javascript',
 		],
 	]
 );
@@ -201,13 +202,31 @@ new \Kirki\Field\Code(
  */
 new \Kirki\Field\Code(
 	[
-		'settings'    => 'custom_code_js',
-		'label'       => esc_html__( 'Custom Javascript', 'kirki' ),
-		'description' => esc_html__( '', 'kirki' ),
-		'section'     => 'js_section',
+		'settings'    => 'footer_script',
+		'label'       => esc_html__( 'Footer Script', 'sweetaddon' ),
+		'description' => esc_html__( '', 'sweetaddon' ),
+		'section'     => 'footer_script_section',
 		'default'     => '',
 		'choices'     => [
 			'language' => 'javascript',
+		],
+	]
+);
+
+/**
+ * Code control.
+ *
+ * @link https://kirki.org/docs/controls/code.html
+ */
+new \Kirki\Field\Code(
+	[
+		'settings'    => 'custom_code_php',
+		'label'       => esc_html__( 'PHP', 'sweetaddon' ),
+		'description' => esc_html__( '', 'sweetaddon' ),
+		'section'     => 'php_section',
+		'default'     => '',
+		'choices'     => [
+			'language' => 'php',
 		],
 	]
 );
