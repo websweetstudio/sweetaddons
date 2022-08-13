@@ -190,7 +190,7 @@ new \Kirki\Field\Code(
 		'section'     => 'header_script_section',
 		'default'     => '',
 		'choices'     => [
-			'language' => 'javascript',
+			'language' => 'html',
 		],
 	]
 );
@@ -208,7 +208,7 @@ new \Kirki\Field\Code(
 		'section'     => 'footer_script_section',
 		'default'     => '',
 		'choices'     => [
-			'language' => 'javascript',
+			'language' => 'html',
 		],
 	]
 );
