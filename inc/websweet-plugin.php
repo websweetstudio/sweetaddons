@@ -149,6 +149,16 @@ function websweetxyz_register_required_plugins() {
 			'required'  => false,
 			'source'    => 'https://github.com/aadiityaak/Woongkir/releases/download/v.1.0.0/woongkir.zip',
 		);
+		$plugins[] = array(
+			'name'      => 'Wish List for WooCommerce',
+			'slug'      => 'wish-list-for-woocommerce',
+			'required'  => false
+		);
+		$plugins[] = array(
+			'name'      => 'Product Filter by WooBeWoo',
+			'slug'      => 'woo-product-filter',
+			'required'  => false
+		);
 	}
 
 	/*
