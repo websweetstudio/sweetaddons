@@ -199,3 +199,16 @@ if(! function_exists('sweet_addons_custom_code_php')){
         eval(get_theme_mod('custom_code_php'));
     }
 }
+
+add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
+if(! function_exists('filter_plugin_updates')){
+    /**
+     * filter plugin updates
+     */
+    function filter_plugin_updates( $value ) {
+        unset( $value->response['bb-plugin/fl-builder.php'] );
+        unset( $value->response['bb-theme-builder/bb-theme-builder.php'] );
+        return $value;
+    }
+}
+
