@@ -122,7 +122,7 @@ if(! function_exists('sweet_addons_woocommerce_cart_offcanvas')){
                                     ?>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">
+                                            <div class="col-3 px-1">
                                                 <?php echo $_product->get_image(); ?>
                                             </div>
                                             <div class="col">

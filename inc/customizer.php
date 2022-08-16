@@ -230,3 +230,55 @@ new \Kirki\Field\Code(
 		],
 	]
 );
+
+// add action after the theme is set up.
+add_action( 'after_setup_theme', function () {
+
+	// replace primary color with custom color.
+	new \Kirki\Field\Color(
+		[
+			'settings'    => 'body_color',
+			'label'       => esc_html__( 'Primary Color', 'sweetaddon' ),
+			'description' => esc_html__( '', 'sweetaddon' ),
+			'section'     => 'colors',
+			'default'     => '#777777',
+			'output'      => [
+				[ 'element' => 'body', 'property' => 'color' ],
+			],
+		]
+	);
+
+	// replace link color with custom color.
+	new \Kirki\Field\Color(
+		[
+			'settings'    => 'link_color',
+			'label'       => esc_html__( 'Link Color', 'sweetaddon' ),
+			'description' => esc_html__( '', 'sweetaddon' ),
+			'section'     => 'colors',
+			'default'     => '#333333',
+			'output'      => [
+				[ 'element' => 'a', 'property' => 'color' ],
+			],
+		]
+	);
+	
+	if ( class_exists( 'WooCommerce' ) ) {
+		// replace woocommerce color with custom color.
+		new \Kirki\Field\Color(
+			[
+				'settings'    => 'woocommerce_color',
+				'label'       => esc_html__( 'WooCommerce Color', 'sweetaddon' ),
+				'description' => esc_html__( '', 'sweetaddon' ),
+				'section'     => 'colors',
+				'default'     => '#333333',
+				'output'      => [
+					[ 'element' => '.woocommerce div.product span.price, .woocommerce ul.products li.product .price', 'property' => 'color' ],
+					[ 'element' => '.woocommerce div.product p.price', 'property' => 'color' ],
+					[ 'element' => '.woocommerce .single_add_to_cart_button', 'property' => 'background-color'],
+					[ 'element' => '.woocommerce .single_add_to_cart_button', 'property' => 'border-color'],
+					[ 'element' => '.woocommerce span.onsale',  'property' => 'background-color']
+				],
+			],
+		);
+	}
+});
