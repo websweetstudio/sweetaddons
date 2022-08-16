@@ -212,3 +212,54 @@ if(! function_exists('filter_plugin_updates')){
     }
 }
 
+// add woocommerce share buttons
+add_action( 'woocommerce_share', 'sweet_addons_woocommerce_share' );
+if(! function_exists('sweet_addons_woocommerce_share')){
+    /**
+     * woocommerce share buttons
+     */
+    function sweet_addons_woocommerce_share() {
+        if ( class_exists( 'WooCommerce' ) ) {
+            $url = urlencode( get_permalink() );
+            $title = urlencode( get_the_title() );
+            $twitter_url = 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url.'&amp;via='.get_bloginfo( 'name' );
+            $facebook_url = 'https://www.facebook.com/sharer/sharer.php?u='.$url;
+            $linkedin_url = 'https://www.linkedin.com/shareArticle?mini=true&url='.$url.'&amp;title='.$title;
+            $pinterest_url = 'https://pinterest.com/pin/create/button/?url='.$url.'&amp;media='.wp_get_attachment_url( get_post_thumbnail_id() ).'&amp;description='.$title;
+            $whatsapp_url = 'whatsapp://send?text='.$title.' '.$url;
+
+            ?>
+            <div class="social-share pt-3">
+                Share:
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="<?php echo $twitter_url; ?>" target="_blank" class="social-share-twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?php echo $facebook_url; ?>" target="_blank" class="social-share-facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?php echo $linkedin_url; ?>" target="_blank" class="social-share-linkedin">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?php echo $pinterest_url; ?>" target="_blank" class="social-share-pinterest">
+                            <i class="fa fa-pinterest"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?php echo $whatsapp_url; ?>" target="_blank" class="social-share-whatsapp">
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <?php
+        }
+    }
+}

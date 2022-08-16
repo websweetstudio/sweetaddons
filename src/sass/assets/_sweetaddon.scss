@@ -35,6 +35,22 @@
 
 }
 
+.social-share {
+    i {
+        font-size: 20px;
+        background-color: #838383;
+        color: #fff;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        &:hover {
+            background-color: #333333;
+        }
+    }
+}
+
 .scroll-to-top {
     position: fixed;
     bottom: 15px;
