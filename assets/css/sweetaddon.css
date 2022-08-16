@@ -43,6 +43,10 @@
   background-color: #333333;
 }
 
+.alg-wc-wl-thumb-btn-abs {
+  inset: 25px 70px auto auto !important;
+}
+
 .scroll-to-top {
   position: fixed;
   bottom: 15px;
