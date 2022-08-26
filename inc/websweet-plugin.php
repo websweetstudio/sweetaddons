@@ -83,21 +83,21 @@ function websweetxyz_register_required_plugins() {
 		// This is an example of how to include a plugin from a GitHub repository in your theme.
 		// This presumes that the plugin code is based in the root of the GitHub repository
 		// and not in a subdirectory ('/src') of the repository.
-		array(
-			'name'      => 'Beaver Themer',
-			'slug'      => 'bb-theme-builder',
-			'required'  => false,
-		),
-		array(
-			'name'      => 'Ultimate Addons for Beaver Builder',
-			'slug'      => 'bb-ultimate-addon',
-			'required'  => false,
-		),
-		array(
-			'name'      => 'Beaver Builder Plugin',
-			'slug'      => 'fl-builder',
-			'required'  => false,
-		),
+		// array(
+		// 	'name'      => 'Beaver Themer',
+		// 	'slug'      => 'bb-theme-builder',
+		// 	'required'  => false,
+		// ),
+		// array(
+		// 	'name'      => 'Ultimate Addons for Beaver Builder',
+		// 	'slug'      => 'bb-ultimate-addon',
+		// 	'required'  => false,
+		// ),
+		// array(
+		// 	'name'      => 'Beaver Builder Plugin',
+		// 	'slug'      => 'fl-builder',
+		// 	'required'  => false,
+		// ),
 
 		// This is an example of how to include a plugin from the WordPress Plugin Repository.
 		array(
