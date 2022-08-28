@@ -14,11 +14,11 @@ if(! function_exists('wp_footer_whatsapp')){
      * wp footer whatsapp floating
      */
     function wp_footer_whatsapp() {
-        $whatsapp_number        = get_theme_mod( 'whatsapp_number', '08123456789' );
-        $whatsapp_text          = get_theme_mod( 'whatsapp_text', 'Chat Whatsapp' );
-        $whatsapp_enable        = get_theme_mod( 'whatsapp_enable', true );
-        $whatsapp_position      = get_theme_mod( 'whatsapp_position', 'right' );
-        $scroll_to_top_enable   = get_theme_mod( 'scroll_to_top_enable', true );
+        $whatsapp_number        = get_option( 'whatsapp_number', '08123456789' );
+        $whatsapp_text          = get_option( 'whatsapp_text', 'Chat Whatsapp' );
+        $whatsapp_enable        = get_option( 'whatsapp_enable', true );
+        $whatsapp_position      = get_option( 'whatsapp_position', 'right' );
+        $scroll_to_top_enable   = get_option( 'scroll_to_top_enable', true );
         $scroll_to_top_enable   = $scroll_to_top_enable ? 'scroll-active' : '';
         // replace all except numbers
         $whatsapp_number        = preg_replace('/[^0-9]/', '', $whatsapp_number);
@@ -47,7 +47,7 @@ if(! function_exists('wp_footer_scroll_to_top')){
      * wp footer scroll to top
      */
     function wp_footer_scroll_to_top() {
-        $scroll_to_top_enable = get_theme_mod( 'scroll_to_top_enable', true );
+        $scroll_to_top_enable = get_option( 'scroll_to_top_enable', true );
         if($scroll_to_top_enable) {
             ?>
             <div class="scroll-to-top">
@@ -167,36 +167,36 @@ if(! function_exists('wc_refresh_mini_cart_count')){
     }
 }
 
-// run get_theme_mod('header_script')
+// run get_option('header_script')
 add_action( 'wp_head', 'sweet_addons_header_script' );
 if(! function_exists('sweet_addons_header_script')){
     /**
      * custom code header script
      */
     function sweet_addons_header_script() {
-        echo get_theme_mod('header_script');
+        echo get_option('header_script');
     }
 }
 
-// run get_theme_mod('footer_script')
+// run get_option('footer_script')
 add_action( 'wp_footer', 'sweet_addons_footer_script' );
 if(! function_exists('sweet_addons_footer_script')){
     /**
      * custom code footer script
      */
     function sweet_addons_footer_script() {
-        echo get_theme_mod('footer_script');
+        echo get_option('footer_script');
     }
 }
 
-// run get_theme_mod('custom_code_php')
+// run get_option('custom_code_php')
 add_action( 'wp_footer', 'sweet_addons_custom_code_php' );
 if(! function_exists('sweet_addons_custom_code_php')){
     /**
      * custom code php
      */
     function sweet_addons_custom_code_php() {
-        eval(get_theme_mod('custom_code_php'));
+        eval(get_option('custom_code_php'));
     }
 }
 
