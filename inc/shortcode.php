@@ -16,13 +16,13 @@ function sweet_thumbnail_shortcode( $atts ) {
     $size = isset( $atts['size'] ) ? $atts['size'] : 'full';
     $ratio = isset( $atts['ratio'] ) ? $atts['ratio'] : '1-1';
     $class = isset( $atts['class'] ) ? $atts['class'] : 'aligncenter';
-    $link = isset( $atts['link'] ) && $atts['link'] == true ? "href='the_permalink()'" : '';
+    $link = isset( $atts['link'] ) && $atts['link'] == true ? 'href="'.get_the_permalink().'"' : '';
     $image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
     $image_url = $image_url[0];
 
     ?>
     <div class="sweet-thumbnail-container">
-        <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);" <?php $link; ?>>
+        <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);" <?php echo $link; ?>>
             <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
         </a>
     </div>
