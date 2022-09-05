@@ -80,12 +80,6 @@
     }
 }
 .sweet-thumbnail-container {
-    background: linear-gradient(311deg, #8a8a8a, #f9f9f9);
-    background-size: 400% 400%;
-    -webkit-animation: lazyload-gradient 3s ease infinite;
-    -moz-animation: lazyload-gradient 3s ease infinite;
-    animation: lazyload-gradient 3s ease infinite;
-
     .sweet-thumbnail {
         width:100%;
         display: block;
@@ -118,20 +112,4 @@
             padding-bottom: 150%;
         }
     }
-}
-
-@-webkit-keyframes lazyload-gradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@-moz-keyframes lazyload-gradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@keyframes lazyload-gradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
 }
