@@ -1,5 +1,5 @@
 <?php
-//[sweet-thumbnail size="full" ratio="1-1" class="aligncenter" link="true"]
+//[sweet-thumbnail size="full" ratio="1-1" class="rounded" link="true"]
 add_shortcode( 'sweet-thumbnail', 'sweet_thumbnail_shortcode' );
 function sweet_thumbnail_shortcode( $atts ) {
     ob_start();
@@ -7,7 +7,7 @@ function sweet_thumbnail_shortcode( $atts ) {
         array(
             'size' => 'full',
             'ratio' => '1-1',
-            'class' => 'aligncenter',
+            'class' => 'rounded',
             'link' => 'true',
         ),
         $atts,
@@ -15,14 +15,14 @@ function sweet_thumbnail_shortcode( $atts ) {
     );
     $size = isset( $atts['size'] ) ? $atts['size'] : 'full';
     $ratio = isset( $atts['ratio'] ) ? $atts['ratio'] : '1-1';
-    $class = isset( $atts['class'] ) ? $atts['class'] : 'aligncenter';
+    $class = isset( $atts['class'] ) ? $atts['class'] : 'rounded';
     $link = isset( $atts['link'] ) && $atts['link'] == true ? 'href="'.get_the_permalink().'"' : '';
     $image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
     $image_url = $image_url[0];
 
     ?>
     <div class="sweet-thumbnail-container">
-        <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" style="background-image:url(<?php echo $image_url; ?>);" <?php echo $link; ?>>
+        <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" data-src="<?php echo $image_url; ?>" <?php echo $link; ?>>
             <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
         </a>
     </div>
