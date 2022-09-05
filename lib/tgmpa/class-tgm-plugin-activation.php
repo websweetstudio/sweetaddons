@@ -2058,7 +2058,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			}
 
 			if ( ! empty( $deactivated ) ) {
-				update_option( 'recently_activated', $deactivated + (array) get_option( 'recently_activated' ) );
+				update_option( 'recently_activated', $deactivated + (array) get_theme_mod( 'recently_activated' ) );
 			}
 		}
 
@@ -3047,7 +3047,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 					);
 
 					// Update recently activated plugins option.
-					$recent = (array) get_option( 'recently_activated' );
+					$recent = (array) get_theme_mod( 'recently_activated' );
 					foreach ( $plugins_to_activate as $plugin => $time ) {
 						if ( isset( $recent[ $plugin ] ) ) {
 							unset( $recent[ $plugin ] );

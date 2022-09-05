@@ -25,9 +25,8 @@ if ( ! class_exists( 'Kirki' ) ) {
 Kirki::add_config(
 	'sweetaddon_config',
 	[
-		'option_type' => 'option',
-		'option_name' => 'sweetaddon'
-		// 'capability'  => 'manage_options',
+		'option_type' => 'theme_mod',
+		'capability'  => 'manage_options',
 	]
 );
 
