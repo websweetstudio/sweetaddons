@@ -1,5 +1,5 @@
 /*!
-  * Sweetweb v1.5.0 (https://websweet.xyz)
+  * Sweetweb v1.5.1 (https://websweet.xyz)
   * Copyright 2013-2022 websweet.xyz
   * Licensed under GPL (http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
   */
@@ -31,6 +31,15 @@
           scrollTop: 0
         }, 400);
         return false;
+      });
+      jQuery('.sweet-thumbnail').Lazy({
+        // your configuration goes here
+        scrollDirection: 'vertical',
+        effect: 'fadeIn',
+        visibleOnly: true,
+        onError: function (element) {
+          console.log('error loading ' + element.data('src'));
+        }
       });
     });
 

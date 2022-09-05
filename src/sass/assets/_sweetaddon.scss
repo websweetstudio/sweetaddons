@@ -79,36 +79,59 @@
         transform: scale(1.02);
     }
 }
-.sweet-thumbnail {
-    width:100%;
-    display: block;
-    padding-bottom: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    &.ratio-1-1 {
+.sweet-thumbnail-container {
+    background: linear-gradient(311deg, #8a8a8a, #f9f9f9);
+    background-size: 400% 400%;
+    -webkit-animation: lazyload-gradient 3s ease infinite;
+    -moz-animation: lazyload-gradient 3s ease infinite;
+    animation: lazyload-gradient 3s ease infinite;
+
+    .sweet-thumbnail {
+        width:100%;
+        display: block;
         padding-bottom: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        &.ratio-1-1 {
+            padding-bottom: 100%;
+        }
+        &.ratio-9-16 {
+            padding-bottom: 56.25%;
+        }
+        &.ratio-3-4 {
+            padding-bottom: 75%;
+        }
+        &.ratio-2-3 {
+            padding-bottom: 66.66%;
+        }
+        &.ratio-5-8 {
+            padding-bottom: 62.5%;
+        }
+        &.ratio-16-9 {
+            padding-bottom: 177.77%;
+        }
+        &.ratio-4-3 {
+            padding-bottom: 133.33%;
+        }
+        &.ratio-3-2 {
+            padding-bottom: 150%;
+        }
     }
-    &.ratio-9-16 {
-        padding-bottom: 56.25%;
-    }
-    &.ratio-3-4 {
-        padding-bottom: 75%;
-    }
-    &.ratio-2-3 {
-        padding-bottom: 66.66%;
-    }
-    &.ratio-5-8 {
-        padding-bottom: 62.5%;
-    }
-    &.ratio-16-9 {
-        padding-bottom: 177.77%;
-    }
-    &.ratio-4-3 {
-        padding-bottom: 133.33%;
-    }
-    &.ratio-3-2 {
-        padding-bottom: 150%;
-    }
+}
+
+@-webkit-keyframes lazyload-gradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes lazyload-gradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes lazyload-gradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }

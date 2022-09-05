@@ -20,4 +20,14 @@ jQuery(function() {
         }, 400);
         return false;
     });
+
+    jQuery('.sweet-thumbnail').Lazy({
+        // your configuration goes here
+        scrollDirection: 'vertical',
+        effect: 'fadeIn',
+        visibleOnly: true,
+        onError: function(element) {
+            console.log('error loading ' + element.data('src'));
+        }
+    });
 });
