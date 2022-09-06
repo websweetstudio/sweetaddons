@@ -10,12 +10,14 @@
  * @since 3.0.12
  */
 
-use Kirki\Util\Helper;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+use Kirki\Util\Helper;
+
+
 
 // Do not proceed if Kirki does not exist.
 if ( ! class_exists( 'Kirki' ) ) {

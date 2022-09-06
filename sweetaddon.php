@@ -1,12 +1,5 @@
 <?php
-
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
  * @link              dev.websweet.xyz
  * @since             1.2.0
@@ -15,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name:       Sweet Addon
  * Plugin URI:        dev.websweet.xyz
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Plugin for websweet.xyz client.
  * Version:           1.5.3
  * Author:            Aditya Kristyanto
  * Author URI:        dev.websweet.xyz
@@ -53,6 +46,8 @@ $libs = array(
 );
 $incs = array(
 	'inc/websweet-plugin.php',
+	'updater/updater.php',
+	'updater/plugin.php',
 	'inc/enqueue.php',
 	'inc/customizer.php',
 	'inc/function.php',
