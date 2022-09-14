@@ -1,7 +1,7 @@
 <?php
 //[sweet-thumbnail size="full" ratio="1-1" class="rounded" link="true"]
-add_shortcode( 'sweet-thumbnail', 'sweet_thumbnail_shortcode' );
-function sweet_thumbnail_shortcode( $atts ) {
+add_shortcode( 'sweet-thumbnail', 'sweetaddon_thumbnail_shortcode' );
+function sweetaddon_thumbnail_shortcode( $atts ) {
     ob_start();
     $atts = shortcode_atts(
         array(
@@ -31,8 +31,8 @@ function sweet_thumbnail_shortcode( $atts ) {
 }
 
 //[excerpt count="150"]
-add_shortcode('excerpt', 'vd_getexcerpt');
-function vd_getexcerpt($atts){
+add_shortcode('excerpt', 'sweetaddon_get_excerpt');
+function sweetaddon_get_excerpt($atts){
     ob_start();
 	global $post;
     $atribut = shortcode_atts( array(
