@@ -30,8 +30,8 @@ function sweetaddon_updater_test_init() {
 			'github_url' => 'https://github.com/websweetxyz/sweetaddon',
 			'zip_url' => 'https://github.com/websweetxyz/sweetaddon/archive/master.zip',
 			'sslverify' => true,
-			'requires' => '1.5.4',
-			'tested' => '1.5.2',
+			// 'requires' => '1.5.4',
+			// 'tested' => '1.5.2',
 			'readme' => 'README.md',
 			'access_token' => '',
 		);

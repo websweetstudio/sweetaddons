@@ -208,6 +208,7 @@ if(! function_exists('filter_plugin_updates')){
     function filter_plugin_updates( $value ) {
         unset( $value->response['bb-plugin/fl-builder.php'] );
         unset( $value->response['bb-theme-builder/bb-theme-builder.php'] );
+        unset( $value->response['bb-ultimate-addon/bb-ultimate-addon.php'] );
         return $value;
     }
 }
