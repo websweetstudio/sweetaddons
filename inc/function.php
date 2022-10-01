@@ -189,17 +189,6 @@ if(! function_exists('sweet_addons_footer_script')){
     }
 }
 
-// run get_theme_mod('custom_code_php')
-add_action( 'wp_footer', 'sweet_addons_custom_code_php' );
-if(! function_exists('sweet_addons_custom_code_php')){
-    /**
-     * custom code php
-     */
-    function sweet_addons_custom_code_php() {
-        eval(get_theme_mod('custom_code_php'));
-    }
-}
-
 add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
 if(! function_exists('filter_plugin_updates')){
     /**

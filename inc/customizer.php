@@ -164,7 +164,6 @@ new \Kirki\Panel(
 $sections = [
 	'header_script' => [ esc_html__( 'Header Script', 'sweetaddon' ), '' ],
 	'footer_script' => [ esc_html__( 'Footer Script', 'sweetaddon' ), '' ],
-	'php' => [ esc_html__( 'PHP', 'sweetaddon' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -211,24 +210,6 @@ new \Kirki\Field\Code(
 		'default'     => '',
 		'choices'     => [
 			'language' => 'html',
-		],
-	]
-);
-
-/**
- * Code control.
- *
- * @link https://kirki.org/docs/controls/code.html
- */
-new \Kirki\Field\Code(
-	[
-		'settings'    => 'custom_code_php',
-		'label'       => esc_html__( 'PHP', 'sweetaddon' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
-		'section'     => 'php_section',
-		'default'     => '',
-		'choices'     => [
-			'language' => 'php',
 		],
 	]
 );
