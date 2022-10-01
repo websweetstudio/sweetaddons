@@ -23,7 +23,6 @@ function sweet_thumbnail_shortcode( $atts ) {
     ?>
     <div class="sweet-thumbnail-container">
         <a class="sweet-thumbnail <?php echo esc_attr( $class ).' ratio-'.$ratio; ?>" data-src="<?php echo $image_url; ?>" <?php echo $link; ?>>
-            <img style="display: none;" src="<?php echo $image_url; ?>" alt="<?php the_title(); ?>">
         </a>
     </div>
     <?php
