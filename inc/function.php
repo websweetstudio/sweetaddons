@@ -190,13 +190,15 @@ if(! function_exists('sweet_addons_footer_script')){
 }
 
 add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
-if(! function_exists('filter_plugin_updates') && get_theme_mod('plugin_update') == '1'){
+if(! function_exists('filter_plugin_updates')){
     /**
      * filter plugin updates
      */
     function filter_plugin_updates( $value ) {
-        unset( $value->response['bb-plugin/fl-builder.php'] );
-        unset( $value->response['bb-theme-builder/bb-theme-builder.php'] );
+        if(get_theme_mod('plugin_update') == '1'){
+            unset( $value->response['bb-plugin/fl-builder.php'] );
+            unset( $value->response['bb-theme-builder/bb-theme-builder.php'] );
+        }
         return $value;
     }
 }

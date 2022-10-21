@@ -289,6 +289,18 @@ $sections = [
 	'plugin_update'          => [ esc_html__( 'Plugin Update', 'sweetaddon' ), '' ],
 ];
 
+foreach ( $sections as $section_id => $section ) {
+	$section_args = [
+		'title'       => $section[0],
+		'description' => $section[1],
+		'panel'       => 'developer_panel',
+	];
+	if ( isset( $section[2] ) ) {
+		$section_args['type'] = $section[2];
+	}
+	new \Kirki\Section( str_replace( '-', '_', $section_id ) . '_section', $section_args );
+}
+
 /**
  * Code Control.
  * Plugin Update
@@ -298,7 +310,7 @@ new \Kirki\Field\Select(
 		'settings'    => 'plugin_update',
 		'label'       => esc_html__( 'Developer Mode', 'sweetaddon' ),
 		'description' => esc_html__( 'Select position', 'sweetaddon' ),
-		'section'     => 'whatsapp_section',
+		'section'     => 'plugin_update_section',
 		'transport'   => 'postMessage',
 		'default'     => '0',
 		'choices'     => [
