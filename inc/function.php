@@ -190,7 +190,7 @@ if(! function_exists('sweet_addons_footer_script')){
 }
 
 add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
-if(! function_exists('filter_plugin_updates')){
+if(! function_exists('filter_plugin_updates') && get_theme_mod('plugin_update') == '1'){
     /**
      * filter plugin updates
      */

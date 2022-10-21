@@ -85,9 +85,6 @@ new \Kirki\Field\Checkbox_Switch(
 	]
 );
 
-/**
- * Whatsapp control.
- */
 new \Kirki\Field\Text(
 	[
 		'settings'    => 'whatsapp_number',
@@ -265,3 +262,48 @@ add_action( 'after_setup_theme', function () {
 		);
 	}
 });
+
+/**
+ * Add a panel.
+ *
+ * @link https://kirki.org/docs/getting-started/panels.html
+ */
+new \Kirki\Panel(
+	'developer_panel',
+	[
+		'priority'    => 90,
+		'title'       => esc_html__( 'Developer Option', '' ),
+		'description' => esc_html__( '', 'sweetaddon' ),
+	]
+);
+
+/**
+ * Add Sections.
+ *
+ * We'll be doing things a bit differently here, just to demonstrate an example.
+ * We're going to define 1 section per control-type just to keep things clean and separate.
+ *
+ * @link https://kirki.org/docs/getting-started/sections.html
+ */
+$sections = [
+	'plugin_update'          => [ esc_html__( 'Plugin Update', 'sweetaddon' ), '' ],
+];
+
+/**
+ * Code Control.
+ * Plugin Update
+ */
+new \Kirki\Field\Select(
+	[
+		'settings'    => 'plugin_update',
+		'label'       => esc_html__( 'Developer Mode', 'sweetaddon' ),
+		'description' => esc_html__( 'Select position', 'sweetaddon' ),
+		'section'     => 'whatsapp_section',
+		'transport'   => 'postMessage',
+		'default'     => '0',
+		'choices'     => [
+			'1'  => esc_html__( 'True', 'sweetaddon' ),
+			'0' => esc_html__( 'False', 'sweetaddon' ),
+		],
+	]
+);
