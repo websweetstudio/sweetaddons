@@ -47,7 +47,6 @@ $libs = array(
 );
 $incs = array(
 	'inc/websweet-plugin.php',
-	'updater/plugin.php',
 	'inc/enqueue.php',
 	'inc/customizer.php',
 	'inc/function.php',
