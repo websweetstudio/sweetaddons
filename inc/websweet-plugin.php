@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file represents an example of the code that themes would use to register
  * the required plugins.
@@ -32,7 +33,7 @@
  * require_once dirname( __FILE__ ) . '/path/to/class-tgm-plugin-activation.php';
  */
 
-add_action( 'tgmpa_register', 'websweetxyz_register_required_plugins' );
+add_action('tgmpa_register', 'websweetxyz_register_required_plugins');
 
 /**
  * Register the required plugins for this theme.
@@ -51,7 +52,8 @@ add_action( 'tgmpa_register', 'websweetxyz_register_required_plugins' );
  *
  * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
  */
-function websweetxyz_register_required_plugins() {
+function websweetxyz_register_required_plugins()
+{
 	/*
 	 * Array of plugin arrays. Required keys are name and slug.
 	 * If the source is NOT from the .org repo, then source is also required.
@@ -103,12 +105,12 @@ function websweetxyz_register_required_plugins() {
 		array(
 			'name'      => 'All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic',
 			'slug'      => 'all-in-one-seo-pack',
-			'required'  => true,
+			'required'  => false,
 		),
 		array(
 			'name'      => 'WP Statistics',
 			'slug'      => 'wp-statistics',
-			'required'  => true,
+			'required'  => false,
 		),
 		array(
 			'name'      => 'No Category Base (WPML)',
@@ -142,7 +144,7 @@ function websweetxyz_register_required_plugins() {
 	);
 
 	// load woongkir plugin if woocommerce is active
-	if ( class_exists( 'WooCommerce' ) ) {
+	if (class_exists('WooCommerce')) {
 		$plugins[] = array(
 			'name'      => 'Wooongkir',
 			'slug'      => 'woongkir',
@@ -260,5 +262,5 @@ function websweetxyz_register_required_plugins() {
 		*/
 	);
 
-	tgmpa( $plugins, $config );
+	tgmpa($plugins, $config);
 }
