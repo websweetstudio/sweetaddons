@@ -43,9 +43,10 @@ define('SWEETADDON_URL', plugin_dir_url(__FILE__));
 
 
 $libs = array(
-	// 'lib/tgmpa/class-tgm-plugin-activation.php',
+	'lib/tgmpa/class-tgm-plugin-activation.php',
 );
 $incs = array(
+	'inc/websweet-plugin.php',
 	'inc/enqueue.php',
 	'inc/customizer.php',
 	'inc/function.php',
