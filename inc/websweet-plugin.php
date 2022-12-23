@@ -102,21 +102,21 @@ function websweetxyz_register_required_plugins()
 		// ),
 
 		// This is an example of how to include a plugin from the WordPress Plugin Repository.
-		array(
-			'name'      => 'All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic',
-			'slug'      => 'all-in-one-seo-pack',
-			'required'  => false,
-		),
-		array(
-			'name'      => 'WP Statistics',
-			'slug'      => 'wp-statistics',
-			'required'  => false,
-		),
-		array(
-			'name'      => 'No Category Base (WPML)',
-			'slug'      => 'no-category-base-wpml',
-			'required'  => false,
-		),
+		// array(
+		// 	'name'      => 'All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic',
+		// 	'slug'      => 'all-in-one-seo-pack',
+		// 	'required'  => false,
+		// ),
+		// array(
+		// 	'name'      => 'WP Statistics',
+		// 	'slug'      => 'wp-statistics',
+		// 	'required'  => false,
+		// ),
+		// array(
+		// 	'name'      => 'No Category Base (WPML)',
+		// 	'slug'      => 'no-category-base-wpml',
+		// 	'required'  => false,
+		// ),
 		array(
 			'name'      => 'Kirki Customizer Framework',
 			'slug'      => 'kirki',
@@ -145,12 +145,12 @@ function websweetxyz_register_required_plugins()
 
 	// load woongkir plugin if woocommerce is active
 	if (class_exists('WooCommerce')) {
-		$plugins[] = array(
-			'name'      => 'Wooongkir',
-			'slug'      => 'woongkir',
-			'required'  => false,
-			'source'    => 'https://github.com/aadiityaak/Woongkir/releases/download/v.1.0.0/woongkir.zip',
-		);
+		// $plugins[] = array(
+		// 	'name'      => 'Wooongkir',
+		// 	'slug'      => 'woongkir',
+		// 	'required'  => false,
+		// 	'source'    => 'https://github.com/aadiityaak/Woongkir/releases/download/v.1.0.0/woongkir.zip',
+		// );
 		$plugins[] = array(
 			'name'      => 'Wish List for WooCommerce',
 			'slug'      => 'wish-list-for-woocommerce',
