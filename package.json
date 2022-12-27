@@ -14,7 +14,8 @@
     "js-compile": "rollup --config src/build/rollup.config.js --sourcemap",
     "js-minify": "terser  --config-file src/build/terser.config.json --output assets/js/sweetaddon.min.js assets/js/sweetaddon.js",
     "dist": "npm-run-all css js",
-    "build": "node src/build/dist-build.js"
+    "build": "node src/build/dist-build.js",
+    "package": "npm-run-all dist build"
   },
   "dependencies": {
     "@rollup/plugin-babel": "^5.3.1",
