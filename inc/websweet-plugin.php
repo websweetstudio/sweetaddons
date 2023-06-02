@@ -122,6 +122,11 @@ function websweetxyz_register_required_plugins()
 			'slug'      => 'kirki',
 			'required'  => true,
 		),
+		array(
+			'name'      => 'All-In-One Security (AIOS) – Security and Firewall',
+			'slug'      => 'all-in-one-wp-security-and-firewall',
+			'required'  => true,
+		),
 		// array(
 		// 	'name'      => 'WooCommerce',
 		// 	'slug'      => 'woocommerce',
