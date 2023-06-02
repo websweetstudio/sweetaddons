@@ -255,7 +255,7 @@ if(! function_exists('sweet_addons_woocommerce_share')){
     }
 }
 
-add_action('init', 'disable_comments');
+add_action('init', 'sweet_addons_disable_comments');
 if(! function_exists('sweet_addons_disable_comments')){
     function sweet_addons_disable_comments() {
         $scroll_to_top_enable = get_theme_mod( 'scroll_to_top_enable', 1 );
