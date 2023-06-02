@@ -287,6 +287,7 @@ new \Kirki\Panel(
  */
 $sections = [
 	'plugin_update'          => [ esc_html__( 'Plugin Update', 'sweetaddon' ), '' ],
+	'spam_protect'          => [ esc_html__( 'Spam Protect', 'sweetaddon' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -313,6 +314,25 @@ new \Kirki\Field\Select(
 		'section'     => 'plugin_update_section',
 		'transport'   => 'postMessage',
 		'default'     => '0',
+		'choices'     => [
+			'1'  => esc_html__( 'True', 'sweetaddon' ),
+			'0' => esc_html__( 'False', 'sweetaddon' ),
+		],
+	]
+);
+
+/**
+ * Code Control.
+ * Plugin Update
+ */
+new \Kirki\Field\Select(
+	[
+		'settings'    => 'disable_comment',
+		'label'       => esc_html__( 'Disable Comment', 'sweetaddon' ),
+		'description' => esc_html__( 'Disable comment ', 'sweetaddon' ),
+		'section'     => 'spam_protect',
+		'transport'   => 'postMessage',
+		'default'     => '1',
 		'choices'     => [
 			'1'  => esc_html__( 'True', 'sweetaddon' ),
 			'0' => esc_html__( 'False', 'sweetaddon' ),

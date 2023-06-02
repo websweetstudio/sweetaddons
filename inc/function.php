@@ -254,3 +254,100 @@ if(! function_exists('sweet_addons_woocommerce_share')){
         }
     }
 }
+
+add_action('init', 'disable_comments');
+if(! function_exists('sweet_addons_disable_comments')){
+    function sweet_addons_disable_comments() {
+        $scroll_to_top_enable = get_theme_mod( 'scroll_to_top_enable', 1 );
+        if($scroll_to_top_enable == 1){
+            // Remove comment support from post types
+            $post_types = get_post_types();
+            foreach ($post_types as $post_type) {
+                if (post_type_supports($post_type, 'comments')) {
+                    remove_post_type_support($post_type, 'comments');
+                    remove_post_type_support($post_type, 'trackbacks');
+                }
+            }
+            
+            // Close comments on existing posts
+            $comments_query = new WP_Query(array('post_type' => 'any', 'posts_per_page' => -1));
+            while ($comments_query->have_posts()) {
+                $comments_query->the_post();
+                if (comments_open()) {
+                    comments_open(false);
+                    pings_open(false);
+                    update_post_meta(get_the_ID(), '_close_comments_for_old_posts', 'yes');
+                }
+            }
+            
+            // Hide existing comments
+            add_filter('comments_open', '__return_false', 20, 2);
+            add_filter('pings_open', '__return_false', 20, 2);
+            add_filter('comments_array', '__return_empty_array', 10, 2);
+            
+            // Disable comment-related REST API endpoints
+            add_filter('rest_endpoints', function ($endpoints) {
+                if (isset($endpoints['/wp/v2/comments'])) {
+                    unset($endpoints['/wp/v2/comments']);
+                }
+                if (isset($endpoints['/wp/v2/comments/(?P<id>[\d]+)'])) {
+                    unset($endpoints['/wp/v2/comments/(?P<id>[\d]+)']);
+                }
+                return $endpoints;
+            });
+            
+            // Remove comment-related links from REST API
+            add_filter('rest_comment_collection_params', function ($params) {
+                unset($params['status']);
+                return $params;
+            });
+            add_filter('rest_comment_query', function ($args) {
+                unset($args['status']);
+                return $args;
+            });
+            
+            // Remove comment-reply script for front-end
+            add_action('wp_enqueue_scripts', function () {
+                wp_dequeue_script('comment-reply');
+            });
+            
+            // Remove comment-reply link from the header
+            add_action('wp_head', function () {
+                if (is_singular() && comments_open()) {
+                    wp_deregister_script('comment-reply');
+                }
+            }, 1);
+            
+            // Remove comment-related widgets
+            add_action('widgets_init', function () {
+                unregister_widget('WP_Widget_Recent_Comments');
+                unregister_widget('WP_Widget_Recent_Comments_Custom');
+                unregister_widget('WP_Widget_Comments');
+                unregister_widget('WP_Widget_Comments_Custom');
+                unregister_widget('WP_Widget_Pages');
+                unregister_widget('WP_Widget_Calendar');
+            });
+            
+            // Remove comments menu from admin menu
+            add_action('admin_menu', function () {
+                remove_menu_page('edit-comments.php');
+            });
+            
+            // Remove comments meta box from post and page editor
+            add_action('admin_init', function () {
+                remove_meta_box('commentsdiv', 'post', 'normal');
+                remove_meta_box('commentsdiv', 'page', 'normal');
+            });
+            
+            // Remove comments column from posts and pages list
+            add_filter('manage_posts_columns', function ($columns) {
+                unset($columns['comments']);
+                return $columns;
+            });
+            add_filter('manage_pages_columns', function ($columns) {
+                unset($columns['comments']);
+                return $columns;
+            });
+        }
+    }
+}
