@@ -330,7 +330,7 @@ new \Kirki\Field\Select(
 		'settings'    => 'disable_comment',
 		'label'       => esc_html__( 'Disable Comment', 'sweetaddon' ),
 		'description' => esc_html__( 'Disable comment ', 'sweetaddon' ),
-		'section'     => 'spam_protect',
+		'section'     => 'spam_protect_section',
 		'transport'   => 'postMessage',
 		'default'     => '1',
 		'choices'     => [
