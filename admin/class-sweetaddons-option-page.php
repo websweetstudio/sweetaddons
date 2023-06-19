@@ -31,7 +31,7 @@ class Custom_Admin_Option_Page
 
     public function add_options_page()
     {
-        add_options_page('Pengaturan Admin', 'Pengaturan Admin', 'manage_options', 'custom_admin_options', array($this, 'options_page_callback'));
+        add_options_page('Pengaturan Umum', 'Pengaturan Umum', 'manage_options', 'custom_admin_options', array($this, 'options_page_callback'));
     }
 
     public function register_settings()
@@ -55,7 +55,7 @@ class Custom_Admin_Option_Page
     {
 ?>
         <div class="wrap">
-            <h1>Pengaturan Admin</h1>
+            <h1>Pengaturan Umum</h1>
             <form method="post" action="options.php">
                 <?php settings_fields('custom_admin_options_group'); ?>
                 <?php do_settings_sections('custom_admin_options_group'); ?>
@@ -140,8 +140,8 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Classic Widget</th>
                         <td>
-                            <input type="checkbox" id="classic_widget_velocity" name="classic_widget_velocity" value="1" <?php checked(get_option('classic_widget_velocity', '1'), 1); ?>>
-                            <label for="classic_widget_velocity">
+                            <input type="checkbox" id="classic_widget" name="classic_widget" value="1" <?php checked(get_option('classic_widget', '1'), 1); ?>>
+                            <label for="classic_widget">
                                 <small>
                                     Opsi untuk menggunakan Widget Classic
                                 </small>
@@ -162,8 +162,8 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Remove Slug Category</th>
                         <td>
-                            <input type="checkbox" id="remove_slug_category_velocity" name="remove_slug_category_velocity" value="1" <?php checked(get_option('remove_slug_category_velocity', '1'), 1); ?>>
-                            <label for="remove_slug_category_velocity">
+                            <input type="checkbox" id="remove_slug_category" name="remove_slug_category" value="1" <?php checked(get_option('remove_slug_category', '1'), 1); ?>>
+                            <label for="remove_slug_category">
                                 <small>
                                     Opsi ini untuk hapus /category/ dari URL
                                 </small>
@@ -210,5 +210,5 @@ class Custom_Admin_Option_Page
     }
 }
 
-// Initialize the Pengaturan Admin page
+// Initialize the Pengaturan Umum page
 $custom_admin_options_page = new Custom_Admin_Option_Page();

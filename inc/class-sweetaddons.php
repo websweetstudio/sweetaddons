@@ -27,7 +27,7 @@
  * @subpackage sweetaddons/includes
  * @author     Aditya Kristyanto <aadiityaak@gmail.com>
  */
-class sweetaddons
+class Sweetaddons
 {
 
 	/**
@@ -90,7 +90,7 @@ class sweetaddons
 	 * - sweetaddons_Loader. Orchestrates the hooks of the plugin.
 	 * - sweetaddons_i18n. Defines internationalization functionality.
 	 * - sweetaddons_Admin. Defines all hooks for the admin area.
-	 * - sweetaddons_Public. Defines all hooks for the public side of the site.
+	 * - Sweetaddons_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -105,73 +105,73 @@ class sweetaddons
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-i18n.php';
 
 		/**
 		 * Berisi Class untuk mematikan fungsi komentar di wordpress.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-disable-comments.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-disable-comments.php';
 
 		/**
 		 * Berisi Class untuk mematikan semua notice di wp-admin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-hide-admin-notice.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-hide-admin-notice.php';
 
 		/**
 		 * Berisi Class untuk membatasi gagal login.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-limit-login-attempts.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-limit-login-attempts.php';
 
 		/**
 		 * Berisi Class untuk fungsi maintenance mode.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-maintenance-mode.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-maintenance-mode.php';
 
 		/**
 		 * Berisi Class untuk disable XML RPC.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-disable-xmlrpc.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-disable-xmlrpc.php';
 
 		/**
 		 * Berisi Class untuk disable REST API.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-disable-rest-api.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-disable-rest-api.php';
 
 		/**
 		 * Berisi Class untuk disable visual editor.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-disable-gutenberg.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-disable-gutenberg.php';
 
 		/**
 		 * Berisi Class untuk block akses ke wp-admin berdasarkan kode negara.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-block-wp-login.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-block-wp-login.php';
 
 		/**
 		 * Berisi Class untuk auto update plugin
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-auto-updater.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-auto-updater.php';
 
 		/**
 		 * Berisi Class untuk Classic Widget
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-classic-widget.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-classic-widget.php';
 
 		/**
 		 * Berisi Class untuk standar Editor
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-standar-editor.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-standar-editor.php';
 
 		/**
 		 * Berisi Class untuk hapus slug category
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-remove-slug-category.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-remove-slug-category.php';
 
 
 		/**
@@ -237,7 +237,7 @@ class sweetaddons
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new sweetaddons_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new Sweetaddons_Public($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');

@@ -10,7 +10,7 @@
  * Plugin Name:       Sweet Addons
  * Plugin URI:        websweetstudio.com
  * Description:       Plugin for websweetstudio.com client.
- * Version:           1.6.5
+ * Version:           1.6.8
  * Author:            Aditya Kristyanto
  * Author URI:        websweetstudio.com
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('SWEETADDON_VERSION', '1.6.5');
+define('SWEETADDON_VERSION', '1.6.8');
 
 /**
  * Define plugin path url
@@ -61,3 +61,20 @@ foreach ($libs as $lib) {
 foreach ($incs as $inc) {
 	require_once plugin_dir_path(__FILE__) . $inc;
 }
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_sweetaddons()
+{
+
+	$plugin = new Sweetaddons();
+	$plugin->run();
+}
+run_sweetaddons();
