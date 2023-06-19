@@ -12,7 +12,7 @@
     "css-postcss": "postcss --config src/build/postcss.config.js --replace \"public/css/*.css\" \"!public/css/*.rtl*.css\" \"!public/css/*.min.css\"",
     "js": "npm-run-all js-compile js-minify",
     "js-compile": "rollup --config src/build/rollup.config.js --sourcemap",
-    "js-minify": "terser  --config-file src/build/terser.config.json --output public/js/sweeetaddons-public.min.js public/js/sweeetaddons-public.js",
+    "js-minify": "terser  --config-file src/build/terser.config.json --output public/js/sweeetaddons.min.js public/js/sweeetaddons.js",
     "dist": "npm-run-all css js",
     "build": "node src/build/dist-build.js",
     "package": "npm-run-all dist build"
