@@ -35,6 +35,7 @@ define('SWEETADDON_VERSION', '1.6.5');
  * Define plugin path url
  */
 define('SWEETADDON_URL', plugin_dir_url(__FILE__));
+define('SWEETADDON_PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 
 /**
  * Add function
@@ -51,6 +52,7 @@ $incs = array(
 	'inc/customizer.php',
 	'inc/function.php',
 	'inc/shortcode.php',
+	'inc/class-sweetaddons.php'
 );
 
 foreach ($libs as $lib) {
