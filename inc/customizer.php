@@ -42,7 +42,7 @@ new \Kirki\Panel(
 	[
 		'priority'    => 90,
 		'title'       => esc_html__( 'Floating Button', '' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
+		'description' => esc_html__( '', 'sweetaddons' ),
 	]
 );
 
@@ -55,8 +55,8 @@ new \Kirki\Panel(
  * @link https://kirki.org/docs/getting-started/sections.html
  */
 $sections = [
-	'whatsapp'          => [ esc_html__( 'Whatsapp', 'sweetaddon' ), '' ],
-	'scroll_to_top'     => [ esc_html__( 'Scroll to top', 'sweetaddon' ), '' ],
+	'whatsapp'          => [ esc_html__( 'Whatsapp', 'sweetaddons' ), '' ],
+	'scroll_to_top'     => [ esc_html__( 'Scroll to top', 'sweetaddons' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -77,8 +77,8 @@ foreach ( $sections as $section_id => $section ) {
 new \Kirki\Field\Checkbox_Switch(
 	[
 		'settings'    => 'whatsapp_enable',
-		'label'       => esc_html__( 'Enable Whatsapp', 'sweetaddon' ),
-		'description' => esc_html__( 'Enable/Disable Whatsapp', 'sweetaddon' ),
+		'label'       => esc_html__( 'Enable Whatsapp', 'sweetaddons' ),
+		'description' => esc_html__( 'Enable/Disable Whatsapp', 'sweetaddons' ),
 		'section'     => 'whatsapp_section',
 		'transport'   => 'postMessage',
 		'default'     => true,
@@ -88,8 +88,8 @@ new \Kirki\Field\Checkbox_Switch(
 new \Kirki\Field\Text(
 	[
 		'settings'    => 'whatsapp_number',
-		'label'       => esc_html__( 'Whatsapp Number', 'sweetaddon' ),
-		'description' => esc_html__( 'Enter your whatsapp number', 'sweetaddon' ),
+		'label'       => esc_html__( 'Whatsapp Number', 'sweetaddons' ),
+		'description' => esc_html__( 'Enter your whatsapp number', 'sweetaddons' ),
 		'section'     => 'whatsapp_section',
 		'transport'   => 'postMessage',
 		'default'     => '',
@@ -99,8 +99,8 @@ new \Kirki\Field\Text(
 new \Kirki\Field\Text(
 	[
 		'settings'    => 'whatsapp_text',
-		'label'       => esc_html__( 'Whatsapp Text', 'sweetaddon' ),
-		'description' => esc_html__( 'Enter your whatsapp text', 'sweetaddon' ),
+		'label'       => esc_html__( 'Whatsapp Text', 'sweetaddons' ),
+		'description' => esc_html__( 'Enter your whatsapp text', 'sweetaddons' ),
 		'section'     => 'whatsapp_section',
 		'transport'   => 'postMessage',
 		'default'     => 'Chat Whatsapp',
@@ -110,14 +110,14 @@ new \Kirki\Field\Text(
 new \Kirki\Field\Select(
 	[
 		'settings'    => 'whatsapp_position',
-		'label'       => esc_html__( 'Position', 'sweetaddon' ),
-		'description' => esc_html__( 'Select position', 'sweetaddon' ),
+		'label'       => esc_html__( 'Position', 'sweetaddons' ),
+		'description' => esc_html__( 'Select position', 'sweetaddons' ),
 		'section'     => 'whatsapp_section',
 		'transport'   => 'postMessage',
 		'default'     => 'right',
 		'choices'     => [
-			'left'  => esc_html__( 'Left', 'sweetaddon' ),
-			'right' => esc_html__( 'Right', 'sweetaddon' ),
+			'left'  => esc_html__( 'Left', 'sweetaddons' ),
+			'right' => esc_html__( 'Right', 'sweetaddons' ),
 		],
 	]
 );
@@ -128,8 +128,8 @@ new \Kirki\Field\Select(
 new \Kirki\Field\Checkbox_Switch(
 	[
 		'settings'    => 'scroll_to_top_enable',
-		'label'       => esc_html__( 'Enable Scroll to top', 'sweetaddon' ),
-		'description' => esc_html__( 'Enable/Disable Scroll to top', 'sweetaddon' ),
+		'label'       => esc_html__( 'Enable Scroll to top', 'sweetaddons' ),
+		'description' => esc_html__( 'Enable/Disable Scroll to top', 'sweetaddons' ),
 		'section'     => 'scroll_to_top_section',
 		'transport'   => 'postMessage',
 		'default'     => true,
@@ -145,8 +145,8 @@ new \Kirki\Panel(
 	'script_panel',
 	[
 		'priority'    => 110,
-		'title'       => esc_html__( 'Custom Script', 'sweetaddon' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
+		'title'       => esc_html__( 'Custom Script', 'sweetaddons' ),
+		'description' => esc_html__( '', 'sweetaddons' ),
 	]
 );
 
@@ -159,8 +159,8 @@ new \Kirki\Panel(
  * @link https://kirki.org/docs/getting-started/sections.html
  */
 $sections = [
-	'header_script' => [ esc_html__( 'Header Script', 'sweetaddon' ), '' ],
-	'footer_script' => [ esc_html__( 'Footer Script', 'sweetaddon' ), '' ],
+	'header_script' => [ esc_html__( 'Header Script', 'sweetaddons' ), '' ],
+	'footer_script' => [ esc_html__( 'Footer Script', 'sweetaddons' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -183,8 +183,8 @@ foreach ( $sections as $section_id => $section ) {
 new \Kirki\Field\Code(
 	[
 		'settings'    => 'header_script',
-		'label'       => esc_html__( 'Header Script', 'sweetaddon' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
+		'label'       => esc_html__( 'Header Script', 'sweetaddons' ),
+		'description' => esc_html__( '', 'sweetaddons' ),
 		'section'     => 'header_script_section',
 		'default'     => '',
 		'choices'     => [
@@ -201,8 +201,8 @@ new \Kirki\Field\Code(
 new \Kirki\Field\Code(
 	[
 		'settings'    => 'footer_script',
-		'label'       => esc_html__( 'Footer Script', 'sweetaddon' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
+		'label'       => esc_html__( 'Footer Script', 'sweetaddons' ),
+		'description' => esc_html__( '', 'sweetaddons' ),
 		'section'     => 'footer_script_section',
 		'default'     => '',
 		'choices'     => [
@@ -218,8 +218,8 @@ add_action( 'after_setup_theme', function () {
 	new \Kirki\Field\Color(
 		[
 			'settings'    => 'body_color',
-			'label'       => esc_html__( 'Primary Color', 'sweetaddon' ),
-			'description' => esc_html__( '', 'sweetaddon' ),
+			'label'       => esc_html__( 'Primary Color', 'sweetaddons' ),
+			'description' => esc_html__( '', 'sweetaddons' ),
 			'section'     => 'colors',
 			'default'     => '#777777',
 			'output'      => [
@@ -232,8 +232,8 @@ add_action( 'after_setup_theme', function () {
 	new \Kirki\Field\Color(
 		[
 			'settings'    => 'link_color',
-			'label'       => esc_html__( 'Link Color', 'sweetaddon' ),
-			'description' => esc_html__( '', 'sweetaddon' ),
+			'label'       => esc_html__( 'Link Color', 'sweetaddons' ),
+			'description' => esc_html__( '', 'sweetaddons' ),
 			'section'     => 'colors',
 			'default'     => '#333333',
 			'output'      => [
@@ -247,8 +247,8 @@ add_action( 'after_setup_theme', function () {
 		new \Kirki\Field\Color(
 			[
 				'settings'    => 'woocommerce_color',
-				'label'       => esc_html__( 'WooCommerce Color', 'sweetaddon' ),
-				'description' => esc_html__( '', 'sweetaddon' ),
+				'label'       => esc_html__( 'WooCommerce Color', 'sweetaddons' ),
+				'description' => esc_html__( '', 'sweetaddons' ),
 				'section'     => 'colors',
 				'default'     => '#333333',
 				'output'      => [
@@ -273,7 +273,7 @@ new \Kirki\Panel(
 	[
 		'priority'    => 90,
 		'title'       => esc_html__( 'Developer Option', '' ),
-		'description' => esc_html__( '', 'sweetaddon' ),
+		'description' => esc_html__( '', 'sweetaddons' ),
 	]
 );
 
@@ -286,8 +286,8 @@ new \Kirki\Panel(
  * @link https://kirki.org/docs/getting-started/sections.html
  */
 $sections = [
-	'plugin_update'          => [ esc_html__( 'Plugin Update', 'sweetaddon' ), '' ],
-	'spam_protect'          => [ esc_html__( 'Spam Protect', 'sweetaddon' ), '' ],
+	'plugin_update'          => [ esc_html__( 'Plugin Update', 'sweetaddons' ), '' ],
+	'spam_protect'          => [ esc_html__( 'Spam Protect', 'sweetaddons' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -309,14 +309,14 @@ foreach ( $sections as $section_id => $section ) {
 new \Kirki\Field\Select(
 	[
 		'settings'    => 'plugin_update',
-		'label'       => esc_html__( 'Developer Mode', 'sweetaddon' ),
-		'description' => esc_html__( 'Select position', 'sweetaddon' ),
+		'label'       => esc_html__( 'Developer Mode', 'sweetaddons' ),
+		'description' => esc_html__( 'Select position', 'sweetaddons' ),
 		'section'     => 'plugin_update_section',
 		'transport'   => 'postMessage',
 		'default'     => '0',
 		'choices'     => [
-			'1'  => esc_html__( 'True', 'sweetaddon' ),
-			'0' => esc_html__( 'False', 'sweetaddon' ),
+			'1'  => esc_html__( 'True', 'sweetaddons' ),
+			'0' => esc_html__( 'False', 'sweetaddons' ),
 		],
 	]
 );
@@ -328,14 +328,14 @@ new \Kirki\Field\Select(
 new \Kirki\Field\Select(
 	[
 		'settings'    => 'disable_comment',
-		'label'       => esc_html__( 'Disable Comment', 'sweetaddon' ),
-		'description' => esc_html__( 'Disable comment ', 'sweetaddon' ),
+		'label'       => esc_html__( 'Disable Comment', 'sweetaddons' ),
+		'description' => esc_html__( 'Disable comment ', 'sweetaddons' ),
 		'section'     => 'spam_protect_section',
 		'transport'   => 'postMessage',
 		'default'     => '1',
 		'choices'     => [
-			'1'  => esc_html__( 'True', 'sweetaddon' ),
-			'0' => esc_html__( 'False', 'sweetaddon' ),
+			'1'  => esc_html__( 'True', 'sweetaddons' ),
+			'0' => esc_html__( 'False', 'sweetaddons' ),
 		],
 	]
 );

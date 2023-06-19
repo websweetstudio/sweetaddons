@@ -1,1 +1,32 @@
-{"version":3,"file":"sweetaddon.js","sources":["../../src/js/sweetaddon.js"],"sourcesContent":["jQuery(function () {\r\n  // on scroll top\r\n  jQuery(window).scroll(function () {\r\n    if (jQuery(this).scrollTop() > 100) {\r\n      if (\r\n        jQuery(\".scroll-active\").hasClass(\"scroll-active\") &&\r\n        jQuery(\".scroll-active\").hasClass(\"right\")\r\n      ) {\r\n        jQuery(\".scroll-active\").css(\"margin-right\", \"45px\");\r\n      }\r\n      jQuery(\".scroll-to-top\").fadeIn();\r\n    } else {\r\n      if (\r\n        jQuery(\".scroll-active\").hasClass(\"scroll-active\") &&\r\n        jQuery(\".scroll-active\").hasClass(\"right\")\r\n      ) {\r\n        jQuery(\".scroll-active\").css(\"margin-right\", \"0px\");\r\n      }\r\n      jQuery(\".scroll-to-top\").fadeOut();\r\n    }\r\n  });\r\n  // on click scroll to top\r\n  jQuery(\".scroll-to-top\").click(function () {\r\n    jQuery(\"html, body\").animate(\r\n      {\r\n        scrollTop: 0,\r\n      },\r\n      400\r\n    );\r\n    return false;\r\n  });\r\n  // LAZY LOAD SHORTCHODE\r\n  jQuery(\".sweet-thumbnail\").Lazy({\r\n    // your configuration goes here\r\n    scrollDirection: \"vertical\",\r\n    effect: \"fadeIn\",\r\n    visibleOnly: true,\r\n    onError: function (element) {\r\n      console.log(\"error loading \" + element.data(\"src\"));\r\n    },\r\n  });\r\n});\r\n"],"names":["jQuery","window","scroll","scrollTop","hasClass","css","fadeIn","fadeOut","click","animate","Lazy","scrollDirection","effect","visibleOnly","onError","element","console","log","data"],"mappings":";;;;;;;;;;EAAAA,MAAM,CAAC,YAAY;EACjB;EACAA,EAAAA,MAAM,CAACC,MAAM,CAAC,CAACC,MAAM,CAAC,YAAY;MAChC,IAAIF,MAAM,CAAC,IAAI,CAAC,CAACG,SAAS,EAAE,GAAG,GAAG,EAAE;EAClC,MAAA,IACEH,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,eAAe,CAAC,IAClDJ,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,OAAO,CAAC,EAC1C;UACAJ,MAAM,CAAC,gBAAgB,CAAC,CAACK,GAAG,CAAC,cAAc,EAAE,MAAM,CAAC,CAAA;EACtD,OAAA;EACAL,MAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACM,MAAM,EAAE,CAAA;EACnC,KAAC,MAAM;EACL,MAAA,IACEN,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,eAAe,CAAC,IAClDJ,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,OAAO,CAAC,EAC1C;UACAJ,MAAM,CAAC,gBAAgB,CAAC,CAACK,GAAG,CAAC,cAAc,EAAE,KAAK,CAAC,CAAA;EACrD,OAAA;EACAL,MAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACO,OAAO,EAAE,CAAA;EACpC,KAAA;EACF,GAAC,CAAC,CAAA;EACF;EACAP,EAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACQ,KAAK,CAAC,YAAY;EACzCR,IAAAA,MAAM,CAAC,YAAY,CAAC,CAACS,OAAO,CAC1B;EACEN,MAAAA,SAAS,EAAE,CAAA;OACZ,EACD,GAAG,CACJ,CAAA;EACD,IAAA,OAAO,KAAK,CAAA;EACd,GAAC,CAAC,CAAA;EACF;EACAH,EAAAA,MAAM,CAAC,kBAAkB,CAAC,CAACU,IAAI,CAAC;EAC9B;EACAC,IAAAA,eAAe,EAAE,UAAU;EAC3BC,IAAAA,MAAM,EAAE,QAAQ;EAChBC,IAAAA,WAAW,EAAE,IAAI;MACjBC,OAAO,EAAE,UAAUC,OAAO,EAAE;QAC1BC,OAAO,CAACC,GAAG,CAAC,gBAAgB,GAAGF,OAAO,CAACG,IAAI,CAAC,KAAK,CAAC,CAAC,CAAA;EACrD,KAAA;EACF,GAAC,CAAC,CAAA;EACJ,CAAC,CAAC;;;;;;"}
+{
+  "version": 3,
+  "file": "sweetaddons.js",
+  "sources": [
+    "../../src/js/sweetaddons.js"
+  ],
+  "sourcesContent": [
+    "jQuery(function () {\r\n  // on scroll top\r\n  jQuery(window).scroll(function () {\r\n    if (jQuery(this).scrollTop() > 100) {\r\n      if (\r\n        jQuery(\".scroll-active\").hasClass(\"scroll-active\") &&\r\n        jQuery(\".scroll-active\").hasClass(\"right\")\r\n      ) {\r\n        jQuery(\".scroll-active\").css(\"margin-right\", \"45px\");\r\n      }\r\n      jQuery(\".scroll-to-top\").fadeIn();\r\n    } else {\r\n      if (\r\n        jQuery(\".scroll-active\").hasClass(\"scroll-active\") &&\r\n        jQuery(\".scroll-active\").hasClass(\"right\")\r\n      ) {\r\n        jQuery(\".scroll-active\").css(\"margin-right\", \"0px\");\r\n      }\r\n      jQuery(\".scroll-to-top\").fadeOut();\r\n    }\r\n  });\r\n  // on click scroll to top\r\n  jQuery(\".scroll-to-top\").click(function () {\r\n    jQuery(\"html, body\").animate(\r\n      {\r\n        scrollTop: 0,\r\n      },\r\n      400\r\n    );\r\n    return false;\r\n  });\r\n  // LAZY LOAD SHORTCHODE\r\n  jQuery(\".sweet-thumbnail\").Lazy({\r\n    // your configuration goes here\r\n    scrollDirection: \"vertical\",\r\n    effect: \"fadeIn\",\r\n    visibleOnly: true,\r\n    onError: function (element) {\r\n      console.log(\"error loading \" + element.data(\"src\"));\r\n    },\r\n  });\r\n});\r\n"
+  ],
+  "names": [
+    "jQuery",
+    "window",
+    "scroll",
+    "scrollTop",
+    "hasClass",
+    "css",
+    "fadeIn",
+    "fadeOut",
+    "click",
+    "animate",
+    "Lazy",
+    "scrollDirection",
+    "effect",
+    "visibleOnly",
+    "onError",
+    "element",
+    "console",
+    "log",
+    "data"
+  ],
+  "mappings": ";;;;;;;;;;EAAAA,MAAM,CAAC,YAAY;EACjB;EACAA,EAAAA,MAAM,CAACC,MAAM,CAAC,CAACC,MAAM,CAAC,YAAY;MAChC,IAAIF,MAAM,CAAC,IAAI,CAAC,CAACG,SAAS,EAAE,GAAG,GAAG,EAAE;EAClC,MAAA,IACEH,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,eAAe,CAAC,IAClDJ,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,OAAO,CAAC,EAC1C;UACAJ,MAAM,CAAC,gBAAgB,CAAC,CAACK,GAAG,CAAC,cAAc,EAAE,MAAM,CAAC,CAAA;EACtD,OAAA;EACAL,MAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACM,MAAM,EAAE,CAAA;EACnC,KAAC,MAAM;EACL,MAAA,IACEN,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,eAAe,CAAC,IAClDJ,MAAM,CAAC,gBAAgB,CAAC,CAACI,QAAQ,CAAC,OAAO,CAAC,EAC1C;UACAJ,MAAM,CAAC,gBAAgB,CAAC,CAACK,GAAG,CAAC,cAAc,EAAE,KAAK,CAAC,CAAA;EACrD,OAAA;EACAL,MAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACO,OAAO,EAAE,CAAA;EACpC,KAAA;EACF,GAAC,CAAC,CAAA;EACF;EACAP,EAAAA,MAAM,CAAC,gBAAgB,CAAC,CAACQ,KAAK,CAAC,YAAY;EACzCR,IAAAA,MAAM,CAAC,YAAY,CAAC,CAACS,OAAO,CAC1B;EACEN,MAAAA,SAAS,EAAE,CAAA;OACZ,EACD,GAAG,CACJ,CAAA;EACD,IAAA,OAAO,KAAK,CAAA;EACd,GAAC,CAAC,CAAA;EACF;EACAH,EAAAA,MAAM,CAAC,kBAAkB,CAAC,CAACU,IAAI,CAAC;EAC9B;EACAC,IAAAA,eAAe,EAAE,UAAU;EAC3BC,IAAAA,MAAM,EAAE,QAAQ;EAChBC,IAAAA,WAAW,EAAE,IAAI;MACjBC,OAAO,EAAE,UAAUC,OAAO,EAAE;QAC1BC,OAAO,CAACC,GAAG,CAAC,gBAAgB,GAAGF,OAAO,CAACG,IAAI,CAAC,KAAK,CAAC,CAAC,CAAA;EACrD,KAAA;EACF,GAAC,CAAC,CAAA;EACJ,CAAC,CAAC;;;;;;"
+}

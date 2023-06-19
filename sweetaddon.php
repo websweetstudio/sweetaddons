@@ -2,20 +2,20 @@
 
 /**
  *
- * @link              dev.websweet.xyz
+ * @link              dev.websweetstudio.com
  * @since             1.2.0
- * @package           Sweetaddon
+ * @package           sweetaddons
  *
  * @wordpress-plugin
- * Plugin Name:       Sweet Addon
- * Plugin URI:        websweet.xyz
- * Description:       Plugin for websweet.xyz client.
+ * Plugin Name:       Sweet Addons
+ * Plugin URI:        websweetstudio.com
+ * Description:       Plugin for websweetstudio.com client.
  * Version:           1.6.5
  * Author:            Aditya Kristyanto
- * Author URI:        dev.websweet.xyz
+ * Author URI:        websweetstudio.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       sweetaddon
+ * Text Domain:       sweetaddons
  * Domain Path:       /languages
  */
 
@@ -51,8 +51,8 @@ $incs = array(
 	'inc/enqueue.php',
 	'inc/customizer.php',
 	'inc/function.php',
+	'inc/class-sweetaddons.php',
 	'inc/shortcode.php',
-	'inc/class-sweetaddons.php'
 );
 
 foreach ($libs as $lib) {

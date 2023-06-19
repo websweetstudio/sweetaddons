@@ -1,8 +1,8 @@
 <?php
 /**
- * Sweetaddon functions
+ * sweetaddons functions
  *
- * @package Sweetaddon
+ * @package sweetaddons
  */
 
 // Exit if accessed directly.
