@@ -70,37 +70,4 @@
   transform: scale(1.02);
 }
 
-.sweet-thumbnail-container .sweet-thumbnail {
-  width: 100%;
-  display: block;
-  padding-bottom: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-1-1 {
-  padding-bottom: 100%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-9-16 {
-  padding-bottom: 56.25%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-3-4 {
-  padding-bottom: 75%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-2-3 {
-  padding-bottom: 66.66%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-5-8 {
-  padding-bottom: 62.5%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-16-9 {
-  padding-bottom: 177.77%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-4-3 {
-  padding-bottom: 133.33%;
-}
-.sweet-thumbnail-container .sweet-thumbnail.ratio-3-2 {
-  padding-bottom: 150%;
-}
-
-/*# sourceMappingURL=sweetaddons.css.map */
+/*# sourceMappingURL=sweeetaddons-public.css.map */
