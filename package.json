@@ -7,7 +7,7 @@
   "scripts": {
     "copy": "node src/build/copy-assets.js",
     "css": "npm-run-all css-compile css-postcss css-minify",
-    "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --quiet src/sass/sweetaddons.scss:public/css/sweeetaddons-public.css",
+    "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --quiet src/sass/sweetaddons.scss:public/css/sweeetaddons.css",
     "css-minify": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output public/css/ --batch --batch-suffix \".min\" \"public/css/*.css\" \"!public/css/*.min.css\" \"!public/css/*rtl*.css\"",
     "css-postcss": "postcss --config src/build/postcss.config.js --replace \"public/css/*.css\" \"!public/css/*.rtl*.css\" \"!public/css/*.min.css\"",
     "js": "npm-run-all js-compile js-minify",
