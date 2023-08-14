@@ -2,19 +2,6 @@
 
 Plugin ini adalah kumpulan fungsi tambahan dan shortcode yang berguna dalam mengelola dan menyesuaikan situs WordPress Anda.
 
-## Informasi Plugin
-
-- **Nama Plugin:** Sweet Addons
-- **Plugin URI:** [websweetstudio.com](https://dev.websweetstudio.com)
-- **Deskripsi:** Plugin ini dikembangkan untuk klien websweetstudio.com, menyediakan fitur-fitur tambahan yang dapat memperkaya pengalaman pengguna.
-- **Versi:** 1.6.0
-- **Penulis:** Aditya Kristyanto
-- **Penulis URI:** [websweetstudio.com](https://dev.websweetstudio.com)
-- **Lisensi:** GPL-2.0+
-- **Lisensi URI:** [http://www.gnu.org/licenses/gpl-2.0.txt](http://www.gnu.org/licenses/gpl-2.0.txt)
-- **Text Domain:** sweetaddons
-- **Minimum PHP Version:** 5.6
-
 ## Fungsi yang Tersedia
 
 ### Pengaturan Admin
