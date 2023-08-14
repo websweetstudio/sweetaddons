@@ -1,7 +1,7 @@
 <?php
 function plugins_enqueue_styles()
 {
-  wp_enqueue_style('sweetaddons-style', SWEETADDON_URL . 'public/css/sweeetaddons-public.min.css', array(), '1.0.0', 'all');
+  wp_enqueue_style('sweetaddons-style', SWEETADDON_URL . 'public/css/sweeetaddons.min.css', array(), '1.0.0', 'all');
 
   wp_enqueue_script('jQuery');
   wp_enqueue_script('lazy-script', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.min.js', array(), '1.0.0', true);
