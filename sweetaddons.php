@@ -3,14 +3,14 @@
 /**
  *
  * @link              dev.websweetstudio.com
- * @since             1.2.0
+ * @since             2.0.1
  * @package           sweetaddons
  *
  * @wordpress-plugin
  * Plugin Name:       Sweet Addons
  * Plugin URI:        websweetstudio.com
  * Description:       Plugin for websweetstudio.com client.
- * Version:           1.6.8
+ * Version:            2.0.1
  * Author:            Aditya Kristyanto
  * Author URI:        websweetstudio.com
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('SWEETADDON_VERSION', '1.6.8');
+define('SWEETADDON_VERSION', '2.0.0.1');
 
 /**
  * Define plugin path url
