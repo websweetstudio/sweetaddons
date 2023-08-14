@@ -46,9 +46,7 @@ class Custom_Admin_Option_Page
         register_setting('custom_admin_options_group', 'block_wp_login');
         register_setting('custom_admin_options_group', 'whitelist_country');
         register_setting('custom_admin_options_group', 'redirect_to');
-        register_setting('custom_admin_options_group', 'standar_editor');
         register_setting('custom_admin_options_group', 'classic_widget');
-        register_setting('custom_admin_options_group', 'remove_slug_category');
     }
 
     public function options_page_callback()
@@ -74,7 +72,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Hide Admin Notice</th>
                         <td>
-                            <input type="checkbox" id="hide_admin_notice" name="hide_admin_notice" value="1" <?php checked(get_option('hide_admin_notice', '1'), 1); ?>>
+                            <input type="checkbox" id="hide_admin_notice" name="hide_admin_notice" value="0" <?php checked(get_option('hide_admin_notice', '1'), 1); ?>>
                             <label for="hide_admin_notice">
                                 <small>
                                     Dengan opsi ini, Anda dapat menyembunyikan pemberitahuan admin di halaman admin WordPress. Pemberitahuan admin seringkali muncul untuk memberikan informasi atau peringatan kepada admin situs, dan dengan mengaktifkan opsi ini, Anda dapat menghilangkannya untuk mengurangi gangguan visual.
@@ -96,7 +94,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Maintenance Mode</th>
                         <td>
-                            <input type="checkbox" id="maintenance_mode" name="maintenance_mode" value="1" <?php checked(get_option('maintenance_mode'), 1); ?>>
+                            <input type="checkbox" id="maintenance_mode" name="maintenance_mode" value="0" <?php checked(get_option('maintenance_mode'), 1); ?>>
                             <label for="maintenance_mode">
                                 <small>
                                     Dengan opsi ini, Anda dapat mengaktifkan mode perawatan pada situs WordPress Anda. Saat mode perawatan diaktifkan, pengunjung situs akan melihat halaman pemberitahuan perawatan yang menunjukkan bahwa situs sedang dalam perbaikan atau tidak tersedia sementara waktu.
@@ -118,7 +116,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Disable REST API / JSON</th>
                         <td>
-                            <input type="checkbox" id="disable_rest_api" name="disable_rest_api" value="1" <?php checked(get_option('disable_rest_api', '1'), 1); ?>>
+                            <input type="checkbox" id="disable_rest_api" name="disable_rest_api" value="0" <?php checked(get_option('disable_rest_api', '1'), 1); ?>>
                             <label for="disable_rest_api">
                                 <small>
                                     Dengan opsi ini, Anda dapat menonaktifkan antarmuka pemrograman aplikasi (API) REST pada situs WordPress Anda. REST API memungkinkan aplikasi atau layanan eksternal untuk berkomunikasi dengan situs WordPress. Dengan mengaktifkan opsi ini, Anda dapat membatasi akses ke REST API untuk keperluan keamanan atau privasi.
@@ -129,7 +127,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Disable Gutenberg</th>
                         <td>
-                            <input type="checkbox" id="disable_gutenberg" name="disable_gutenberg" value="1" <?php checked(get_option('disable_gutenberg', '1'), 1); ?>>
+                            <input type="checkbox" id="disable_gutenberg" name="disable_gutenberg" value="0" <?php checked(get_option('disable_gutenberg', '1'), 1); ?>>
                             <label for="disable_gutenberg">
                                 <small>
                                     Opsi ini memungkinkan Anda untuk menonaktifkan editor blok Gutenberg pada situs WordPress. Jika opsi ini diaktifkan, Anda akan kembali menggunakan editor klasik WordPress. Gutenberg adalah editor konten visual yang diperkenalkan dalam versi WordPress 5.0.
@@ -144,28 +142,6 @@ class Custom_Admin_Option_Page
                             <label for="classic_widget">
                                 <small>
                                     Opsi untuk menggunakan Widget Classic
-                                </small>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Standar Editor TinyMCE</th>
-                        <td>
-                            <input type="checkbox" id="standar_editor" name="standar_editor" value="1" <?php checked(get_option('standar_editor', '0'), 1); ?>>
-                            <label for="standar_editor">
-                                <small>
-                                    Opsi untuk menggunakan pengaturan dasar Editor TinyMCE
-                                </small>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Remove Slug Category</th>
-                        <td>
-                            <input type="checkbox" id="remove_slug_category" name="remove_slug_category" value="1" <?php checked(get_option('remove_slug_category', '1'), 1); ?>>
-                            <label for="remove_slug_category">
-                                <small>
-                                    Opsi ini untuk hapus /category/ dari URL
                                 </small>
                             </label>
                         </td>

@@ -162,18 +162,7 @@ class Sweetaddons
 		 * Berisi Class untuk Classic Widget
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-classic-widget.php';
-
-		/**
-		 * Berisi Class untuk standar Editor
-		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-standar-editor.php';
-
-		/**
-		 * Berisi Class untuk hapus slug category
-		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'inc/class-sweetaddons-remove-slug-category.php';
-
-
+		
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
