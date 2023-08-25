@@ -94,7 +94,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Maintenance Mode</th>
                         <td>
-                            <input type="checkbox" id="maintenance_mode" name="maintenance_mode" value="0" <?php checked(get_option('maintenance_mode'), 1); ?>>
+                            <input type="checkbox" id="maintenance_mode" name="maintenance_mode" value="0" <?php checked(get_option('maintenance_mode'), 0); ?>>
                             <label for="maintenance_mode">
                                 <small>
                                     Dengan opsi ini, Anda dapat mengaktifkan mode perawatan pada situs WordPress Anda. Saat mode perawatan diaktifkan, pengunjung situs akan melihat halaman pemberitahuan perawatan yang menunjukkan bahwa situs sedang dalam perbaikan atau tidak tersedia sementara waktu.
@@ -116,7 +116,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Disable REST API / JSON</th>
                         <td>
-                            <input type="checkbox" id="disable_rest_api" name="disable_rest_api" value="0" <?php checked(get_option('disable_rest_api', '1'), 1); ?>>
+                            <input type="checkbox" id="disable_rest_api" name="disable_rest_api" value="0" <?php checked(get_option('disable_rest_api', '0'), 0); ?>>
                             <label for="disable_rest_api">
                                 <small>
                                     Dengan opsi ini, Anda dapat menonaktifkan antarmuka pemrograman aplikasi (API) REST pada situs WordPress Anda. REST API memungkinkan aplikasi atau layanan eksternal untuk berkomunikasi dengan situs WordPress. Dengan mengaktifkan opsi ini, Anda dapat membatasi akses ke REST API untuk keperluan keamanan atau privasi.
@@ -127,7 +127,7 @@ class Custom_Admin_Option_Page
                     <tr>
                         <th scope="row">Disable Gutenberg</th>
                         <td>
-                            <input type="checkbox" id="disable_gutenberg" name="disable_gutenberg" value="0" <?php checked(get_option('disable_gutenberg', '1'), 1); ?>>
+                            <input type="checkbox" id="disable_gutenberg" name="disable_gutenberg" value="0" <?php checked(get_option('disable_gutenberg', '0'), 0); ?>>
                             <label for="disable_gutenberg">
                                 <small>
                                     Opsi ini memungkinkan Anda untuk menonaktifkan editor blok Gutenberg pada situs WordPress. Jika opsi ini diaktifkan, Anda akan kembali menggunakan editor klasik WordPress. Gutenberg adalah editor konten visual yang diperkenalkan dalam versi WordPress 5.0.
