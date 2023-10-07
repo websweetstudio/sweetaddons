@@ -70,4 +70,47 @@
   transform: scale(1.02);
 }
 
+.marker {
+  background: red;
+  right: 5px;
+  top: 5px;
+  position: absolute;
+  z-index: 9;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.marker:before, .marker:after {
+  display: block;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  border-radius: 50%;
+  position: absolute;
+  margin-left: -2px;
+  margin-top: -2px;
+  opacity: 0;
+  border: 2px solid red;
+  animation: pulse 3s infinite ease-out;
+}
+.marker:before {
+  content: "";
+  animation-delay: 0s;
+}
+.marker:after {
+  content: "";
+  animation-delay: 1.5s;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(3, 3);
+    opacity: 0;
+  }
+}
+
 /*# sourceMappingURL=sweetaddons.css.map */
