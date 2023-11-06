@@ -85,6 +85,17 @@ new \Kirki\Field\Checkbox_Switch(
 	]
 );
 
+new \Kirki\Field\Checkbox_Switch(
+	[
+		'settings'    => 'whatsapp_pulse',
+		'label'       => esc_html__( 'Enable Pulse', 'sweetaddons' ),
+		'description' => esc_html__( 'Enable/Disable Pulse on whatsapp button.', 'sweetaddons' ),
+		'section'     => 'whatsapp_section',
+		'transport'   => 'postMessage',
+		'default'     => true,
+	]
+);
+
 new \Kirki\Field\Text(
 	[
 		'settings'    => 'whatsapp_number',
