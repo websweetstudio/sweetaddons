@@ -103,62 +103,6 @@ if(! function_exists('add_cart_into_menu')){
     }
 }
 
-add_action( 'wp_footer', 'sweet_addons_woocommerce_cart_offcanvas' );
-if(! function_exists('sweet_addons_woocommerce_cart_offcanvas')){
-    /**
-     * woocommerce cart offcanvas
-     */
-    function sweet_addons_woocommerce_cart_offcanvas() {
-        if ( class_exists( 'WooCommerce' ) ) {
-            $cart = WC()->cart;
-            ?>
-                <div class="offcanvas offcanvas-end" id="offcanvasCart">
-                    <div class="offcanvas-header">
-                        <a class="close text-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="list-group rounded-0">
-                            <?php foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
-                                $_product = $cart_item['data'];
-                                if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-                                    $product_price = get_theme_mod( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $_product ) : wc_get_price_including_tax( $_product );
-                                    ?>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-3 px-1">
-                                                <?php echo $_product->get_image(); ?>
-                                            </div>
-                                            <div class="col">
-                                                <?php echo $_product->get_name(); ?><br>
-                                                <?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf( '%s &times; %s', $cart_item['quantity'], $product_price ) . '</span>', $cart_item, $cart_item_key ); ?>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <?php
-                                }
-                            } ?>
-                        </ul>
-                    </div>
-                    <div class="offcanvas-footer">
-                        <div class="d-flex justify-content-between">
-                            <a href="<?php echo wc_get_cart_url(); ?>" class="btn btn-primary rounded-0 w-50 text-center">
-                                <?php _e( 'View Cart', 'sweet-addons' ); ?>
-                            </a>
-                            <a href="<?php echo wc_get_checkout_url(); ?>" class="btn btn-dark rounded-0 w-50 text-center">
-                                <?php _e( 'Checkout', 'sweet-addons' ); ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            <?php
-        }
-    }
-}
-
 add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
 if(! function_exists('wc_refresh_mini_cart_count')){
     /**
