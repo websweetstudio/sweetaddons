@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       dev.websweetstudio.com
+ * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    sweetaddons
+ * @package    Sweet_Addons
  */
 
 // If uninstall not called from WordPress, then exit.
