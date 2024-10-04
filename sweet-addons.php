@@ -16,7 +16,7 @@
  * Plugin Name:       Sweet Addons
  * Plugin URI:        https://websweetstudio.com
  * Description:       Addon plugin for WebsweetStudio Client
- * Version:           1.1.6
+ * Version:           2.1.0
  * Author:            WebsweetStudio
  * Author URI:        https://websweetstudio.com
  * License:           GPL-2.0+
