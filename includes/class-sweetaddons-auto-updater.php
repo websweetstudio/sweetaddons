@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -16,7 +16,7 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */

@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/admin
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/admin
  */
 
 /**
@@ -16,8 +16,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/admin
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/admin
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
@@ -40,18 +40,18 @@ class Custom_Admin_Option_Page
             '',                         // URL icon (biarkan kosong atau tambahkan URL icon)
             70                         // Posisi menu (semakin kecil angkanya semakin tinggi posisinya)
         );
-        
+
         // Add spam submenu
         add_submenu_page(
             'custom_admin_options',     // Parent slug
             'Spam',                     // Page title
             'Spam',                     // Menu title
             'manage_options',           // Capability
-            'sweet_addons_spam',        // Menu slug
+            'Sweetaddons_spam',        // Menu slug
             array($this, 'spam_page_callback') // Callback function
         );
     }
-    
+
 
     public function register_settings()
     {
@@ -70,11 +70,11 @@ class Custom_Admin_Option_Page
         register_setting('custom_admin_options_group', 'whitelist_block_wp_login');
         register_setting('custom_admin_options_group', 'whitelist_country');
         register_setting('custom_admin_options_group', 'redirect_to');
-        // register_setting('custom_admin_options_group', 'standar_editor_sweet_addons');
-        register_setting('custom_admin_options_group', 'classic_widget_sweet_addons');
-        register_setting('custom_admin_options_group', 'remove_slug_category_sweet_addons');
-        register_setting('custom_admin_options_group', 'auto_resize_image_sweet_addons');
-        register_setting('custom_admin_options_group', 'captcha_sweet_addons');
+        // register_setting('custom_admin_options_group', 'standar_editor_Sweetaddons');
+        register_setting('custom_admin_options_group', 'classic_widget_Sweetaddons');
+        register_setting('custom_admin_options_group', 'remove_slug_category_Sweetaddons');
+        register_setting('custom_admin_options_group', 'auto_resize_image_Sweetaddons');
+        register_setting('custom_admin_options_group', 'captcha_Sweetaddons');
         register_setting('custom_admin_options_group', 'news_generate');
     }
 
@@ -166,23 +166,23 @@ class Custom_Admin_Option_Page
                 'label' => 'Nonaktifkan akses ke REST API untuk keperluan keamanan atau privasi.',
             ],
             [
-                'id'    => 'captcha_sweet_addons',
+                'id'    => 'captcha_Sweetaddons',
                 'sub'   => 'aktif',
                 'type'  => 'checkbox',
                 'title' => 'Captcha',
                 'std'   => 1,
                 'label' => 'Aktifkan Google reCaptcha v2',
                 'desc'  => 'Gunakan reCaptcha v2 di Form Login, Komentar dan WebsweetStudio Toko <br>
-                        Untuk <strong>Contact Form 7</strong> gunakan <code>[sweet_captcha]</code>'
+                        Untuk <strong>Contact Form 7</strong> gunakan <code>[recaptcha]</code>'
             ],
             [
-                'id'    => 'captcha_sweet_addons',
+                'id'    => 'captcha_Sweetaddons',
                 'sub'   => 'sitekey',
                 'type'  => 'text',
                 'title' => 'Sitekey'
             ],
             [
-                'id'    => 'captcha_sweet_addons',
+                'id'    => 'captcha_Sweetaddons',
                 'sub'   => 'secretkey',
                 'type'  => 'text',
                 'title' => 'Secretkey'
@@ -217,151 +217,46 @@ class Custom_Admin_Option_Page
                 </div>
             </form>
         </div>
-<?php
+    <?php
     }
 
     public function options_page_callback()
     {
-        $pages = [
-            'umum' => [
-                'title'     => 'Umum',
-                'fields'    => [
-                    [
-                        'id'    => 'fully_disable_comment',
-                        'type'  => 'checkbox',
-                        'title' => 'Disable Comment',
-                        'std'   => 1,
-                        'label' => 'Nonaktifkan fitur komentar pada situs.',
-                    ],
-                    [
-                        'id'    => 'hide_admin_notice',
-                        'type'  => 'checkbox',
-                        'title' => 'Hide Admin Notice',
-                        'std'   => 0,
-                        'label' => 'Sembunyikan pemberitahuan admin di halaman admin. Pemberitahuan admin seringkali muncul untuk memberikan informasi atau peringatan kepada admin situs.',
-                    ],
-                    [
-                        'id'    => 'disable_gutenberg',
-                        'type'  => 'checkbox',
-                        'title' => 'Disable Gutenberg',
-                        'std'   => 0,
-                        'label' => 'Aktifkan untuk menggunakan editor klasik WordPress menggantikan Gutenberg.',
-                    ],
-                    [
-                        'id'    => 'classic_widget_sweet_addons',
-                        'type'  => 'checkbox',
-                        'title' => 'Classic Widget',
-                        'std'   => 1,
-                        'label' => 'Aktifkan untuk menggunakan widget klasik.',
-                    ],
-                    [
-                        'id'    => 'remove_slug_category_sweet_addons',
-                        'type'  => 'checkbox',
-                        'title' => 'Remove Slug Category',
-                        'std'   => 0,
-                        'label' => 'Aktifkan untuk hapus slug /category/ dari URL.',
-                    ],
-                ],
-            ],
-            
-            'maintenance' => [
-                'title'     => 'Maintenance Mode',
-                'fields'    => [
-                    [
-                        'id'    => 'maintenance_mode',
-                        'type'  => 'checkbox',
-                        'title' => 'Maintenance Mode',
-                        'std'   => 1,
-                        'label' => 'Aktifkan mode perawatan pada situs. Saat mode perawatan diaktifkan, pengunjung situs akan melihat halaman pemberitahuan perawatan yang menunjukkan bahwa situs sedang dalam perbaikan atau tidak tersedia sementara waktu.',
-                    ],
-                    [
-                        'id'    => 'maintenance_mode_data',
-                        'sub'   => 'header',
-                        'type'  => 'text',
-                        'title' => 'Header',
-                        'std'   => 'Maintenance Mode',
-                    ],
-                    [
-                        'id'    => 'maintenance_mode_data',
-                        'sub'   => 'body',
-                        'type'  => 'textarea',
-                        'title' => 'Body',
-                        'std'   => 'We are currently performing maintenance. Please check back later.',
-                    ]
-                ],
-            ],
-            'block' => [
-                'title'     => 'Block Login',
-                'fields'    => [
-                    [
-                        'id'    => 'block_wp_login',
-                        'type'  => 'checkbox',
-                        'title' => 'Block wp-login.php',
-                        'std'   => 0,
-                        'label' => 'Aktifkan pemblokiran akses ke file wp-login.php pada situs.',
-                    ],
-                    [
-                        'id'    => 'whitelist_block_wp_login',
-                        'type'  => 'text',
-                        'title' => 'Whitelist IP Block wp-login.php',
-                        'std'   => '',
-                        'label' => 'Tambahkan daftar IP yang di Whitelist proses pemblokiran akses ke file wp-login.php.',
-                    ],
-                    [
-                        'id'    => 'whitelist_country',
-                        'type'  => 'text',
-                        'title' => 'Whitelist Country',
-                        'std'   => 'ID',
-                        'label' => 'Batasi akses ke situs WordPress hanya untuk negara-negara tertentu dengan menggunakan ID negara sebagai pemisah, seperti contoh ID,MY,US.',
-                    ],
-                    [
-                        'id'    => 'redirect_to',
-                        'type'  => 'text',
-                        'title' => 'Redirect To',
-                        'std'   => 'http://127.0.0.1',
-                        'label' => 'Tujuan redirect wp-login.php, jika Block wp-login.php aktif.',
-                    ],
-                ],
-            ],
+        $main_fields = [
+            [
+                'id'    => 'license_key',
+                'type'  => 'text',
+                'title' => 'License Key',
+                'std'   => '',
+                'label' => 'Masukkan license key untuk mengaktifkan fitur premium.',
+            ]
         ];
 
-?>
+    ?>
         <div class="wrap vd-ons">
             <h1>Sweet Addons</h1>
+            <p>Selamat datang di pengaturan Sweet Addons. Gunakan menu di sebelah kiri untuk mengakses pengaturan yang berbeda.</p>
 
             <form method="post" action="options.php">
                 <?php settings_fields('custom_admin_options_group'); ?>
                 <?php do_settings_sections('custom_admin_options_group'); ?>
 
-                <div class="nav-tab-wrapper">
-                    <?php foreach ($pages as $tab => $tabs) : ?>
-                        <a href="#<?php echo $tab; ?>" class="nav-tab">
-                            <?php echo $tabs['title']; ?>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="tab-content">
-                    <?php foreach ($pages as $tab => $tabs) : ?>
-                        <div id="<?php echo $tab; ?>" class="content">
-                            <table class="form-table">
-                                <?php
-                                foreach ($tabs['fields'] as $ky => $data) :
-                                    echo '<tr>';
-                                    echo '<th scope="row">';
-                                    echo $data['title'];
-                                    echo '</th>';
-                                    echo '<td>';
-                                    $this->field($data);
-                                    echo '</td>';
-                                    echo '</tr>';
-                                endforeach;
-                                ?>
-                            </table>
-                            <hr>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                <table class="form-table">
+                    <?php
+                    foreach ($main_fields as $data) :
+                        echo '<tr>';
+                        echo '<th scope="row">';
+                        echo $data['title'];
+                        echo '</th>';
+                        echo '<td>';
+                        $this->field($data);
+                        echo '<button type="button" class="button check-license" style="margin-left: 10px;">Check License</button>';
+                        echo '<div class="license-status" style="margin-top: 5px;"></div>';
+                        echo '</td>';
+                        echo '</tr>';
+                    endforeach;
+                    ?>
+                </table>
 
                 <div style="float:right;">
                     <?php submit_button(); ?>
@@ -373,7 +268,7 @@ class Custom_Admin_Option_Page
                             e.preventDefault();
 
                             var licenseKey = $('#license_key').val();
-                            
+
                             // Check if license key is not empty
                             if (licenseKey === '') {
                                 alert('Please enter a license key.');
@@ -399,24 +294,8 @@ class Custom_Admin_Option_Page
                                 }
                             });
                         });
-
-                        function activeTab(id) {
-                            $('.vd-ons .nav-tab').removeClass('nav-tab-active');
-                            $('.vd-ons .nav-tab[href="' + id + '"]').addClass('nav-tab-active');
-                            $('.vd-ons .tab-content .content').hide();
-                            $('.vd-ons .tab-content ' + id).show();
-                        }
-                        $('.vd-ons .nav-tab').on('click', function(event) {
-                            activeTab($(this).attr('href'));
-                            localStorage.setItem('vdons-tabs', $(this).attr('href'));
-                            event.preventDefault();
-                        });
-                        var act = localStorage.getItem('vdons-tabs');
-                        act = act ? act : '#umum';
-                        activeTab(act);
                     });
                 </script>
-
 
             </form>
         </div>

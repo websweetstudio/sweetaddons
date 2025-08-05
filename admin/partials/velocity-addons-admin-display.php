@@ -8,8 +8,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/admin/partials
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/admin/partials
  */
 ?>
 

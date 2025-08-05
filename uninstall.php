@@ -22,10 +22,10 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
+ * @package    Sweetaddons
  */
 
 // If uninstall not called from WordPress, then exit.
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if (! defined('WP_UNINSTALL_PLUGIN')) {
 	exit;
 }

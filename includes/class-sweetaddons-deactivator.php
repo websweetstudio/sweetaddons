@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -16,11 +16,12 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
-class Sweet_Addons_Deactivator {
+class Sweetaddons_Deactivator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,8 +30,5 @@ class Sweet_Addons_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
-
-	}
-
+	public static function deactivate() {}
 }

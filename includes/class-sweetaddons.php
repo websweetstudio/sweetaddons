@@ -9,8 +9,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
-class Sweet_Addons
+class Sweetaddons
 {
 
     /**
@@ -36,7 +36,7 @@ class Sweet_Addons
      *
      * @since    1.0.0
      * @access   protected
-     * @var      Sweet_Addons_Loader    $loader    Maintains and registers all hooks for the plugin.
+     * @var      Sweetaddons_Loader    $loader    Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -69,8 +69,8 @@ class Sweet_Addons
      */
     public function __construct()
     {
-        if (defined('SWEET_ADDONS_VERSION')) {
-            $this->version = SWEET_ADDONS_VERSION;
+        if (defined('Sweetaddons_VERSION')) {
+            $this->version = Sweetaddons_VERSION;
         } else {
             $this->version = '1.0.0';
         }
@@ -87,10 +87,10 @@ class Sweet_Addons
      *
      * Include the following files that make up the plugin:
      *
-     * - Sweet_Addons_Loader. Orchestrates the hooks of the plugin.
-     * - Sweet_Addons_i18n. Defines internationalization functionality.
-     * - Sweet_Addons_Admin. Defines all hooks for the admin area.
-     * - Sweet_Addons_Public. Defines all hooks for the public side of the site.
+     * - Sweetaddons_Loader. Orchestrates the hooks of the plugin.
+     * - Sweetaddons_i18n. Defines internationalization functionality.
+     * - Sweetaddons_Admin. Defines all hooks for the admin area.
+     * - Sweetaddons_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
@@ -187,6 +187,9 @@ class Sweet_Addons
          * Class untuk menambah option page untuk Admin Option
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweet-option-page.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweet-option-umum.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweet-option-maintenance.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweet-option-block.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
@@ -194,13 +197,13 @@ class Sweet_Addons
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-sweetaddons-public.php';
 
-        $this->loader = new Sweet_Addons_Loader();
+        $this->loader = new Sweetaddons_Loader();
     }
 
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the Sweet_Addons_i18n class in order to set the domain and to register the hook
+     * Uses the Sweetaddons_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
      * @since    1.0.0
@@ -209,7 +212,7 @@ class Sweet_Addons
     private function set_locale()
     {
 
-        $plugin_i18n = new Sweet_Addons_i18n();
+        $plugin_i18n = new Sweetaddons_i18n();
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
@@ -224,7 +227,7 @@ class Sweet_Addons
     private function define_admin_hooks()
     {
 
-        $plugin_admin = new Sweet_Addons_Admin($this->get_plugin_name(), $this->get_version());
+        $plugin_admin = new Sweetaddons_Admin($this->get_plugin_name(), $this->get_version());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -240,7 +243,7 @@ class Sweet_Addons
     private function define_public_hooks()
     {
 
-        $plugin_public = new Sweet_Addons_Public($this->get_plugin_name(), $this->get_version());
+        $plugin_public = new Sweetaddons_Public($this->get_plugin_name(), $this->get_version());
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -272,7 +275,7 @@ class Sweet_Addons
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @since     1.0.0
-     * @return    Sweet_Addons_Loader    Orchestrates the hooks of the plugin.
+     * @return    Sweetaddons_Loader    Orchestrates the hooks of the plugin.
      */
     public function get_loader()
     {

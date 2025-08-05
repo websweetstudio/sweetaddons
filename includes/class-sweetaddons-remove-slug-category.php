@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -17,19 +17,22 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
- class Sweet_Addons_Remove_Slug_Category {
-    public function __construct() {
+class Sweetaddons_Remove_Slug_Category
+{
+    public function __construct()
+    {
         add_filter('post_type_link', array($this, 'remove_category_slug'), 10, 2);
         add_action('init', array($this, 'flush_rewrite_rules'));
     }
 
-    public function remove_category_slug($post_link, $post) {
-        $remove_slug_category = get_option('remove_slug_category_sweet_addons');
+    public function remove_category_slug($post_link, $post)
+    {
+        $remove_slug_category = get_option('remove_slug_category_Sweetaddons');
 
         if ($remove_slug_category && 'post' === $post->post_type && 'publish' === $post->post_status) {
             $categories = get_the_category($post->ID);
@@ -43,8 +46,9 @@
         return $post_link;
     }
 
-    public function flush_rewrite_rules() {
-        $remove_slug_category = get_option('remove_slug_category_sweet_addons');
+    public function flush_rewrite_rules()
+    {
+        $remove_slug_category = get_option('remove_slug_category_Sweetaddons');
 
         if ($remove_slug_category) {
             flush_rewrite_rules();
@@ -52,5 +56,5 @@
     }
 }
 
-// Inisialisasi class Sweet_Addons_Remove_Slug_Category
-$Sweet_Addons_Remove_Slug_Category = new Sweet_Addons_Remove_Slug_Category();
+// Inisialisasi class Sweetaddons_Remove_Slug_Category
+$Sweetaddons_Remove_Slug_Category = new Sweetaddons_Remove_Slug_Category();

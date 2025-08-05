@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -17,16 +17,16 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
-class Sweet_Addons_Classic_Widget
+class Sweetaddons_Classic_Widget
 {
     public function __construct()
     {
-        if (get_option('classic_widget_sweet_addons')) {
+        if (get_option('classic_widget_Sweetaddons')) {
             // Disables the block editor from managing widgets in the Gutenberg plugin.
             add_filter('gutenberg_use_widgets_block_editor', '__return_false');
             // Disables the block editor from managing widgets.
@@ -34,5 +34,5 @@ class Sweet_Addons_Classic_Widget
         }
     }
 }
-// Initialize the Sweet_Addons_Classic_Widget class
-$sweet_addons_classic_widget = new Sweet_Addons_Classic_Widget();
+// Initialize the Sweetaddons_Classic_Widget class
+$Sweetaddons_classic_widget = new Sweetaddons_Classic_Widget();

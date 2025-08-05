@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -17,17 +17,20 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
- class Sweet_Addons_Fully_Disable_Comment {
-    public function __construct() {
+class Sweetaddons_Fully_Disable_Comment
+{
+    public function __construct()
+    {
         add_action('wp_loaded', array($this, 'disable_comment'));
     }
 
-    public function disable_comment() {
+    public function disable_comment()
+    {
         if (get_option('fully_disable_comment')) {
             add_filter('comments_open', '__return_false', 20, 2);
             add_filter('pings_open', '__return_false', 20, 2);
@@ -39,22 +42,26 @@
         }
     }
 
-    public function remove_comment_menu() {
+    public function remove_comment_menu()
+    {
         remove_menu_page('edit-comments.php');
     }
 
-    public function remove_comment_admin_bar($wp_admin_bar) {
+    public function remove_comment_admin_bar($wp_admin_bar)
+    {
         $wp_admin_bar->remove_menu('comments');
     }
 
-    public function unregister_comment_widgets() {
+    public function unregister_comment_widgets()
+    {
         unregister_widget('WP_Widget_Recent_Comments');
     }
 
-    public function remove_comment_dashboard_widget() {
+    public function remove_comment_dashboard_widget()
+    {
         remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
     }
 }
 
-// Initialize the Sweet_Addons_Fully_Disable_Comment class
-$Sweet_Addons_Fully_Disable_Comment = new Sweet_Addons_Fully_Disable_Comment();
+// Initialize the Sweetaddons_Fully_Disable_Comment class
+$Sweetaddons_Fully_Disable_Comment = new Sweetaddons_Fully_Disable_Comment();

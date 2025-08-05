@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -17,12 +17,12 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
-class Sweet_Addons_Disable_Rest_Api
+class Sweetaddons_Disable_Rest_Api
 {
     public function __construct()
     {
@@ -46,5 +46,5 @@ class Sweet_Addons_Disable_Rest_Api
     }
 }
 
-// Inisialisasi class Sweet_Addons_Disable_Rest_Api
-$sweet_disable_rest_api = new Sweet_Addons_Disable_Rest_Api();
+// Inisialisasi class Sweetaddons_Disable_Rest_Api
+$sweet_disable_rest_api = new Sweetaddons_Disable_Rest_Api();

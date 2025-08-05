@@ -9,8 +9,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -20,17 +20,19 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
-class Sweet_Addons_Disable_Xmlrpc {
-    public function __construct() {
+class Sweetaddons_Disable_Xmlrpc
+{
+    public function __construct()
+    {
         if (get_option('disable_xmlrpc')) {
             add_filter('xmlrpc_enabled', '__return_false');
         }
     }
 }
 
-// Inisialisasi class Sweet_Addons_Disable_Xmlrpc
-$sweet_disable_xmlrpc = new Sweet_Addons_Disable_Xmlrpc();
+// Inisialisasi class Sweetaddons_Disable_Xmlrpc
+$sweet_disable_xmlrpc = new Sweetaddons_Disable_Xmlrpc();

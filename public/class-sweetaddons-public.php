@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/public
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/public
  */
 
 /**
@@ -16,11 +16,12 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/public
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/public
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
-class Sweet_Addons_Public {
+class Sweetaddons_Public
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,11 @@ class Sweet_Addons_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,22 +60,22 @@ class Sweet_Addons_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Sweet_Addons_Loader as all of the hooks are defined
+		 * defined in Sweetaddons_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Sweet_Addons_Loader will then create the relationship
+		 * The Sweetaddons_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sweetaddons-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/sweetaddons-public.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,22 +83,21 @@ class Sweet_Addons_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Sweet_Addons_Loader as all of the hooks are defined
+		 * defined in Sweetaddons_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Sweet_Addons_Loader will then create the relationship
+		 * The Sweetaddons_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sweetaddons-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/sweetaddons-public.js', array('jquery'), $this->version, false);
 	}
-
 }

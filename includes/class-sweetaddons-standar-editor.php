@@ -6,8 +6,8 @@
  * @link       https://websweetstudio.com
  * @since      1.0.0
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  */
 
 /**
@@ -17,16 +17,16 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sweet_Addons
- * @subpackage Sweet_Addons/includes
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
  * @author     WebsweetStudio <websweetstudio@gmail.com>
  */
 
-class Sweet_Addons_Standar_Editor
+class Sweetaddons_Standar_Editor
 {
     public function __construct()
     {
-        if (get_option('standar_editor_sweet_addons')) {
+        if (get_option('standar_editor_Sweetaddons')) {
             add_filter('tiny_mce_before_init', array($this, 'tags_tinymce_fix'), 99);
             add_filter('mce_buttons', array($this, 'mce_buttons'), 5);
             add_filter('mce_buttons_2', array($this, 'mce_buttons_2'), 5);
@@ -87,9 +87,9 @@ class Sweet_Addons_Standar_Editor
 
     function mce_register_plugin($plugin_array)
     {
-        $plugin_array['table'] = SWEET_ADDONS_PLUGIN_DIR_URL . 'admin/js/tinymce-table-plugin.min.js';
+        $plugin_array['table'] = Sweetaddons_PLUGIN_DIR_URL . 'admin/js/tinymce-table-plugin.min.js';
         return $plugin_array;
     }
 }
-// Initialize the Sweet_Addons_Standar_Editor class
-$sweet_addons_standar_editor = new Sweet_Addons_Standar_Editor();
+// Initialize the Sweetaddons_Standar_Editor class
+$Sweetaddons_standar_editor = new Sweetaddons_Standar_Editor();
