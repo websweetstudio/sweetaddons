@@ -12,9 +12,9 @@ jQuery(document).ready(function ($) {
 
     // Extend the wp.media object
     custom_uploader = wp.media.frames.file_frame = wp.media({
-      title: "Choose Image",
+      title: "Pilih Gambar",
       button: {
-        text: "Choose Image",
+        text: "Pilih Gambar",
       },
       multiple: false,
     });
@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
         .toJSON();
         console.log(attachment.height);
       $("#share_image").val(attachment.url);
-      $(".preview_share_image").html('<br><img src="'+attachment.url+'" width="300" /><br><span class="delete_share_image button">Delete</span>');
+      $(".preview_share_image").html('<br><img src="'+attachment.url+'" width="300" /><br><span class="delete_share_image button">Hapus</span>');
       if(attachment.height < 200 || attachment.width < 200){
         $(".preview_share_image").append('<div class="vdaddons-notice">Minimal Ukuran gambar 200x200</div>');
       }

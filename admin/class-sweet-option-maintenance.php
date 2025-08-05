@@ -106,21 +106,21 @@ class Sweet_Option_Maintenance
                 'type'  => 'checkbox',
                 'title' => 'Maintenance Mode',
                 'std'   => 1,
-                'label' => 'Aktifkan mode perawatan pada situs. Saat mode perawatan diaktifkan, pengunjung situs akan melihat halaman pemberitahuan perawatan yang menunjukkan bahwa situs sedang dalam perbaikan atau tidak tersedia sementara waktu.',
+                'label' => 'Aktifkan Maintenance Mode pada situs. Saat Maintenance Mode diaktifkan, pengunjung situs akan melihat halaman pemberitahuan perawatan yang menunjukkan bahwa situs sedang dalam perbaikan atau tidak tersedia sementara waktu.',
             ],
             [
                 'id'    => 'maintenance_mode_data',
                 'sub'   => 'header',
                 'type'  => 'text',
-                'title' => 'Header',
+                'title' => 'Judul',
                 'std'   => 'Maintenance Mode',
             ],
             [
                 'id'    => 'maintenance_mode_data',
                 'sub'   => 'body',
                 'type'  => 'textarea',
-                'title' => 'Body',
-                'std'   => 'We are currently performing maintenance. Please check back later.',
+                'title' => 'Isi Pesan',
+                'std'   => 'Kami sedang melakukan perawatan sistem. Silakan kembali lagi nanti.',
             ]
         ];
 

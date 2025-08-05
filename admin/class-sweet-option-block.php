@@ -22,8 +22,8 @@ class Sweet_Option_Block
     {
         add_submenu_page(
             'custom_admin_options',     // Parent slug
-            'Block Login',              // Page title
-            'Block Login',              // Menu title
+            'Blokir Login',              // Page title
+            'Blokir Login',              // Menu title
             'manage_options',           // Capability
             'Sweetaddons_block',       // Menu slug
             array($this, 'block_page_callback') // Callback function
@@ -106,28 +106,28 @@ class Sweet_Option_Block
             [
                 'id'    => 'block_wp_login',
                 'type'  => 'checkbox',
-                'title' => 'Block wp-login.php',
+                'title' => 'Blokir wp-login.php',
                 'std'   => 0,
                 'label' => 'Aktifkan pemblokiran akses ke file wp-login.php pada situs.',
             ],
             [
                 'id'    => 'whitelist_block_wp_login',
                 'type'  => 'text',
-                'title' => 'Whitelist IP Block wp-login.php',
+                'title' => 'IP Whitelist untuk Blokir wp-login.php',
                 'std'   => '',
-                'label' => 'Tambahkan daftar IP yang di Whitelist proses pemblokiran akses ke file wp-login.php.',
+                'label' => 'Tambahkan daftar IP yang dikecualikan dari pemblokiran akses ke file wp-login.php. Pisahkan dengan koma untuk beberapa IP.',
             ],
             [
                 'id'    => 'whitelist_country',
                 'type'  => 'text',
-                'title' => 'Whitelist Country',
+                'title' => 'Negara yang Diizinkan',
                 'std'   => 'ID',
                 'label' => 'Batasi akses ke situs WordPress hanya untuk negara-negara tertentu dengan menggunakan ID negara sebagai pemisah, seperti contoh ID,MY,US.',
             ],
             [
                 'id'    => 'redirect_to',
                 'type'  => 'text',
-                'title' => 'Redirect To',
+                'title' => 'Arahkan Ke',
                 'std'   => 'http://127.0.0.1',
                 'label' => 'Tujuan redirect wp-login.php, jika Block wp-login.php aktif.',
             ],
@@ -135,7 +135,7 @@ class Sweet_Option_Block
 
 ?>
         <div class="wrap vd-ons">
-            <h1>Block Login Settings</h1>
+            <h1>Pengaturan Blokir Login</h1>
 
             <form method="post" action="options.php">
                 <?php settings_fields('Sweetaddons_block_group'); ?>

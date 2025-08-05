@@ -184,6 +184,21 @@ class Sweetaddons
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-visitor-stats.php';
 
         /**
+         * Berisi Class untuk SEO functionality
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-seo.php';
+
+        /**
+         * Berisi Class untuk White Label functionality
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-whitelabel.php';
+
+        /**
+         * Berisi Class untuk WhatsApp functionality
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-whatsapp.php';
+
+        /**
          * The class responsible for defining all actions that occur in the admin area.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweetaddons-admin.php';
@@ -255,6 +270,15 @@ class Sweetaddons
 
         // Initialize visitor statistics
         new Sweetaddons_Visitor_Stats();
+
+        // Initialize SEO functionality
+        new Sweetaddons_SEO();
+
+        // Initialize White Label functionality
+        new Sweetaddons_WhiteLabel();
+
+        // Initialize WhatsApp functionality
+        new Sweetaddons_WhatsApp();
     }
 
     /**
