@@ -29,6 +29,7 @@ class Sweetaddons_Visitor_Stats
         
         add_action('wp', array($this, 'track_visitor'));
         add_action('sweetaddons_daily_aggregation', array($this, 'run_daily_aggregation'));
+        add_shortcode('statistic', array($this, 'statistics_shortcode'));
     }
 
     public function track_visitor()
@@ -97,7 +98,7 @@ class Sweetaddons_Visitor_Stats
     {
         global $wpdb;
         
-        // Check if this is first visit by this IP today (before current insert)
+        // Check if this IP has visited today (before current insert)
         $existing_today = $wpdb->get_var($wpdb->prepare(
             "SELECT COUNT(*) FROM {$this->logs_table} 
              WHERE visitor_ip = %s AND visit_date = %s",
@@ -111,7 +112,10 @@ class Sweetaddons_Visitor_Stats
             "INSERT INTO {$this->daily_stats_table} (stat_date, unique_visitors, total_pageviews)
              VALUES (%s, %d, 1)
              ON DUPLICATE KEY UPDATE
-             unique_visitors = unique_visitors + %d,
+             unique_visitors = CASE 
+                 WHEN %d = 1 THEN unique_visitors + 1 
+                 ELSE unique_visitors 
+             END,
              total_pageviews = total_pageviews + 1",
             $visit_date, $is_unique_today, $is_unique_today
         ));
@@ -134,7 +138,10 @@ class Sweetaddons_Visitor_Stats
             "INSERT INTO {$this->page_stats_table} (page_url, stat_date, unique_visitors, total_views)
              VALUES (%s, %s, %d, 1)
              ON DUPLICATE KEY UPDATE
-             unique_visitors = unique_visitors + %d,
+             unique_visitors = CASE 
+                 WHEN %d = 1 THEN unique_visitors + 1 
+                 ELSE unique_visitors 
+             END,
              total_views = total_views + 1",
             $page_url, $visit_date, $is_unique_page_today, $is_unique_page_today
         ));
@@ -307,5 +314,243 @@ class Sweetaddons_Visitor_Stats
             'this_month' => $this_month ?: (object)['unique_visitors' => 0, 'total_visits' => 0],
             'all_time' => $all_time ?: (object)['unique_visitors' => 0, 'total_visits' => 0]
         );
+    }
+
+    public function rebuild_daily_stats()
+    {
+        global $wpdb;
+        
+        // Clear existing daily stats
+        $wpdb->query("TRUNCATE TABLE {$this->daily_stats_table}");
+        
+        // Rebuild from logs
+        $daily_data = $wpdb->get_results(
+            "SELECT 
+                visit_date,
+                COUNT(DISTINCT visitor_ip) as unique_visitors,
+                COUNT(*) as total_pageviews
+             FROM {$this->logs_table}
+             GROUP BY visit_date
+             ORDER BY visit_date"
+        );
+        
+        foreach ($daily_data as $data) {
+            $wpdb->insert(
+                $this->daily_stats_table,
+                array(
+                    'stat_date' => $data->visit_date,
+                    'unique_visitors' => $data->unique_visitors,
+                    'total_pageviews' => $data->total_pageviews
+                ),
+                array('%s', '%d', '%d')
+            );
+        }
+        
+        return count($daily_data);
+    }
+
+    public function rebuild_page_stats()
+    {
+        global $wpdb;
+        
+        // Clear existing page stats
+        $wpdb->query("TRUNCATE TABLE {$this->page_stats_table}");
+        
+        // Rebuild from logs
+        $page_data = $wpdb->get_results(
+            "SELECT 
+                page_url,
+                visit_date,
+                COUNT(DISTINCT visitor_ip) as unique_visitors,
+                COUNT(*) as total_views
+             FROM {$this->logs_table}
+             GROUP BY page_url, visit_date
+             ORDER BY visit_date, page_url"
+        );
+        
+        foreach ($page_data as $data) {
+            $wpdb->insert(
+                $this->page_stats_table,
+                array(
+                    'page_url' => $data->page_url,
+                    'stat_date' => $data->visit_date,
+                    'unique_visitors' => $data->unique_visitors,
+                    'total_views' => $data->total_views
+                ),
+                array('%s', '%s', '%d', '%d')
+            );
+        }
+        
+        return count($page_data);
+    }
+
+    public function statistics_shortcode($atts)
+    {
+        $atts = shortcode_atts(array(
+            'style' => 'default', // default, minimal, cards
+            'show' => 'all', // all, today, total
+            'columns' => '4' // 1, 2, 3, 4
+        ), $atts, 'statistic');
+
+        $stats = $this->get_summary_stats();
+        
+        ob_start();
+        
+        $style_class = 'sweetaddons-stats-' . sanitize_html_class($atts['style']);
+        $columns_class = 'sweetaddons-stats-cols-' . sanitize_html_class($atts['columns']);
+        
+        echo '<div class="sweetaddons-statistics-widget ' . $style_class . ' ' . $columns_class . '">';
+        
+        if ($atts['show'] === 'all' || $atts['show'] === 'today') {
+            echo '<div class="stat-item">';
+            echo '<div class="stat-number">' . number_format($stats['today']->total_visits) . '</div>';
+            echo '<div class="stat-label">Kunjungan Hari Ini</div>';
+            echo '</div>';
+            
+            echo '<div class="stat-item">';
+            echo '<div class="stat-number">' . number_format($stats['today']->unique_visitors) . '</div>';
+            echo '<div class="stat-label">Pengunjung Hari Ini</div>';
+            echo '</div>';
+        }
+        
+        if ($atts['show'] === 'all' || $atts['show'] === 'total') {
+            echo '<div class="stat-item">';
+            echo '<div class="stat-number">' . number_format($stats['all_time']->total_visits) . '</div>';
+            echo '<div class="stat-label">Total Kunjungan</div>';
+            echo '</div>';
+            
+            echo '<div class="stat-item">';
+            echo '<div class="stat-number">' . number_format($stats['all_time']->unique_visitors) . '</div>';
+            echo '<div class="stat-label">Total Pengunjung</div>';
+            echo '</div>';
+        }
+        
+        echo '</div>';
+        
+        // Add CSS if not already added
+        if (!wp_style_is('sweetaddons-stats-shortcode', 'enqueued')) {
+            $this->add_shortcode_styles();
+        }
+        
+        return ob_get_clean();
+    }
+
+    private function add_shortcode_styles()
+    {
+        ?>
+        <style>
+        .sweetaddons-statistics-widget {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .sweetaddons-statistics-widget .stat-item {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .sweetaddons-statistics-widget .stat-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .sweetaddons-statistics-widget .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0073aa;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .sweetaddons-statistics-widget .stat-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Style variations */
+        .sweetaddons-stats-minimal .stat-item {
+            background: transparent;
+            border: none;
+            padding: 10px;
+        }
+
+        .sweetaddons-stats-minimal .stat-item:hover {
+            background: #f8f9fa;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .sweetaddons-stats-cards .stat-item {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+
+        .sweetaddons-stats-cards .stat-item:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Column variations */
+        .sweetaddons-stats-cols-1 {
+            flex-direction: column;
+            max-width: 200px;
+        }
+
+        .sweetaddons-stats-cols-2 .stat-item {
+            flex-basis: calc(50% - 7.5px);
+        }
+
+        .sweetaddons-stats-cols-3 .stat-item {
+            flex-basis: calc(33.333% - 10px);
+        }
+
+        .sweetaddons-stats-cols-4 .stat-item {
+            flex-basis: calc(25% - 11.25px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sweetaddons-statistics-widget {
+                flex-direction: column;
+            }
+            
+            .sweetaddons-statistics-widget .stat-item {
+                flex-basis: auto !important;
+            }
+            
+            .sweetaddons-statistics-widget .stat-number {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sweetaddons-statistics-widget .stat-item {
+                padding: 15px;
+                min-width: auto;
+            }
+            
+            .sweetaddons-statistics-widget .stat-number {
+                font-size: 20px;
+            }
+            
+            .sweetaddons-statistics-widget .stat-label {
+                font-size: 12px;
+            }
+        }
+        </style>
+        <?php
     }
 }

@@ -388,6 +388,15 @@ class Custom_Admin_Option_Page
     public function visitor_stats_page_callback()
     {
         $stats_handler = new Sweetaddons_Visitor_Stats();
+        
+        // Handle rebuild request
+        $rebuild_message = '';
+        if (isset($_POST['rebuild_stats']) && wp_verify_nonce($_POST['_wpnonce'], 'rebuild_stats')) {
+            $daily_count = $stats_handler->rebuild_daily_stats();
+            $page_count = $stats_handler->rebuild_page_stats();
+            $rebuild_message = "<div class='notice notice-success'><p>✅ Statistics rebuilt successfully! Processed {$daily_count} daily records and {$page_count} page records.</p></div>";
+        }
+        
         $summary_stats = $stats_handler->get_summary_stats();
         $daily_stats = $stats_handler->get_daily_stats(30);
         $page_stats = $stats_handler->get_page_stats(30);
@@ -396,6 +405,22 @@ class Custom_Admin_Option_Page
         ?>
         <div class="wrap vd-ons">
             <h1>📊 Visitor Statistics</h1>
+            
+            <?php echo $rebuild_message; ?>
+            
+            <!-- Rebuild Stats Button -->
+            <div style="margin: 20px 0;">
+                <form method="post" style="display: inline;">
+                    <?php wp_nonce_field('rebuild_stats'); ?>
+                    <input type="hidden" name="rebuild_stats" value="1">
+                    <button type="submit" class="button button-secondary" onclick="return confirm('Are you sure you want to rebuild statistics? This will recalculate all data from existing logs.')">
+                        🔄 Rebuild Statistics
+                    </button>
+                    <span style="margin-left: 10px; color: #666; font-size: 13px;">
+                        Use this if visitor counts appear incorrect
+                    </span>
+                </form>
+            </div>
             
             <!-- Summary Cards -->
             <div class="stats-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
@@ -442,6 +467,122 @@ class Custom_Admin_Option_Page
                 <div class="chart-container" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     <h3 style="margin-top: 0; color: #23282d;">📄 Top Pages</h3>
                     <canvas id="topPagesChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Shortcode Usage Section -->
+            <div class="shortcode-section" style="background: #fff; padding: 30px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 20px 0;">
+                <h3 style="margin-top: 0; color: #23282d;">📋 Shortcode Usage - [statistic]</h3>
+                <p style="color: #666; margin-bottom: 25px;">Tampilkan statistik visitor di halaman, post, atau widget dengan shortcode yang fleksibel.</p>
+                
+                <div class="shortcode-examples" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    
+                    <!-- Basic Examples -->
+                    <div class="shortcode-group">
+                        <h4 style="color: #23282d; margin-bottom: 15px;">🎯 Basic Usage</h4>
+                        
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic]')">[statistic]</span>
+                                <button onclick="copyToClipboard('[statistic]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Tampilkan semua statistik dengan layout default</div>
+                        </div>
+
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic show=&quot;today&quot;]')">[statistic show="today"]</span>
+                                <button onclick="copyToClipboard('[statistic show=&quot;today&quot;]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Hanya statistik hari ini</div>
+                        </div>
+
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic show=&quot;total&quot;]')">[statistic show="total"]</span>
+                                <button onclick="copyToClipboard('[statistic show=&quot;total&quot;]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Hanya total statistik</div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Examples -->
+                    <div class="shortcode-group">
+                        <h4 style="color: #23282d; margin-bottom: 15px;">⚙️ Advanced Usage</h4>
+                        
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic style=&quot;cards&quot; columns=&quot;2&quot;]')">[statistic style="cards" columns="2"]</span>
+                                <button onclick="copyToClipboard('[statistic style=&quot;cards&quot; columns=&quot;2&quot;]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Style card dengan 2 kolom</div>
+                        </div>
+
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic style=&quot;minimal&quot; columns=&quot;1&quot;]')">[statistic style="minimal" columns="1"]</span>
+                                <button onclick="copyToClipboard('[statistic style=&quot;minimal&quot; columns=&quot;1&quot;]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Style minimal untuk sidebar</div>
+                        </div>
+
+                        <div class="shortcode-item" style="margin-bottom: 20px;">
+                            <div class="shortcode-code" style="background: #f1f1f1; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 10px;">
+                                <span style="color: #0073aa; cursor: pointer;" onclick="copyToClipboard('[statistic show=&quot;today&quot; style=&quot;cards&quot; columns=&quot;2&quot;]')">[statistic show="today" style="cards" columns="2"]</span>
+                                <button onclick="copyToClipboard('[statistic show=&quot;today&quot; style=&quot;cards&quot; columns=&quot;2&quot;]')" style="float: right; background: #0073aa; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy</button>
+                            </div>
+                            <div class="shortcode-desc" style="font-size: 13px; color: #666;">Kombinasi: hari ini, style card, 2 kolom</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameters Reference -->
+                <div class="parameters-reference" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <h4 style="color: #23282d; margin-bottom: 15px;">📚 Parameter Reference</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        
+                        <div class="param-group">
+                            <strong style="color: #0073aa;">show</strong>
+                            <div style="font-size: 13px; color: #666; margin-top: 5px;">
+                                • <code>all</code> - Semua data (default)<br>
+                                • <code>today</code> - Hanya hari ini<br>
+                                • <code>total</code> - Hanya total
+                            </div>
+                        </div>
+
+                        <div class="param-group">
+                            <strong style="color: #0073aa;">style</strong>
+                            <div style="font-size: 13px; color: #666; margin-top: 5px;">
+                                • <code>default</code> - Card dengan background<br>
+                                • <code>minimal</code> - Style bersih<br>
+                                • <code>cards</code> - Card dengan shadow
+                            </div>
+                        </div>
+
+                        <div class="param-group">
+                            <strong style="color: #0073aa;">columns</strong>
+                            <div style="font-size: 13px; color: #666; margin-top: 5px;">
+                                • <code>1</code> - Vertikal<br>
+                                • <code>2</code> - Dua kolom<br>
+                                • <code>3</code> - Tiga kolom<br>
+                                • <code>4</code> - Empat kolom (default)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Preview -->
+                <div class="live-preview" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <h4 style="color: #23282d; margin-bottom: 15px;">👁️ Live Preview</h4>
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+                        <?php 
+                        $stats_handler_preview = new Sweetaddons_Visitor_Stats();
+                        echo $stats_handler_preview->statistics_shortcode(array('style' => 'cards', 'columns' => '4'));
+                        ?>
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">
+                        Preview menggunakan: <code>[statistic style="cards" columns="4"]</code>
+                    </p>
                 </div>
             </div>
 
@@ -610,13 +751,72 @@ class Custom_Admin_Option_Page
                 }
             }
         });
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                // Use modern clipboard API
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopySuccess();
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess();
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+                
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showCopySuccess() {
+            // Create temporary success message
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 50px;
+                right: 20px;
+                background: #00a32a;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 6px;
+                font-size: 14px;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+            `;
+            message.textContent = '✅ Shortcode copied to clipboard!';
+            document.body.appendChild(message);
+            
+            // Animate and remove
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 300);
+            }, 2000);
+        }
         </script>
 
         <style>
         @media (max-width: 768px) {
             .stats-summary,
             .charts-section,
-            .tables-section {
+            .tables-section,
+            .shortcode-examples {
                 grid-template-columns: 1fr !important;
             }
         }
