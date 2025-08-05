@@ -32,13 +32,23 @@ class Custom_Admin_Option_Page
     public function add_options_page()
     {
         add_menu_page(
-            'Pengaturan Web',       // Judul halaman
-            'Pengaturan Web',       // Judul menu
+            'Sweet Addons',       // Judul halaman
+            'Sweet Addons',       // Judul menu
             'manage_options',           // Hak akses yang dibutuhkan
             'custom_admin_options',     // Slug menu
             array($this, 'options_page_callback'), // Callback untuk halaman pengaturan
             '',                         // URL icon (biarkan kosong atau tambahkan URL icon)
             70                         // Posisi menu (semakin kecil angkanya semakin tinggi posisinya)
+        );
+        
+        // Add spam submenu
+        add_submenu_page(
+            'custom_admin_options',     // Parent slug
+            'Spam',                     // Page title
+            'Spam',                     // Menu title
+            'manage_options',           // Capability
+            'sweet_addons_spam',        // Menu slug
+            array($this, 'spam_page_callback') // Callback function
         );
     }
     
@@ -131,6 +141,85 @@ class Custom_Admin_Option_Page
         }
     }
 
+    public function spam_page_callback()
+    {
+        $spam_fields = [
+            [
+                'id'    => 'limit_login_attempts',
+                'type'  => 'checkbox',
+                'title' => 'Limit Login Attempts',
+                'std'   => 1,
+                'label' => 'Batasi jumlah percobaan login yang diizinkan untuk pengguna, ketika pengguna melakukan percobaan login yang melebihi 5X dalam 24 Jam, mereka akan diblokir untuk sementara waktu sebagai tindakan keamanan.',
+            ],
+            [
+                'id'    => 'disable_xmlrpc',
+                'type'  => 'checkbox',
+                'title' => 'Disable XML-RPC',
+                'std'   => 1,
+                'label' => 'Nonaktifkan protokol XML-RPC pada situs. XML-RPC digunakan oleh beberapa aplikasi atau layanan pihak ketiga untuk berinteraksi dengan situs WordPress.',
+            ],
+            [
+                'id'    => 'disable_rest_api',
+                'type'  => 'checkbox',
+                'title' => 'Disable REST API / JSON',
+                'std'   => 0,
+                'label' => 'Nonaktifkan akses ke REST API untuk keperluan keamanan atau privasi.',
+            ],
+            [
+                'id'    => 'captcha_sweet_addons',
+                'sub'   => 'aktif',
+                'type'  => 'checkbox',
+                'title' => 'Captcha',
+                'std'   => 1,
+                'label' => 'Aktifkan Google reCaptcha v2',
+                'desc'  => 'Gunakan reCaptcha v2 di Form Login, Komentar dan WebsweetStudio Toko <br>
+                        Untuk <strong>Contact Form 7</strong> gunakan <code>[sweet_captcha]</code>'
+            ],
+            [
+                'id'    => 'captcha_sweet_addons',
+                'sub'   => 'sitekey',
+                'type'  => 'text',
+                'title' => 'Sitekey'
+            ],
+            [
+                'id'    => 'captcha_sweet_addons',
+                'sub'   => 'secretkey',
+                'type'  => 'text',
+                'title' => 'Secretkey'
+            ]
+        ];
+
+?>
+        <div class="wrap vd-ons">
+            <h1>Spam Protection</h1>
+
+            <form method="post" action="options.php">
+                <?php settings_fields('custom_admin_options_group'); ?>
+                <?php do_settings_sections('custom_admin_options_group'); ?>
+
+                <table class="form-table">
+                    <?php
+                    foreach ($spam_fields as $data) :
+                        echo '<tr>';
+                        echo '<th scope="row">';
+                        echo $data['title'];
+                        echo '</th>';
+                        echo '<td>';
+                        $this->field($data);
+                        echo '</td>';
+                        echo '</tr>';
+                    endforeach;
+                    ?>
+                </table>
+
+                <div style="float:right;">
+                    <?php submit_button(); ?>
+                </div>
+            </form>
+        </div>
+<?php
+    }
+
     public function options_page_callback()
     {
         $pages = [
@@ -172,54 +261,6 @@ class Custom_Admin_Option_Page
                         'std'   => 0,
                         'label' => 'Aktifkan untuk hapus slug /category/ dari URL.',
                     ],
-                ],
-            ],
-            'captcha' => [
-                'title'     => 'Spam',
-                'fields'    => [
-                    [
-                        'id'    => 'limit_login_attempts',
-                        'type'  => 'checkbox',
-                        'title' => 'Limit Login Attempts',
-                        'std'   => 1,
-                        'label' => 'Batasi jumlah percobaan login yang diizinkan untuk pengguna, ketika pengguna melakukan percobaan login yang melebihi 5X dalam 24 Jam, mereka akan diblokir untuk sementara waktu sebagai tindakan keamanan.',
-                    ],
-                    [
-                        'id'    => 'disable_xmlrpc',
-                        'type'  => 'checkbox',
-                        'title' => 'Disable XML-RPC',
-                        'std'   => 1,
-                        'label' => 'Nonaktifkan protokol XML-RPC pada situs. XML-RPC digunakan oleh beberapa aplikasi atau layanan pihak ketiga untuk berinteraksi dengan situs WordPress.',
-                    ],
-                    [
-                        'id'    => 'disable_rest_api',
-                        'type'  => 'checkbox',
-                        'title' => 'Disable REST API / JSON',
-                        'std'   => 0,
-                        'label' => 'Nonaktifkan akses ke REST API untuk keperluan keamanan atau privasi.',
-                    ],
-                    [
-                        'id'    => 'captcha_sweet_addons',
-                        'sub'   => 'aktif',
-                        'type'  => 'checkbox',
-                        'title' => 'Captcha',
-                        'std'   => 1,
-                        'label' => 'Aktifkan Google reCaptcha v2',
-                        'desc'  => 'Gunakan reCaptcha v2 di Form Login, Komentar dan WebsweetStudio Toko <br>
-                                Untuk <strong>Contact Form 7</strong> gunakan <code>[sweet_captcha]</code>'
-                    ],
-                    [
-                        'id'    => 'captcha_sweet_addons',
-                        'sub'   => 'sitekey',
-                        'type'  => 'text',
-                        'title' => 'Sitekey'
-                    ],
-                    [
-                        'id'    => 'captcha_sweet_addons',
-                        'sub'   => 'secretkey',
-                        'type'  => 'text',
-                        'title' => 'Secretkey'
-                    ]
                 ],
             ],
             
@@ -286,7 +327,7 @@ class Custom_Admin_Option_Page
 
 ?>
         <div class="wrap vd-ons">
-            <h1>Pengaturan Admin</h1>
+            <h1>Sweet Addons</h1>
 
             <form method="post" action="options.php">
                 <?php settings_fields('custom_admin_options_group'); ?>

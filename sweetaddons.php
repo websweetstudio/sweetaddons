@@ -21,7 +21,7 @@
  * Author URI:        https://websweetstudio.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       sweet-addons
+ * Text Domain:       sweetaddons
  * Domain Path:       /languages
  */
 
@@ -43,21 +43,21 @@ define('SWEET_ADDONS_PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-sweet-addons-activator.php
+ * This action is documented in includes/class-sweetaddons-activator.php
  */
 function activate_sweet_addons()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-sweet-addons-activator.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/class-sweetaddons-activator.php';
     Sweet_Addons_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-sweet-addons-deactivator.php
+ * This action is documented in includes/class-sweetaddons-deactivator.php
  */
 function deactivate_sweet_addons()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-sweet-addons-deactivator.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/class-sweetaddons-deactivator.php';
     Sweet_Addons_Deactivator::deactivate();
 }
 
@@ -68,7 +68,7 @@ register_deactivation_hook(__FILE__, 'deactivate_sweet_addons');
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-sweet-addons.php';
+require plugin_dir_path(__FILE__) . 'includes/class-sweetaddons.php';
 
 /**
  * Begins execution of the plugin.
