@@ -1,0 +1,311 @@
+<?php
+
+/**
+ * Visitor Statistics functionality
+ *
+ * @link       https://websweetstudio.com
+ * @since      1.0.0
+ *
+ * @package    Sweetaddons
+ * @subpackage Sweetaddons/includes
+ */
+
+class Sweetaddons_Visitor_Stats
+{
+    private $logs_table;
+    private $daily_stats_table;
+    private $monthly_stats_table;
+    private $page_stats_table;
+    private $referrer_stats_table;
+
+    public function __construct()
+    {
+        global $wpdb;
+        $this->logs_table = $wpdb->prefix . 'sweetaddons_visitor_logs';
+        $this->daily_stats_table = $wpdb->prefix . 'sweetaddons_daily_stats';
+        $this->monthly_stats_table = $wpdb->prefix . 'sweetaddons_monthly_stats';
+        $this->page_stats_table = $wpdb->prefix . 'sweetaddons_page_stats';
+        $this->referrer_stats_table = $wpdb->prefix . 'sweetaddons_referrer_stats';
+        
+        add_action('wp', array($this, 'track_visitor'));
+        add_action('sweetaddons_daily_aggregation', array($this, 'run_daily_aggregation'));
+    }
+
+    public function track_visitor()
+    {
+        if (is_admin() || wp_doing_ajax() || wp_doing_cron()) {
+            return;
+        }
+
+        global $wpdb;
+        
+        $visitor_ip = $this->get_visitor_ip();
+        $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field($_SERVER['HTTP_USER_AGENT']) : '';
+        $page_url = sanitize_url($_SERVER['REQUEST_URI']);
+        $referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url($_SERVER['HTTP_REFERER']) : '';
+        $visit_date = current_time('Y-m-d');
+        $visit_time = current_time('H:i:s');
+
+        // Check if this visitor has already been recorded today for this page
+        $existing = $wpdb->get_var($wpdb->prepare(
+            "SELECT id FROM {$this->logs_table} 
+             WHERE visitor_ip = %s AND page_url = %s AND visit_date = %s",
+            $visitor_ip, $page_url, $visit_date
+        ));
+
+        if (!$existing) {
+            // Insert into logs table
+            $wpdb->insert(
+                $this->logs_table,
+                array(
+                    'visitor_ip' => $visitor_ip,
+                    'user_agent' => $user_agent,
+                    'page_url' => $page_url,
+                    'referer' => $referer,
+                    'visit_date' => $visit_date,
+                    'visit_time' => $visit_time
+                ),
+                array('%s', '%s', '%s', '%s', '%s', '%s')
+            );
+
+            // Real-time update aggregation tables (untuk hari ini)
+            $this->update_daily_stats($visit_date, $visitor_ip);
+            $this->update_page_stats($page_url, $visit_date, $visitor_ip);
+            $this->update_referrer_stats($referer, $visit_date);
+        }
+    }
+
+    private function get_visitor_ip()
+    {
+        $ip_keys = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+        
+        foreach ($ip_keys as $key) {
+            if (array_key_exists($key, $_SERVER) === true) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip);
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                        return $ip;
+                    }
+                }
+            }
+        }
+        
+        return isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : '0.0.0.0';
+    }
+
+    private function update_daily_stats($visit_date, $visitor_ip)
+    {
+        global $wpdb;
+        
+        // Check if this is first visit by this IP today (before current insert)
+        $existing_today = $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) FROM {$this->logs_table} 
+             WHERE visitor_ip = %s AND visit_date = %s",
+            $visitor_ip, $visit_date
+        ));
+
+        $is_unique_today = ($existing_today == 0) ? 1 : 0;
+
+        // Update or insert daily stats
+        $wpdb->query($wpdb->prepare(
+            "INSERT INTO {$this->daily_stats_table} (stat_date, unique_visitors, total_pageviews)
+             VALUES (%s, %d, 1)
+             ON DUPLICATE KEY UPDATE
+             unique_visitors = unique_visitors + %d,
+             total_pageviews = total_pageviews + 1",
+            $visit_date, $is_unique_today, $is_unique_today
+        ));
+    }
+
+    private function update_page_stats($page_url, $visit_date, $visitor_ip)
+    {
+        global $wpdb;
+        
+        // Check if this visitor visited this page today (before current insert)
+        $existing_page_today = $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) FROM {$this->logs_table} 
+             WHERE visitor_ip = %s AND page_url = %s AND visit_date = %s",
+            $visitor_ip, $page_url, $visit_date
+        ));
+
+        $is_unique_page_today = ($existing_page_today == 0) ? 1 : 0;
+
+        $wpdb->query($wpdb->prepare(
+            "INSERT INTO {$this->page_stats_table} (page_url, stat_date, unique_visitors, total_views)
+             VALUES (%s, %s, %d, 1)
+             ON DUPLICATE KEY UPDATE
+             unique_visitors = unique_visitors + %d,
+             total_views = total_views + 1",
+            $page_url, $visit_date, $is_unique_page_today, $is_unique_page_today
+        ));
+    }
+
+    private function update_referrer_stats($referer, $visit_date)
+    {
+        if (empty($referer)) return;
+        
+        global $wpdb;
+        
+        $referrer_domain = parse_url($referer, PHP_URL_HOST) ?: $referer;
+
+        $wpdb->query($wpdb->prepare(
+            "INSERT INTO {$this->referrer_stats_table} (referrer_domain, stat_date, total_visits)
+             VALUES (%s, %s, 1)
+             ON DUPLICATE KEY UPDATE
+             total_visits = total_visits + 1",
+            $referrer_domain, $visit_date
+        ));
+    }
+
+    public function run_daily_aggregation()
+    {
+        $this->aggregate_monthly_stats();
+        $this->cleanup_old_logs();
+    }
+
+    private function aggregate_monthly_stats()
+    {
+        global $wpdb;
+        
+        $current_month = date('n');
+        $current_year = date('Y');
+        
+        // Aggregate current month data
+        $monthly_data = $wpdb->get_row($wpdb->prepare(
+            "SELECT 
+                SUM(unique_visitors) as unique_visitors,
+                SUM(total_pageviews) as total_pageviews,
+                AVG(bounce_rate) as avg_bounce_rate
+             FROM {$this->daily_stats_table}
+             WHERE MONTH(stat_date) = %d AND YEAR(stat_date) = %d",
+            $current_month, $current_year
+        ));
+
+        if ($monthly_data) {
+            $wpdb->query($wpdb->prepare(
+                "INSERT INTO {$this->monthly_stats_table} (stat_year, stat_month, unique_visitors, total_pageviews, avg_bounce_rate)
+                 VALUES (%d, %d, %d, %d, %f)
+                 ON DUPLICATE KEY UPDATE
+                 unique_visitors = %d,
+                 total_pageviews = %d,
+                 avg_bounce_rate = %f",
+                $current_year, $current_month, 
+                $monthly_data->unique_visitors, $monthly_data->total_pageviews, $monthly_data->avg_bounce_rate,
+                $monthly_data->unique_visitors, $monthly_data->total_pageviews, $monthly_data->avg_bounce_rate
+            ));
+        }
+    }
+
+    private function cleanup_old_logs()
+    {
+        global $wpdb;
+        
+        // Keep only last 90 days of raw logs (untuk performance)
+        $wpdb->query(
+            "DELETE FROM {$this->logs_table} 
+             WHERE visit_date < DATE_SUB(CURDATE(), INTERVAL 90 DAY)"
+        );
+    }
+
+    // Optimized methods using aggregated tables
+    public function get_daily_stats($days = 30)
+    {
+        global $wpdb;
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT 
+                stat_date as visit_date,
+                unique_visitors as unique_visits,
+                total_pageviews as total_visits
+             FROM {$this->daily_stats_table} 
+             WHERE stat_date >= DATE_SUB(CURDATE(), INTERVAL %d DAY)
+             ORDER BY stat_date ASC",
+            $days
+        ));
+    }
+
+    public function get_page_stats($days = 30)
+    {
+        global $wpdb;
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT 
+                page_url,
+                SUM(unique_visitors) as unique_visitors,
+                SUM(total_views) as total_views
+             FROM {$this->page_stats_table} 
+             WHERE stat_date >= DATE_SUB(CURDATE(), INTERVAL %d DAY)
+             GROUP BY page_url 
+             ORDER BY total_views DESC
+             LIMIT 10",
+            $days
+        ));
+    }
+
+    public function get_referer_stats($days = 30)
+    {
+        global $wpdb;
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT 
+                referrer_domain as referer,
+                SUM(total_visits) as visits
+             FROM {$this->referrer_stats_table} 
+             WHERE stat_date >= DATE_SUB(CURDATE(), INTERVAL %d DAY)
+             GROUP BY referrer_domain 
+             ORDER BY visits DESC
+             LIMIT 10",
+            $days
+        ));
+    }
+
+    public function get_summary_stats()
+    {
+        global $wpdb;
+        
+        // Today's stats from daily aggregation
+        $today = $wpdb->get_row(
+            "SELECT 
+                unique_visitors,
+                total_pageviews as total_visits
+             FROM {$this->daily_stats_table} 
+             WHERE stat_date = CURDATE()"
+        );
+
+        // This week's stats
+        $this_week = $wpdb->get_row(
+            "SELECT 
+                SUM(unique_visitors) as unique_visitors,
+                SUM(total_pageviews) as total_visits
+             FROM {$this->daily_stats_table} 
+             WHERE stat_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)"
+        );
+
+        // This month's stats
+        $this_month = $wpdb->get_row(
+            "SELECT 
+                SUM(unique_visitors) as unique_visitors,
+                SUM(total_pageviews) as total_visits
+             FROM {$this->daily_stats_table} 
+             WHERE stat_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)"
+        );
+
+        // All time stats from monthly aggregation + current month daily
+        $all_time = $wpdb->get_row(
+            "SELECT 
+                (SELECT SUM(unique_visitors) FROM {$this->monthly_stats_table}) +
+                (SELECT SUM(unique_visitors) FROM {$this->daily_stats_table} 
+                 WHERE MONTH(stat_date) = MONTH(CURDATE()) AND YEAR(stat_date) = YEAR(CURDATE())) as unique_visitors,
+                (SELECT SUM(total_pageviews) FROM {$this->monthly_stats_table}) +
+                (SELECT SUM(total_pageviews) FROM {$this->daily_stats_table} 
+                 WHERE MONTH(stat_date) = MONTH(CURDATE()) AND YEAR(stat_date) = YEAR(CURDATE())) as total_visits"
+        );
+
+        return array(
+            'today' => $today ?: (object)['unique_visitors' => 0, 'total_visits' => 0],
+            'this_week' => $this_week ?: (object)['unique_visitors' => 0, 'total_visits' => 0],
+            'this_month' => $this_month ?: (object)['unique_visitors' => 0, 'total_visits' => 0],
+            'all_time' => $all_time ?: (object)['unique_visitors' => 0, 'total_visits' => 0]
+        );
+    }
+}

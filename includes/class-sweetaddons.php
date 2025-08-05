@@ -179,6 +179,11 @@ class Sweetaddons
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-captcha.php';
 
         /**
+         * Berisi Class untuk visitor statistics
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-visitor-stats.php';
+
+        /**
          * The class responsible for defining all actions that occur in the admin area.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweetaddons-admin.php';
@@ -247,6 +252,9 @@ class Sweetaddons
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+
+        // Initialize visitor statistics
+        new Sweetaddons_Visitor_Stats();
     }
 
     /**

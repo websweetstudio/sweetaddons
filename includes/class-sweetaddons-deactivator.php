@@ -30,5 +30,11 @@ class Sweetaddons_Deactivator
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {}
+	public static function deactivate() {
+		// Clear scheduled cron jobs
+		$timestamp = wp_next_scheduled('sweetaddons_daily_aggregation');
+		if ($timestamp) {
+			wp_unschedule_event($timestamp, 'sweetaddons_daily_aggregation');
+		}
+	}
 }

@@ -116,10 +116,16 @@ class Sweetaddons_Maintenance_Mode
     {
         ob_start();
         $linksetting    = admin_url('options-general.php?page=custom_admin_options');
-        $check_recaptcha = get_option('captcha_Sweetaddons');
-        $aktif  = $check_recaptcha['aktif'];
-        $sitekey    = $check_recaptcha['sitekey'];
-        $secretkey  = $check_recaptcha['secretkey'];
+        $check_recaptcha = get_option('captcha_Sweetaddons', []);
+        
+        // Ensure $check_recaptcha is an array
+        if (!is_array($check_recaptcha)) {
+            $check_recaptcha = [];
+        }
+        
+        $aktif  = isset($check_recaptcha['aktif']) ? $check_recaptcha['aktif'] : false;
+        $sitekey    = isset($check_recaptcha['sitekey']) ? $check_recaptcha['sitekey'] : '';
+        $secretkey  = isset($check_recaptcha['secretkey']) ? $check_recaptcha['secretkey'] : '';
 
         if ($aktif == false || empty($sitekey) || empty($secretkey)) {
             echo '<p>Peringatan: Recaptcha belum disetting. Silakan setting <a href="' . $linksetting . '"><b> disini.</b></a></p>';
