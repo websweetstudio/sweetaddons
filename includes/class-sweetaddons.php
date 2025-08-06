@@ -199,6 +199,11 @@ class Sweetaddons
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-whatsapp.php';
 
         /**
+         * Berisi Class untuk Breadcrumb functionality
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-sweetaddons-breadcrumb.php';
+
+        /**
          * The class responsible for defining all actions that occur in the admin area.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-sweetaddons-admin.php';
@@ -279,6 +284,9 @@ class Sweetaddons
 
         // Initialize WhatsApp functionality
         new Sweetaddons_WhatsApp();
+
+        // Initialize Breadcrumb functionality
+        new Sweetaddons_Breadcrumb();
     }
 
     /**
