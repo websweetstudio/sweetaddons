@@ -136,7 +136,7 @@ class Sweetaddons_SEO
         }
 
         if (is_archive()) {
-            return get_the_archive_title();
+            return strip_tags(get_the_archive_title());
         }
 
         return wp_get_document_title();

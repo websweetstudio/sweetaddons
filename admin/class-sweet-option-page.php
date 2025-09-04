@@ -901,6 +901,9 @@ class Custom_Admin_Option_Page
 
     public function seo_page_callback()
     {
+        // Enqueue media uploader scripts
+        wp_enqueue_media();
+        
         // Handle settings save
         if (isset($_POST['submit']) && wp_verify_nonce($_POST['_wpnonce'], 'sweetaddons_seo_settings')) {
             $fields = array(
