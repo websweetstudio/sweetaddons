@@ -21,6 +21,7 @@ class Sweetaddons_SEO
         add_action('init', array($this, 'handle_sitemap_request'));
         add_filter('wp_title', array($this, 'custom_title'), 10, 2);
         add_filter('document_title_parts', array($this, 'custom_document_title_parts'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
     }
 
     public function output_meta_tags()
@@ -368,10 +369,19 @@ class Sweetaddons_SEO
         echo '<script type="application/ld+json">' . wp_json_encode($schema) . '</script>' . "\n";
     }
 
+    public function enqueue_admin_scripts($hook)
+    {
+        // Only load on post edit screens
+        if ($hook === 'post.php' || $hook === 'post-new.php') {
+            wp_enqueue_media();
+            wp_enqueue_script('jquery');
+        }
+    }
+
     public function add_seo_meta_boxes()
     {
         $post_types = get_post_types(array('public' => true));
-        
+
         foreach ($post_types as $post_type) {
             add_meta_box(
                 'sweetaddons_seo_meta',
@@ -431,9 +441,23 @@ class Sweetaddons_SEO
             <tr>
                 <th><label for="sweetaddons_seo_og_image">Open Graph Image</label></th>
                 <td>
-                    <input type="url" id="sweetaddons_seo_og_image" name="sweetaddons_seo_og_image" value="<?php echo esc_url($og_image); ?>" class="large-text" />
-                    <button type="button" class="button" id="upload-og-image">Upload Image</button>
-                    <p class="description">Leave empty to use featured image. Recommended size: 1200x630px.</p>
+                    <div class="og-image-container">
+                        <input type="url" id="sweetaddons_seo_og_image" name="sweetaddons_seo_og_image" value="<?php echo esc_url($og_image); ?>" class="large-text" />
+                        <div class="og-image-preview" style="margin: 10px 0;">
+                            <?php if ($og_image): ?>
+                                <img src="<?php echo esc_url($og_image); ?>" alt="OG Image Preview" style="max-width: 200px; height: auto; border: 1px solid #ddd; padding: 5px; background: #f9f9f9;" />
+                            <?php else: ?>
+                                <div style="width: 200px; height: 105px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; background: #f9f9f9;">
+                                    No image selected
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="og-image-buttons">
+                            <button type="button" class="button" id="upload-og-image">Choose Image</button>
+                            <button type="button" class="button" id="remove-og-image" <?php echo $og_image ? '' : 'style="display:none;"'; ?>>Remove Image</button>
+                        </div>
+                        <p class="description">Leave empty to use featured image. Recommended size: 1200x630px.</p>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -460,7 +484,7 @@ class Sweetaddons_SEO
                 if (length > recommended + 10) color = '#d63638';
                 else if (length > recommended) color = '#ff922b';
                 else if (length > recommended - 10) color = '#00a32a';
-                
+
                 counter.html(length + ' characters').css('color', color);
             }
 
@@ -481,22 +505,60 @@ class Sweetaddons_SEO
             updateCounter(titleInput, titleCounter, 60);
             updateCounter(descInput, descCounter, 160);
 
+            // OG Image preview update
+            function updateOGImagePreview(imageUrl) {
+                const previewContainer = $('.og-image-preview');
+                const removeButton = $('#remove-og-image');
+
+                if (imageUrl) {
+                    previewContainer.html('<img src="' + imageUrl + '" alt="OG Image Preview" style="max-width: 200px; height: auto; border: 1px solid #ddd; padding: 5px; background: #f9f9f9;" />');
+                    removeButton.show();
+                } else {
+                    previewContainer.html('<div style="width: 200px; height: 105px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; background: #f9f9f9;">No image selected</div>');
+                    removeButton.hide();
+                }
+            }
+
             // Media uploader for OG image
             $('#upload-og-image').click(function(e) {
                 e.preventDefault();
-                
+
+                // Check if wp.media exists
+                if (typeof wp === 'undefined' || typeof wp.media === 'undefined') {
+                    alert('WordPress media uploader is not available. Please make sure you are on a post edit screen.');
+                    return;
+                }
+
                 const mediaUploader = wp.media({
                     title: 'Choose Open Graph Image',
-                    button: { text: 'Use This Image' },
-                    multiple: false
+                    button: {
+                        text: 'Use This Image'
+                    },
+                    multiple: false,
+                    library: {
+                        type: 'image'
+                    }
                 });
 
                 mediaUploader.on('select', function() {
                     const attachment = mediaUploader.state().get('selection').first().toJSON();
                     $('#sweetaddons_seo_og_image').val(attachment.url);
+                    updateOGImagePreview(attachment.url);
                 });
 
                 mediaUploader.open();
+            });
+
+            // Remove OG image
+            $('#remove-og-image').click(function(e) {
+                e.preventDefault();
+                $('#sweetaddons_seo_og_image').val('');
+                updateOGImagePreview('');
+            });
+
+            // Manual URL input change
+            $('#sweetaddons_seo_og_image').on('input change', function() {
+                updateOGImagePreview($(this).val());
             });
         });
         </script>

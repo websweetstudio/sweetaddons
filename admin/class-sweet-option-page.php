@@ -27,6 +27,16 @@ class Custom_Admin_Option_Page
     {
         add_action('admin_menu', array($this, 'add_options_page'));
         add_action('admin_init', array($this, 'register_settings'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+    }
+
+    public function enqueue_admin_scripts($hook)
+    {
+        // Only load on our plugin settings pages
+        if (strpos($hook, 'sweetaddons') !== false) {
+            wp_enqueue_media();
+            wp_enqueue_script('jquery');
+        }
     }
 
     public function add_options_page()
@@ -979,9 +989,32 @@ class Custom_Admin_Option_Page
                                 <label for="sweetaddons_seo_default_og_image">Default Open Graph Image</label>
                             </th>
                             <td>
-                                <input type="url" id="sweetaddons_seo_default_og_image" name="sweetaddons_seo_default_og_image" value="<?php echo esc_url($default_og_image); ?>" class="large-text" />
-                                <button type="button" class="button" id="upload-default-og-image">Upload Image</button>
-                                <p class="description">Default image for social media sharing. Recommended size: 1200x630px.</p>
+                                <div class="og-image-container">
+                                    <input type="url" id="sweetaddons_seo_default_og_image" name="sweetaddons_seo_default_og_image" value="<?php echo esc_url($default_og_image); ?>" style="display: none;" />
+                                    <div class="og-image-preview" style="margin: 10px 0; cursor: pointer;" onclick="document.getElementById('upload-default-og-image').click()">
+                                        <?php if ($default_og_image): ?>
+                                            <div style="position: relative; display: inline-block;">
+                                                <img src="<?php echo esc_url($default_og_image); ?>" alt="Default OG Image Preview" style="max-width: 300px; height: auto; border: 1px solid #ddd; padding: 5px; background: #f9f9f9; border-radius: 4px;" />
+                                                <div style="position: absolute; top: 5px; right: 5px; background: #23282d; color: white; padding: 4px 8px; border-radius: 3px; font-size: 11px; opacity: 0.8;">Click to change</div>
+                                            </div>
+                                        <?php else: ?>
+                                            <div style="width: 300px; height: 158px; border: 2px dashed #0073aa; display: flex; align-items: center; justify-content: center; color: #0073aa; font-size: 14px; background: #f9f9f9; border-radius: 4px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#005a87'; this.style.background='#f0f8ff';" onmouseout="this.style.borderColor='#0073aa'; this.style.background='#f9f9f9';">
+                                                <div style="text-align: center;">
+                                                    <div style="font-size: 32px; margin-bottom: 8px;">📷</div>
+                                                    <div>Click to choose image</div>
+                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Recommended: 1200x630px</div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="og-image-buttons" style="margin-top: 10px;">
+                                        <button type="button" class="button" id="upload-default-og-image">Choose Image</button>
+                                        <?php if ($default_og_image): ?>
+                                            <button type="button" class="button" id="remove-default-og-image" style="margin-left: 8px;">Remove Image</button>
+                                        <?php endif; ?>
+                                    </div>
+                                    <p class="description">Default image for social media sharing when no featured image is available.</p>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -1127,22 +1160,63 @@ class Custom_Admin_Option_Page
             updateCounter(homeTitleInput, homeTitleCounter, 60);
             updateCounter(homeDescInput, homeDescCounter, 160);
 
+            // OG Image preview update for default OG image
+            function updateDefaultOGImagePreview(imageUrl) {
+                const previewContainer = $('#sweetaddons_seo_default_og_image').siblings('.og-image-preview');
+                const removeButton = $('#remove-default-og-image');
+                const buttonsContainer = $('.og-image-buttons');
+
+                if (imageUrl) {
+                    previewContainer.html('<div style="position: relative; display: inline-block;"><img src="' + imageUrl + '" alt="Default OG Image Preview" style="max-width: 300px; height: auto; border: 1px solid #ddd; padding: 5px; background: #f9f9f9; border-radius: 4px;" /><div style="position: absolute; top: 5px; right: 5px; background: #23282d; color: white; padding: 4px 8px; border-radius: 3px; font-size: 11px; opacity: 0.8;">Click to change</div></div>');
+                    previewContainer.attr('onclick', 'document.getElementById(\'upload-default-og-image\').click()');
+                    buttonsContainer.html('<button type="button" class="button" id="upload-default-og-image">Choose Image</button><button type="button" class="button" id="remove-default-og-image" style="margin-left: 8px;">Remove Image</button>');
+                } else {
+                    previewContainer.html('<div style="width: 300px; height: 158px; border: 2px dashed #0073aa; display: flex; align-items: center; justify-content: center; color: #0073aa; font-size: 14px; background: #f9f9f9; border-radius: 4px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor=\'#005a87\'; this.style.background=\'#f0f8ff\';" onmouseout="this.style.borderColor=\'#0073aa\'; this.style.background=\'#f9f9f9\';"><div style="text-align: center;"><div style="font-size: 32px; margin-bottom: 8px;">📷</div><div>Click to choose image</div><div style="font-size: 11px; color: #666; margin-top: 4px;">Recommended: 1200x630px</div></div></div>');
+                    previewContainer.attr('onclick', 'document.getElementById(\'upload-default-og-image\').click()');
+                    buttonsContainer.html('<button type="button" class="button" id="upload-default-og-image">Choose Image</button>');
+                }
+            }
+
             // Media uploader for default OG image
             $('#upload-default-og-image').click(function(e) {
                 e.preventDefault();
-                
+
+                // Check if wp.media exists
+                if (typeof wp === 'undefined' || typeof wp.media === 'undefined') {
+                    alert('WordPress media uploader is not available. Please make sure you are on a settings page.');
+                    return;
+                }
+
                 const mediaUploader = wp.media({
                     title: 'Choose Default Open Graph Image',
-                    button: { text: 'Use This Image' },
-                    multiple: false
+                    button: {
+                        text: 'Use This Image'
+                    },
+                    multiple: false,
+                    library: {
+                        type: 'image'
+                    }
                 });
 
                 mediaUploader.on('select', function() {
                     const attachment = mediaUploader.state().get('selection').first().toJSON();
                     $('#sweetaddons_seo_default_og_image').val(attachment.url);
+                    updateDefaultOGImagePreview(attachment.url);
                 });
 
                 mediaUploader.open();
+            });
+
+            // Remove default OG image
+            $('#remove-default-og-image').click(function(e) {
+                e.preventDefault();
+                $('#sweetaddons_seo_default_og_image').val('');
+                updateDefaultOGImagePreview('');
+            });
+
+            // Manual URL input change for default OG image
+            $('#sweetaddons_seo_default_og_image').on('input change', function() {
+                updateDefaultOGImagePreview($(this).val());
             });
         });
         </script>
