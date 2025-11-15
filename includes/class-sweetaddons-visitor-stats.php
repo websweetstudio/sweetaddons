@@ -39,7 +39,7 @@ class Sweetaddons_Visitor_Stats
         }
 
         global $wpdb;
-        
+
         $visitor_ip = $this->get_visitor_ip();
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field($_SERVER['HTTP_USER_AGENT']) : '';
         $page_url = sanitize_url($_SERVER['REQUEST_URI']);
@@ -49,7 +49,21 @@ class Sweetaddons_Visitor_Stats
 
         // Check if this visitor has already been recorded today for this page
         $existing = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM {$this->logs_table} 
+            "SELECT id FROM {$this->logs_table}
+             WHERE visitor_ip = %s AND page_url = %s AND visit_date = %s",
+            $visitor_ip, $page_url, $visit_date
+        ));
+
+        // Check if this is a unique visitor for today (before inserting)
+        $is_unique_today = !$wpdb->get_var($wpdb->prepare(
+            "SELECT id FROM {$this->logs_table}
+             WHERE visitor_ip = %s AND visit_date = %s",
+            $visitor_ip, $visit_date
+        ));
+
+        // Check if this is a unique visitor for this page today (before inserting)
+        $is_unique_page_today = !$wpdb->get_var($wpdb->prepare(
+            "SELECT id FROM {$this->logs_table}
              WHERE visitor_ip = %s AND page_url = %s AND visit_date = %s",
             $visitor_ip, $page_url, $visit_date
         ));
@@ -70,8 +84,8 @@ class Sweetaddons_Visitor_Stats
             );
 
             // Real-time update aggregation tables (untuk hari ini)
-            $this->update_daily_stats($visit_date, $visitor_ip);
-            $this->update_page_stats($page_url, $visit_date, $visitor_ip);
+            $this->update_daily_stats($visit_date, $is_unique_today);
+            $this->update_page_stats($page_url, $visit_date, $is_unique_page_today);
             $this->update_referrer_stats($referer, $visit_date);
         }
     }
@@ -94,53 +108,39 @@ class Sweetaddons_Visitor_Stats
         return isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : '0.0.0.0';
     }
 
-    private function update_daily_stats($visit_date, $visitor_ip)
+    private function update_daily_stats($visit_date, $is_unique_visitor)
     {
         global $wpdb;
-        
-        // Check if this IP has visited today (before current insert)
-        $existing_today = $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(*) FROM {$this->logs_table} 
-             WHERE visitor_ip = %s AND visit_date = %s",
-            $visitor_ip, $visit_date
-        ));
 
-        $is_unique_today = ($existing_today == 0) ? 1 : 0;
+        $is_unique_today = $is_unique_visitor ? 1 : 0;
 
         // Update or insert daily stats
         $wpdb->query($wpdb->prepare(
             "INSERT INTO {$this->daily_stats_table} (stat_date, unique_visitors, total_pageviews)
              VALUES (%s, %d, 1)
              ON DUPLICATE KEY UPDATE
-             unique_visitors = CASE 
-                 WHEN %d = 1 THEN unique_visitors + 1 
-                 ELSE unique_visitors 
+             unique_visitors = CASE
+                 WHEN %d = 1 THEN unique_visitors + 1
+                 ELSE unique_visitors
              END,
              total_pageviews = total_pageviews + 1",
             $visit_date, $is_unique_today, $is_unique_today
         ));
     }
 
-    private function update_page_stats($page_url, $visit_date, $visitor_ip)
+    private function update_page_stats($page_url, $visit_date, $is_unique_visitor)
     {
         global $wpdb;
-        
-        // Check if this visitor visited this page today (before current insert)
-        $existing_page_today = $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(*) FROM {$this->logs_table} 
-             WHERE visitor_ip = %s AND page_url = %s AND visit_date = %s",
-            $visitor_ip, $page_url, $visit_date
-        ));
 
-        $is_unique_page_today = ($existing_page_today == 0) ? 1 : 0;
+        $is_unique_page_today = $is_unique_visitor ? 1 : 0;
 
         $wpdb->query($wpdb->prepare(
             "INSERT INTO {$this->page_stats_table} (page_url, stat_date, unique_visitors, total_views)
              VALUES (%s, %s, %d, 1)
              ON DUPLICATE KEY UPDATE
-             unique_visitors = CASE 
-                 WHEN %d = 1 THEN unique_visitors + 1 
-                 ELSE unique_visitors 
+             unique_visitors = CASE
+                 WHEN %d = 1 THEN unique_visitors + 1
+                 ELSE unique_visitors
              END,
              total_views = total_views + 1",
             $page_url, $visit_date, $is_unique_page_today, $is_unique_page_today
