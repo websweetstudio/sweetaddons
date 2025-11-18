@@ -172,7 +172,7 @@ class Sweetaddons_WhiteLabel
             'description' => get_option('sweetaddons_whitelabel_description', 'Addon plugin for WebsweetStudio Client'),
             'author' => get_option('sweetaddons_whitelabel_author', 'WebsweetStudio'),
             'author_uri' => get_option('sweetaddons_whitelabel_author_uri', 'https://websweetstudio.com'),
-            'version' => get_option('sweetaddons_whitelabel_version', '2.2.1'),
+            'version' => get_option('sweetaddons_whitelabel_version', '2.2.2'),
             'menu_title' => get_option('sweetaddons_whitelabel_menu_title', 'Sweet Addons'),
             'hide_original' => get_option('sweetaddons_whitelabel_hide_original', '')
         );

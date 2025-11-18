@@ -1,4 +1,10 @@
 jQuery(document).ready(function ($) {
+    // Ensure wp and wp.media are available before using them
+    if (typeof wp === 'undefined' || typeof wp.media === 'undefined') {
+        console.warn('WordPress media library not available');
+        return;
+    }
+
     var custom_uploader;
 
     $("#upload_image_button").click(function (e) {
@@ -26,11 +32,15 @@ jQuery(document).ready(function ($) {
         .get("selection")
         .first()
         .toJSON();
+
+      // Check if attachment exists and has required properties
+      if (attachment && attachment.url) {
         console.log(attachment.height);
-      $("#share_image").val(attachment.url);
-      $(".preview_share_image").html('<br><img src="'+attachment.url+'" width="300" /><br><span class="delete_share_image button">Hapus</span>');
-      if(attachment.height < 200 || attachment.width < 200){
-        $(".preview_share_image").append('<div class="vdaddons-notice">Minimal Ukuran gambar 200x200</div>');
+        $("#share_image").val(attachment.url);
+        $(".preview_share_image").html('<br><img src="'+attachment.url+'" width="300" /><br><span class="delete_share_image button">Hapus</span>');
+        if(attachment.height < 200 || attachment.width < 200){
+          $(".preview_share_image").append('<div class="vdaddons-notice">Minimal Ukuran gambar 200x200</div>');
+        }
       }
     });
 
@@ -42,23 +52,28 @@ jQuery(document).ready(function ($) {
         $(".preview_share_image").html('');
     });
 
-    $('#reset-data').click(function() {
-        $.ajax({
-            url: ajaxurl,
-            type: 'post',
-            data: {
-                action: 'reset_data',
-            },
-            success: function(response) {
-                if (response.success) {
-                    $('#reset-message').html('<div class="notice notice-success is-dismissible"><p>' + response.data + '</p></div>');
-                } else {
-                    $('#reset-message').html('<div class="notice notice-error is-dismissible"><p>Terjadi kesalahan saat mereset data.</p></div>');
+    // Ensure ajaxurl is available before making AJAX calls
+    if (typeof ajaxurl !== 'undefined') {
+        $('#reset-data').click(function() {
+            $.ajax({
+                url: ajaxurl,
+                type: 'post',
+                data: {
+                    action: 'reset_data',
+                },
+                success: function(response) {
+                    if (response && response.success) {
+                        $('#reset-message').html('<div class="notice notice-success is-dismissible"><p>' + response.data + '</p></div>');
+                    } else {
+                        $('#reset-message').html('<div class="notice notice-error is-dismissible"><p>Terjadi kesalahan saat mereset data.</p></div>');
+                    }
+                },
+                error: function() {
+                    $('#reset-message').html('<div class="notice notice-error is-dismissible"><p>Terjadi kesalahan saat mengirim permintaan AJAX.</p></div>');
                 }
-            },
-            error: function() {
-                $('#reset-message').html('<div class="notice notice-error is-dismissible"><p>Terjadi kesalahan saat mengirim permintaan AJAX.</p></div>');
-            }
+            });
         });
-    });
+    } else {
+        console.warn('ajaxurl not available for AJAX requests');
+    }
 });

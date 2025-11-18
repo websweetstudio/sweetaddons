@@ -26,7 +26,8 @@ class Sweetaddons_Disable_Rest_Api
 {
     public function __construct()
     {
-        if (get_option('disable_rest_api')) {
+        // Only run if functions are available and option is enabled
+        if (function_exists('get_option') && get_option('disable_rest_api')) {
             add_filter('rest_authentication_errors', array($this, 'disable_rest_api'), 99);
             add_filter('rest_enabled', '__return_false');
             add_filter('rest_jsonp_enabled', '__return_false');
@@ -36,6 +37,23 @@ class Sweetaddons_Disable_Rest_Api
 
     public function disable_rest_api($access)
     {
+        global $wp;
+
+        // Check if this is a widget API request - allow widget endpoints
+        if (isset($wp->query_vars['rest_route'])) {
+            $rest_route = $wp->query_vars['rest_route'];
+            if (strpos($rest_route, '/wp/v2/widget-types/') !== false) {
+                return $access; // Allow widget API requests
+            }
+        }
+
+        // Check request URI for widget endpoints (backup method)
+        $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+        if (strpos($request_uri, '/wp/v2/widget-types/') !== false) {
+            return $access; // Allow widget API requests
+        }
+
+        // For all other REST API requests, disable
         return new WP_Error('rest_disabled', __('The REST API is disabled on this site.'), array('status' => rest_authorization_required_code()));
     }
 
@@ -46,5 +64,7 @@ class Sweetaddons_Disable_Rest_Api
     }
 }
 
-// Inisialisasi class Sweetaddons_Disable_Rest_Api
-$sweet_disable_rest_api = new Sweetaddons_Disable_Rest_Api();
+// Inisialisasi class Sweetaddons_Disable_Rest_Api - hanya jika dibutuhkan
+if (function_exists('get_option') && get_option('disable_rest_api')) {
+    $sweet_disable_rest_api = new Sweetaddons_Disable_Rest_Api();
+}
