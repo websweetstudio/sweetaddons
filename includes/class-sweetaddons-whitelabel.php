@@ -113,23 +113,27 @@ class Sweetaddons_WhiteLabel
     public function custom_admin_footer($text)
     {
         $hide_original = get_option('sweetaddons_whitelabel_hide_original');
-        $current_screen = get_current_screen();
-        
-        // Only modify footer on Sweet Addons pages
-        if ($current_screen && strpos($current_screen->id, 'sweetaddons') !== false) {
-            if ($hide_original) {
-                $custom_author = get_option('sweetaddons_whitelabel_author', 'Your Company');
-                $custom_uri = get_option('sweetaddons_whitelabel_author_uri', '#');
-                
-                return sprintf(
-                    'Thank you for using <strong>%s</strong>. Created by <a href="%s" target="_blank">%s</a>.',
-                    get_option('sweetaddons_whitelabel_plugin_name', 'Sweet Addons'),
-                    esc_url($custom_uri),
-                    esc_html($custom_author)
-                );
+
+        // Check if we're in admin and current_screen function exists
+        if (is_admin() && function_exists('get_current_screen')) {
+            $current_screen = get_current_screen();
+
+            // Only modify footer on Sweet Addons pages
+            if ($current_screen && strpos($current_screen->id, 'sweetaddons') !== false) {
+                if ($hide_original) {
+                    $custom_author = get_option('sweetaddons_whitelabel_author', 'Your Company');
+                    $custom_uri = get_option('sweetaddons_whitelabel_author_uri', '#');
+
+                    return sprintf(
+                        'Thank you for using <strong>%s</strong>. Created by <a href="%s" target="_blank">%s</a>.',
+                        get_option('sweetaddons_whitelabel_plugin_name', 'Sweet Addons'),
+                        esc_url($custom_uri),
+                        esc_html($custom_author)
+                    );
+                }
             }
         }
-        
+
         return $text;
     }
 

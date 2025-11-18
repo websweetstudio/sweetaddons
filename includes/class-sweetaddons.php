@@ -279,8 +279,10 @@ class Sweetaddons
         // Initialize SEO functionality
         new Sweetaddons_SEO();
 
-        // Initialize White Label functionality
-        new Sweetaddons_WhiteLabel();
+        // Initialize White Label functionality (only in admin)
+        if (is_admin()) {
+            new Sweetaddons_WhiteLabel();
+        }
 
         // Initialize WhatsApp functionality
         new Sweetaddons_WhatsApp();
